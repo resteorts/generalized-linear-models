@@ -1,0 +1,108 @@
+
+---
+title: "Continuous and Discrete Random Variables"
+author: "Rebecca C. Steorts"
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+
+Agenda
+===
+
+
+- Continuous Random Variables
+- Discrete Random Variables 
+
+
+
+Continuous Random Variables
+===
+
+A continuous random variable (r.v.) can take on an uncountably infinite number of values. 
+
+Given a probability density function (pdf), f(y), allows us to compute
+
+$$P(a \leq Y \leq b) = \int_{a}^{b} f(y) \; dy.$$
+
+Properties of continuous random r.v.'s:
+
+- $\int f(y) \; dy = 1.$
+- For any value $y$, $$P(Y=y) = \int_{y}^{y} f(y) \; dy = 0 \implies $$
+$$P(y < Y) = P(y \leq Y).$$
+
+Discrete Random Variables
+===
+
+A discrete random variable has a countable number of possible values, where the associated probabilities are calculated for each possible value using a probabilitiy mass function (pmf). 
+
+A pmf is a function that calculates $P(Y = y)$, given each variable's parameters.
+
+Common Discrete distributions
+===
+
+- Bernoulli
+- Geometric
+- Negative Binomial 
+- Hypergeometric 
+
+Common Continuous distributions
+===
+
+- Exponenial
+- Gamma
+- Normal (Gaussian)
+- Beta
+
+Beta distribution
+===
+Given $a,b>0$, we write $\theta \sim \Beta(a,b)$ to mean that $\theta$ has pdf
+
+$$
+p(\theta) =\Beta(\theta|a,b) =\frac{1}{B(a,b)}\theta^{a-1}(1-\theta)^{b-1}\I(0<\theta<1),
+$$
+
+i.e., $p(\theta)\propto \theta^{a-1}(1-\theta)^{b-1}$ on the interval from $0$ to $1$.
+
+- Here, 
+$$B(a,b) = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}$$.
+
+- Parameters $a$, $b$ control the shape of the distribution. 
+
+- This distribution models random behavior of percentages/proportions.
+
+Beta distribution
+===
+
+```{r, echo = FALSE}
+#define range
+p = seq(0,1, length=100)
+
+#plot several Beta distributions
+plot(p, dbeta(p, 2, 10), ylab='density', type ='l', col='purple')
+lines(p, dbeta(p, 2, 2), col='red') 
+lines(p, dbeta(p, 5, 2), col='blue')
+
+#add legend
+legend(.7, 4, c('Beta(2, 10)','Beta(2, 2)','Beta(1,1)'),
+       lty=c(1,1,1),col=c('purple', 'red', 'blue'))
+
+```
+
+Beta distribution example
+===
+
+Suppose that a college models probabilities of student accepting admission via the $\Beta(a,b)$ distribution, where a,b > 0  are fixed and known. 
+
+What is the probability that a randomly selected student has prob of accepting an offer larger than 80 percent, where  a=4/3 and b=2.
+
+```{r}
+pbeta(0.8, shape1 = 4/3, shape2 = 2, lower.tail = FALSE)
+```
+
+
+
+

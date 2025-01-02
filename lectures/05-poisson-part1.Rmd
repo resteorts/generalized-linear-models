@@ -1,0 +1,644 @@
+---
+title: "Poisson Regression"
+author: "Rebecca C. Steorts (slide adaption from Maria Tacket)\\ and material from Chapter 4 of Roback and Legler text."
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+bibliography: references.bib
+---
+
+```{r}
+#| include: false
+
+# figure options
+knitr::opts_chunk$set(warning = FALSE, 
+                      message = FALSE, 
+                      fig.width = 8,
+                      fig.asp = 0.618, 
+                      fig.retina = 3, 
+                      dpt = 300, 
+                      out.width = "70%",
+                      fig.align = "center")
+
+```
+
+## Computing set up
+
+```{r setup, echo = TRUE, message = FALSE, warning= FALSE}
+library(tidyverse)
+library(tidymodels)
+library(knitr)
+library(patchwork)
+library(viridis)
+library(gridExtra)
+library(dplyr)
+
+ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
+
+colors <- tibble::tibble(green = "#B5BA72")
+```
+
+## Topics
+
+-   Describe properties of the Poisson random variable
+
+-   Write the mathematical equation of the Poisson regression model
+
+-   Describe how the Poisson regression differs from least-squares regression
+
+-   Interpret the coefficients for the Poisson regression model
+
+-   Compare two Poisson regression models
+
+::: aside
+Notes based on Section 4.4 - 4.5, and 4.9 of @roback2021beyond unless noted otherwise.
+:::
+
+## Scenarios to use Poisson regression
+
+-   Does the number of employers conducting on-campus interviews during a year differ for public and private colleges?
+
+-   Does the daily number of asthma-related visits to an Emergency Room differ depending on air pollution indices?
+
+-   Does the number of paint defects per square foot of wall differ based on the years of experience of the painter?
+
+## Scenarios to use Poisson regression
+
+-   Does the **number of employers conducting on-campus interviews during a year** differ for public and private colleges?
+
+-   Does the **daily number of asthma-related visits to an Emergency Room** differ depending on air pollution indices?
+
+-   Does the number of paint defects per square foot of wall differ based on the years of experience of the painter?
+
+<br>
+
+. . .
+
+Each response variable is a **count per a unit of time or space.**
+
+## Poisson distribution {.midi}
+
+Let $Y$ be the number of events in a given unit of time or space. Then $Y$ can be modeled using a **Poisson distribution**
+
+$$P(Y=y) = \frac{e^{-\lambda}\lambda^y}{y!} \hspace{10mm} y=0,1,2,\ldots, \infty$$
+
+. . .
+
+
+-   $E(Y) = Var(Y) = \lambda$
+-   The distribution is typically skewed right, particularly if $\lambda$ is small
+-   The distribution becomes more symmetric as $\lambda$ increases
+    -   If $\lambda$ is sufficiently large, it can be approximated using a normal distribution ([Click here](https://online.stat.psu.edu/stat414/lesson/28/28.2) for an example.)
+
+## Simulation
+
+```{r echo = F, out.width = "70%"}
+set.seed(2000)
+sim1 <- rpois(100000,1)
+sim2 <- rpois(100000,5)
+sim3 <- rpois(100000,50)
+pois_sim <- tibble (
+  sim1 = sim1, 
+  sim2 = sim2, 
+  sim3 = sim3
+)
+p1 <- ggplot(data = pois_sim, aes(x = sim1)) +
+  geom_histogram() +
+  labs(x = "", title = "lambda = 1")
+p2 <- ggplot(data = pois_sim, aes(x = sim2)) +
+  geom_histogram() +
+  labs(x = "", title = "lambda = 5")
+p3 <- ggplot(data = pois_sim, aes(x = sim3)) +
+  geom_histogram() +
+  labs(x = "", title = "lambda = 50")
+p1 + p2 + p3 
+```
+
+```{r echo = F}
+sum1 <- c(mean(sim1), var(sim1))
+sum2 <- c(mean(sim2), var(sim2))
+sum3 <- c(mean(sim3), var(sim3))
+data <- rbind(sum1,sum2,sum3)
+rownames(data) <- c("lambda = 1", "lambda = 5","lambda = 50")
+colnames(data) <- c("Mean", "Variance")
+kable(data)
+```
+
+## Earthquakes {.midi}
+
+The annual number of earthquakes registering at least 2.5 on the Richter Scale and having an epicenter within 40 miles of downtown Memphis follows a Poisson distribution with mean 6.5.\footnote{Example adapted from [Introduction to Probability Theory Example 28-2](https://online.stat.psu.edu/stat414/lesson/28/28.2).} 
+
+## Earthquakes {.midi}
+
+**What is the probability there will be at 3 or fewer such earthquakes next year?**
+
+. . .
+
+$$P(Y \leq 3) = P(Y = 0) + P(Y = 1) + P(Y = 2) + P(Y = 3)$$
+
+. . .
+
+$$ = \frac{e^{-6.5}6.5^0}{0!} + \frac{e^{-6.5}6.5^1}{1!} + \frac{e^{-6.5}6.5^2}{2!} + \frac{e^{-6.5}6.5^3}{3!}$$
+
+
+$$ = 0.112$$
+
+. . .
+
+
+```{r}
+ppois(3, 6.5)
+```
+
+# Poisson regression
+
+## Poisson regression: Household size in the Philippines {.midi}
+
+The data [fHH1.csv](data/fHH1.csv) come from the 2015 Family Income and Expenditure Survey conducted by the Philippine Statistics Authority.
+
+**Goal**: Understand the association between household size and various characteristics of the household
+
+**Response**:
+
+-   `total`: Number of people in the household other than the head
+
+::: columns
+::: {.column width="50%"}
+**Predictors**:
+
+-   `location`: Where the house is located
+-   `age`: Age of the head of household
+-   `roof`: Type of roof on the residence (proxy for wealth)
+:::
+
+::: {.column width="50%"}
+**Other variables**:
+
+-   `numLT5`: Number in the household under 5 years old
+:::
+:::
+
+## The data {.midi}
+
+```{r}
+hh_data <- read_csv("data/fHH1.csv")
+hh_data |> slice(1:5) |> kable()
+```
+
+## Response variable {.midi}
+
+```{r, echo = F, out.width = "100%"}
+ggplot(data = hh_data, aes(x = total)) +
+  geom_histogram() + 
+  labs(title = "Total number in household other than the head")
+```
+
+```{r echo = F}
+hh_data |>
+  summarise(mean = mean(total), var = var(total)) |>
+  kable(digits = 3)
+```
+
+## Why the least-squares model doesn't work {.midi}
+
+The goal is to model $\lambda$, the expected number of people in the household (other than the head), as a function of the predictors (covariates)
+
+. . .
+
+We might be tempted to try a linear model $$\lambda_i = \beta_0 + \beta_1x_{i1} + \beta_2x_{i2} + \dots + \beta_px_{ip}$$
+
+. . .
+
+This model won't work because...
+
+-   It could produce negative values of $\lambda$ for certain values of the predictors
+-   The equal variance assumption required to conduct inference for linear regression is violated.
+
+# Poisson regression model
+
+## Poisson regression model {.midi}
+
+If $Y_i \sim Poisson$ with $\lambda = \lambda_i$ for the given values $x_{i1}, \ldots, x_{ip}$, then
+
+$$\log(\lambda_i) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_p x_{ip}$$
+
+. . .
+
+-   Each observation can have a different value of $\lambda$ based on its value of the predictors $x_1, \ldots, x_p$
+
+-   $\lambda$ determines the mean and variance, so we don't need to estimate a separate error term
+
+## Poisson vs. multiple linear regression
+
+```{r, OLSpois, fig.align="center",out.width="60%", fig.cap='Regression models: Linear regression (left) and Poisson regression (right).',echo=FALSE, warning=FALSE, message=FALSE}
+## Sample data for graph of OLS normality assumption
+## Code from https://stackoverflow.com/questions/31794876/ggplot2-how-to-curve-small-gaussian-densities-on-a-regression-line?rq=1
+
+set.seed(0)
+dat <- data.frame(x=(x=runif(10000, 0, 50)),
+                  y=rnorm(10000, 10*x, 100))
+
+## breaks: where you want to compute densities
+breaks <- seq(0, max(dat$x), len=5)
+dat$section <- cut(dat$x, breaks)
+
+## Get the residuals
+dat$res <- residuals(lm(y ~ x, data=dat))
+
+## Compute densities for each section, flip the axes, add means 
+## of sections.  Note: densities need to be scaled in relation 
+## to section size (2000 here)
+dens <- do.call(rbind, lapply(split(dat, dat$section), function(x) {
+  d <- density(x$res, n=5000)
+  res <- data.frame(x=max(x$x)- d$y*1000, y=d$x+mean(x$y))
+  res <- res[order(res$y), ]
+  ## Get some data for normal lines as well
+  xs <- seq(min(x$res), max(x$res), len=5000)
+  res <- rbind(res, data.frame(y=xs + mean(x$y),
+                x=max(x$x) - 1000*dnorm(xs, 0, sd(x$res))))
+  res$type <- rep(c("empirical", "normal"), each=5000)
+  res
+}))
+dens$section <- rep(levels(dat$section), each=10000)
+
+ols_assume <- ggplot(dat, aes(x, y)) +
+  geom_point(size = 0.1, alpha = .25) +
+  geom_smooth(method="lm", fill=NA, lwd=2) +
+  geom_path(data=dens[dens$type=="normal",], 
+            aes(x, y, group=section), 
+            color="salmon", lwd=1.1) +
+  theme_bw() +
+  geom_vline(xintercept=breaks, lty=2)
+
+# Now make Poisson regression picture
+set.seed(0)
+dat <- data.frame(x=(x=runif(1000, 0, 20)),
+                  y=rpois(1000, exp(.1*x)))
+
+## breaks: where you want to compute densities
+breaks <- seq(2, max(dat$x), len=5)
+dat$section <- cut(dat$x, breaks)
+
+## Get the residuals
+dat$res <- dat$y - .1*dat$x
+
+## Compute densities for each section, flip the axes, add means
+## of sections.  Note: densities need to be scaled in relation 
+## to section size
+dens <- do.call(rbind, lapply(split(dat, dat$section), function(x) {
+  d <- density(x$res, n=500)
+  res <- data.frame(x=max(x$x)- d$y*10, y=d$x+mean(x$y))
+  res <- res[order(res$y), ]
+  ## Get some data for poisson lines as well
+  xs <- seq(min(x$y), max(x$y), len=500)
+  res <- rbind(res, data.frame(y=xs,
+          x=max(x$x) - 10*dpois(round(xs), exp(.1*max(x$x)))))
+  res$type <- rep(c("empirical", "poisson"), each=500)
+  res
+}))
+dens$section <- rep(levels(dat$section), each=1000)
+
+pois_assume <- ggplot(dat, aes(x, jitter(y, .25))) +
+  geom_point(size = 0.1) +
+  geom_smooth(method="loess", fill=NA, lwd=2) +
+  geom_path(data=dens[dens$type=="poisson",], 
+            aes(x, y, group=section), 
+            color="salmon", lwd=1.1) +
+  theme_bw() + ylab("y") + xlab("x") +
+  geom_vline(xintercept=breaks, lty=2)
+
+grid.arrange(ols_assume, pois_assume, ncol = 2)
+```
+
+::: aside
+Figures recreated from [BMLR Figure 4.1](https://bookdown.org/roback/bookdown-BeyondMLR/ch-poissonreg.html#a-graphical-look-at-poisson-regression)
+:::
+
+## Assumptions for Poisson regression {.small}
+
+::: columns
+::: {.column width="50%"}
+**Poisson response**: The response variable is a count per unit of time or space, described by a Poisson distribution, at each level of the predictor(s)
+
+**Independence**: The observations must be independent of one another
+
+**Mean = Variance**: The mean must equal the variance
+
+**Linearity**: The log of the mean rate, $\log(\lambda)$, must be a linear function of the predictor(s)
+:::
+
+::: {.column width="50%"}
+```{r echo = F, out.width = "100%"}
+pois_assume
+```
+:::
+:::
+
+## Model 1: Household vs. Age
+
+```{r}
+model1 <- glm(total ~ age, 
+              data = hh_data, family = poisson)
+
+tidy(model1) |> 
+  kable(digits = 4)
+```
+
+$$\log(\hat{\lambda}) = 1.5499  - 0.0047 ~ age$$
+
+
+
+## Interpretation of coefficient estimates 
+Consider a comparison of two models -- one for a given age $(x)$ and another for age $(x+1).$
+\begin{equation}
+\begin{split}
+log(\lambda_X) &= \beta_0 + \beta_1X \\
+log(\lambda_{X+1}) &= \beta_0 + \beta_1(X+1) \\
+log(\lambda_{X+1})-log(\lambda_X) &=  \beta_1 \\
+log \left(\frac{\lambda_{X+1}}{\lambda_X}\right)   &= \beta_1\\
+\frac{\lambda_{X+1}}{\lambda_X} &= e^{\beta_1}
+\end{split}
+\end{equation}
+
+
+Exponentiating the coefficient on age provides the multiplicative factor by which the mean count changes.
+
+## Interpretation of coefficient estimates 
+
+The mean household size is predicted to decrease by 0.47% (or multiply by a factor of $e^{-0.0047}$) for each year older the head of the household is.
+
+## Interpretation of coefficient estimates 
+
+1. The mean number in the house changes by a factor of $e^{-0.0047} = 0.995$ with each additional year older the household head is.
+
+2. The mean number in the houses decreases by 0.5 percent with each additional year older the household head is. (Because 1 - 0.995 = 0.005)
+
+3. We predict a 0.47 percent increase in mean household size for a 1-year decrease in age of the household head (because 1/0.995 = 1.0047).
+
+4. We predict a 0.47 percent decrease in mean household size for a 1-year increase in age of the household head (because 1/0.995 = 1.0047).
+
+<!-- ## Question -->
+
+<!-- The coefficient for `age` is -0.0047. Interpret this coefficient in context. Select all that apply. -->
+
+<!-- 1.  The mean household size is predicted to decrease by 0.0047 for each year older the head of the household is. -->
+
+<!-- 2.  The mean household size is predicted to multiply by a factor of `r round(exp(-0.0047),4)` for each year older the head of the household is. -->
+
+<!-- 3.  The mean household size is predicted to decrease by `r round(exp(-0.0047),4)` for each year older the head of the household is. -->
+
+<!-- 4.  The mean household size is predicted to multiply by a factor of 0.47% for each year older the head of the household is. -->
+
+<!-- 5.  The mean household size is predicted to decrease by 0.47% for each year older the head of the household is. -->
+
+## Is the coefficient of `age` statistically significant? {.midi}
+
+\small
+```{r echo = F}
+library(kableExtra)
+library(magrittr)
+tidy(model1, conf.int = T) |>
+  kable(digits = 4)
+```
+
+
+
+## Is the coefficient of `age` statistically significant? {.midi}
+
+\small
+```{r echo = F}
+library(kableExtra)
+library(magrittr)
+tidy(model1, conf.int = T) |>
+  kable(digits = 4)
+```
+
+1. $H_0: \beta_1 = 0 \hspace{2mm} \text{ vs. } \hspace{2mm} H_a: \beta_1 \neq 0$
+
+
+2. $Z = \frac{\hat{\beta}_1 - 0}{SE(\hat{\beta}_1)} = \frac{-0.0047 - 0}{0.0009} = -5.026 \text{ (using exact values)}$
+
+
+
+3. $P(|Z| > |-5.026|) = 5.01 \times 10^{-7} \approx 0$.
+
+4. Yes, it is statistically significant. 
+
+## What are plausible values for the coefficient of `age`? {.midi}
+
+\small
+```{r echo = F}
+tidy(model1, conf.int = T) |>
+  kable(digits = 4)
+```
+
+**95% confidence interval for the coefficient of `age`**
+
+$$\hat{\beta}_1 \pm z^{*}\times SE(\hat{\beta}_1)$$
+
+where $z^* \sim N(0, 1)$ $$-0.0047 \pm 1.96 \times 0.0009 = \mathbf{(-.0065, -0.0029)}$$
+
+Interpret the interval in terms of the change in mean household size.
+
+
+## What are plausible values for the coefficient of `age`? {.midi}
+
+
+
+Interpret the interval $\mathbf{(-.0065, -0.0029)}$ in terms of the change in mean household size.
+
+Recall: Exponentiating the endpoints yields a confidence interval for the relative risk; i.e., the percent change in household size for each additional year older. 
+
+Thus, $$(e^{-0.0065}, e^{-0.0029}) = (0.993, 0.997).$$
+suggests that we are $95\%$ confident that the mean number in the house decreases between $0.7\%$ and $0.3\%$ for each additional year older the head of household is.
+
+## **Which plot can best help us determine whether Model 1 is a good fit?**
+
+```{r echo = F}
+p1 <- ggplot(data = hh_data, aes(x = age, y = total)) + 
+  geom_point() + 
+  labs(y = "Total household size", 
+       title = "Plot A")
+
+p2 <- hh_data |>
+  group_by(age) |> 
+  summarise(mean = mean(total)) |>
+  ggplot(aes(x = age, y = mean))+ 
+  geom_point() + 
+  labs(y = "Empirical mean household size", 
+       title = "Plot B")
+
+p3 <- hh_data |>
+  group_by(age) |> 
+  summarise(log_mean = log(mean(total))) |>
+  ggplot(aes(x = age, y = log_mean)) + 
+  geom_point() + 
+  labs(y = "Log empirical mean household size", 
+       title = "Plot C")
+
+p1 + p2 + p3 + plot_annotation(tag_levels = 'A')
+```
+
+## **Which plot can best help us determine whether Model 1 is a good fit?**
+
+```{r echo = F}
+p1 <- ggplot(data = hh_data, aes(x = age, y = total)) + 
+  geom_point() + 
+  labs(y = "Total household size", 
+       title = "Plot A")
+
+p2 <- hh_data |>
+  group_by(age) |> 
+  summarise(mean = mean(total)) |>
+  ggplot(aes(x = age, y = mean))+ 
+  geom_point() + 
+  labs(y = "Empirical mean household size", 
+       title = "Plot B")
+
+p3 <- hh_data |>
+  group_by(age) |> 
+  summarise(log_mean = log(mean(total))) |>
+  ggplot(aes(x = age, y = log_mean)) + 
+  geom_point() + 
+  labs(y = "Log empirical mean household size", 
+       title = "Plot C")
+
+p1 + p2 + p3 + plot_annotation(tag_levels = 'A')
+```
+
+Solution: Plot C. Observe a curvi-linear relationship between age and the log of the mean household size, implying that adding a quadratic term should be considered.
+
+## Model 2: Add a quadratic effect for `age`
+\footnotesize
+```{r}
+hh_data <- hh_data |> 
+  mutate(age2 = age*age)
+
+model2 <- glm(total ~ age + age2, 
+              data = hh_data, family = poisson)
+tidy(model2, conf.int = T) |> 
+  kable(digits = 4)
+```
+
+------------------------------------------------------------------------
+
+## Model 2: Add a quadratic effect for `age`
+
+\footnotesize
+```{r echo = F}
+tidy(model2, conf.int = T) |> 
+  kable(digits = 4)
+```
+\normalsize
+
+We can determine whether to keep $age^2$ in the model in two ways:
+
+1. Use the p-value (or confidence interval) for the coefficient (since we are adding a single term to the model)
+
+2. Conduct a drop-in-deviance test
+
+## Deviance
+
+A **deviance** is a way to measure how the observed data differs (deviates) from the model predictions.
+
+-   It's a measure unexplained variability in the response variable (similar to SSE in linear regression )
+
+-   Lower deviance means the model is a better fit to the data
+
+. . .
+
+We can calculate the "deviance residual" for each observation in the data (more on the formula later). Let $(\text{deviance residual}_i$ be the deviance residual for the $i^{th}$ observation, then
+
+$$\text{deviance} = \sum(\text{deviance residual})_i^2$$
+
+*Note: Deviance is also known as the "residual deviance"*
+
+## Drop-in-Deviance Test {.midi}
+
+We can use a **drop-in-deviance test** to compare two models. To conduct the test
+
+1. Compute the deviance for each model
+
+2. Calculate the drop in deviance
+
+$$\text{drop-in-deviance =  Deviance(reduced model) - Deviance(larger model)}$$
+
+3. Given the reduced model is the true model $(H_0 \text{ true})$, then $$\text{drop-in-deviance} \sim \chi_d^2$$
+
+where $d$ is the difference in degrees of freedom between the two models (i.e., the difference in number of terms)
+
+## Summary of the Drop-in-Deviance
+
+- To use the drop-in-deviance test, the models must be nested
+
+- This means the terms in the smaller model must appear in the larger model
+
+- When the reduced (or smaller model) is true, the drop-in-deviance $\approx \chi_d^2$
+
+- A large drop-in-deviance favors the larger model
+
+Refer to Section 4.4.4 for more details. 
+
+
+## Drop-in-deviance to compare Model1 and Model2
+
+```{r}
+anova(model1, model2, test = "Chisq") |>
+  kable(digits = 3)
+```
+
+::: question
+:::
+
+a.  Write the null and alternative hypotheses.
+b.  What does the value 2337.089 tell you?
+c.  What does the value 1 tell you?
+d.  What is your conclusion?
+
+## Drop-in-deviance to compare Model1 and Model2
+a. $$\textrm{Null (reduced) Model}: \log(\lambda) = \beta_0 \textrm{ or } \beta_1=0$$
+
+$$\textrm{Larger (full) Model}: \log(\lambda) = \beta_0 + \beta_1\textrm{age} \textrm{ or } \beta_1 \neq 0 $$
+
+b. A residual deviance for the null model is reported as 2337.1 (with 1498 df.)
+
+c. There is only 1 degree of freedom difference between the two models. 
+
+d. The drop-in-deviance is $2337.089 - 2200.94 = 136.15 \approx \chi_1^2$. 
+
+The p-value is 0, indicating there is statistically significant evidence that average household size decreases as age of the head of household increases.
+
+
+## Add `location` to the model? {.midi}
+
+Suppose we want to add `location` to the model, so we compare the following models:
+
+**Model A**: $\lambda_i = \beta_0 + \beta_1 ~ age_i + \beta_2 ~ age_i^2$
+
+**Model B**: $\lambda_i = \beta_0 + \beta_1 ~ age_i + \beta_2 ~ age_i^2 + \beta_3 ~ Loc1_i + \beta_4 ~ Loc2_i + \beta_5 ~ Loc3_i + \beta_6 ~ Loc4_i$
+
+::: question
+:::
+
+Which of the following are reliable ways to determine if `location` should be added to the model? (See Section 4.5, regarding comparison of linear versus Poisson models)
+
+1.  Drop-in-deviance test
+2.  Use the p-value for each coefficient
+3.  Likelihood ratio test
+4.  Nested F Test
+5.  BIC
+6.  AIC
+
+## Add `location` to the model? {.midi}
+
+- See Section 4.4.7 regarding adding location to the model. 
+
+- Solution: Drop-in-deviance, AIC/BIC. 
+
+## Looking ahead
+
+-   For next time - [Chapter 4 - Poisson Regression](https://bookdown.org/roback/bookdown-BeyondMLR/ch-poissonreg.html)
+    -   Sections 4.6, 4.10
+
+## References

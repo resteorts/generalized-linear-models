@@ -1,0 +1,513 @@
+
+---
+title: "Module 4: The Multivariate Normal Distribution"
+author: "Rebecca C. Steorts"
+date: Hoff, Section 7.4
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+
+
+Agenda
+===
+- Motivational reading comprehension case study 
+- Introduction/Review of vectors, matrices
+- Population means/covariance matrices
+- General multivariate notation
+- Background on linear algebra (with practice exercises)
+- Determinants, traces, quadratic forms
+
+Agenda
+===
+
+- The multivariate normal distribution (MVN)
+- Exercise with the MVN
+- Case study on reading comprehension
+
+What you should learn
+===
+
+- You will learn background on linear algebra
+- You will learn how to model multivariate data, where we consider
+an application to reading comprehension tests
+- You will learn the notation for multivariate random variables
+- You will learn about the multivariate density of the normal 
+
+
+Goal
+===
+
+The goal of this module is to be able **to understand how to work with multivariate distributions**, such as the multivariate normal distribution. 
+
+We also want to understand how univariate models that we have used in the past translate to the multivariate setting. 
+
+Before we can delve in, we must review background on matrices, vectors, and **multivariate notation**. We also must review background on **linear algebra**. 
+
+Example: Reading Comprehension
+===
+
+
+A sample of 22 children are given reading comprehension tests before and after receiving a particular instructional method.\footnote{This example follows Hoff (Section 7.4, p. 112).}
+
+Each student $i$ will then have two scores, $Y_{i,1}$ and $Y_{i,2}$ denoting the pre- and post-instructional scores respectively. 
+
+Denote each student’s pair of scores by the vector $\bm{Y}_i$
+$$
+\bm{Y}_{i} = \left( \begin{array}{c}
+Y_{i,1}\\
+Y_{i,2}\\
+\end{array} \right) 
+= \left( \begin{array}{c}
+\text{score on first test}\\
+\text{score on second test}\\
+\end{array} \right)
+$$
+where $i=1,\ldots,n$ and $p=2.$
+
+Example: Reading Comprehension
+===
+
+$$\bm{X}_{n \times p} = 
+\left( \begin{array}{cccc}
+x_{11} & \textcolor{red}{x_{12}} & \ldots&  x_{1p}\\
+x_{21} & \textcolor{red}{x_{22}} & \ldots& x_{2p} \\
+x_{31} & \textcolor{red}{x_{32}} & \ldots& x_{3p} \\
+x_{i1} & \textcolor{red}{x_{i2}} & \ldots& x_{ip} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & \textcolor{red}{x_{n2}} &\ldots& x_{np}
+\end{array} \right).
+$$
+
+- A row of $\bm{X}_{n \times p}$ represents a covariate we might be interested in, such as age of a person.
+
+- Denote $x_{i}$ $(p \times 1)$ as the $i$th \textcolor{red}{row vector} of the $X_{n \times p}$ matrix.
+
+\[  x_{i}= \left( \begin{array}{c}
+x_{i1}\\
+\textcolor{red}{x_{i2}}\\
+\vdots\\
+x_{ip}
+\end{array} \right) \]
+
+Example: Reading Comprehension
+===
+
+We may be interested in the population mean $\bmu_{p \times 1}.$
+
+$$
+E[\bm{Y}] =: E[\bm{Y}_{i}] = \left( \begin{array}{c}
+Y_{i,1}\\
+Y_{i,2}\\
+\end{array} \right) 
+=  \left( \begin{array}{c}
+\mu_1\\
+\mu_2\\
+\end{array} \right) 
+= 
+\bmu
+$$
+
+Example: Reading Comprehension
+===
+We also may be interested in the population covariance matrix, $\Sigma_{p \times p}.$
+
+By definition: 
+\begin{align}
+\Sigma  
+&= Cov(\bm{Y})\\
+&=
+\left( \begin{array}{cccc}
+E[Y_1^2] - E[Y_1]^2 & E[Y_1Y_2] - E[Y_1]E[Y_2] \\
+E[Y_1Y_2] - E[Y_1]E[Y_2] & E[Y_2^2] - E[Y_2]^2
+\end{array} \right)\\
+&=
+\left( \begin{array}{cccc}
+\sigma_1^2 & \sigma_{1,2} \\
+\sigma_{1,2} & \sigma_2^2
+\end{array} \right)
+\end{align}
+
+Remark: $Cov(Y_1) = Var(Y_1) = \sigma_1^2. \qquad Cov(Y_1, Y_2) = \sigma_{1,2}.$
+
+How do we expand this beyond our reading comprehension example
+===
+
+We introduced our notation based upon a specific example to reading comprehension. 
+
+How can we make this more general and applicable to general case studies and problems?
+
+General Notation
+===
+Assume that $\bm{y}_{p \times 1} \sim (\mu_{p \times 1}, \Sigma_{p \times p}).$
+
+$$\bm{y}_{p \times 1}= \left( \begin{array}{c}
+y_{1}\\
+{y_{2}}\\
+\vdots\\
+y_{p}
+\end{array} \right).$$
+
+
+
+$$\bmu_{p \times 1}= \left( \begin{array}{c}
+\mu_1\\
+\mu_2\\
+\vdots\\
+\mu_p
+\end{array} \right)
+$$
+$$
+\sig_{p \times p} = Cov(\bm{y}) =
+\left( \begin{array}{cccc}
+\sigma_1^2 & \sigma_{12} & \ldots&  \sigma_{1p}\\
+\sigma_{21} & \sigma_2^2 & \ldots& \sigma_{2p}\\
+\vdots & \vdots & \ddots & \vdots \\
+\sigma_{p1} & \sigma_{p2} &\ldots& \sigma_p^2
+\end{array} \right).
+$$
+
+
+Background
+===
+
+Before proceeding, we need to review some basic concepts from linear algebra:
+
+1. Basic properties of matrices
+2. Useful lemmas for working with matrices
+
+The determinant of a matrix 
+===
+
+Assume a matrix $A_{n \times n}$  is invertible. The 
+$$\det(A) = a_{i1}A_{i1} + a_{i2}A_{i2} + \cdots + a_{in}A_{in},$$
+where $A{ij}$ are the co-factors and are computed from $$A_{ij} = (-1)^{i+j}det(M_{ij}).$$ 
+$M_{ij}$ is known as the minor matrix and is the matrix you get if you eliminate row i and column j from matrix $A.$ You must apply this technique recursively.
+\vskip 1em 
+
+\textbf{We only use this technique when doing such calculations by hand or in proof-based approaches.}
+
+The determinant of a matrix 
+===
+
+- How on earth do I use the complicated formula on the pervious slide. 
+
+\textbf{Easy: Use the \texttt{det} command in \texttt{R} when faced with an application.}
+
+\vskip 1em 
+
+- You will also see a determinant in the definition of the multivariate normal distribution. 
+
+\textbf{Important point: It's just a function and we typically do not need to evalute it in this course!}
+
+
+The trace of a matrix 
+===
+
+Assume a matrix $H_{p \times p}.$
+
+$$\text{trace}(H) = \sum_i h_{ii},$$ where $h_{ii}$ are the diagonal elements of $H.$
+
+
+
+The trace of a matrix 
+===
+
+$$
+H =
+\left( \begin{array}{cc}
+1 & 0 \\
+0 & 1 \\
+\end{array} \right).
+$$
+What is $\text{tr}({H})?$ 
+
+\vline
+
+(Take 1 minute to complete this.)
+
+Linear Algebra Tricks
+===
+
+Suppose that A is $n \times n$ matrix and suppose
+that B is a $n \times n$ matrix. 
+
+Lemma 1:  
+
+$$tr(AB) = tr(BA)$$
+Proof: Exercise. (You can find the proof at the end of the slides to check your work).
+
+
+
+
+Linear Algebra Tricks
+===
+
+Lemma 2: 
+
+Suppose $\bm{x_{p \times 1}}$ is a vector and $A$ is a $p \times p$ dimensional matrix. 
+
+Then $\bm{x_{1 \times p}}^TA_{p \times p}\bm{x_{p \times 1}}$ is called a **quadratic form**. 
+
+$$\bm{x}^TA\bm{x} = tr(\bm{x}^TA\bm{x}) = tr(\bm{x}\bm{x}^TA) = tr(A\bm{x}\bm{x}^T)$$
+
+Proof: Exercise. 
+
+Linear Algebra Tricks
+===
+
+Proof of Lemma 2:
+
+\begin{align}
+tr({\bm{x}^TA\bm{x}})  
+&= \sum_i (x^tAx)_{ii} \\ 
+& = (\bm{x}^T(A\bm{x})) \\
+& = tr(A\bm{x}\bm{x}^T) \; (\text{by Lemma 1})
+\end{align}
+
+\begin{align}
+tr({\bm{x}^TA\bm{x}})  
+&= \sum_i (x^tAx)_{ii} \\ 
+& = ((\bm{x}^TA)\bm{x}) \\
+& = tr(\bm{x}\bm{x}^TA)\; (\text{by Lemma 1})
+\end{align}
+
+
+
+
+Notation
+===
+\begin{itemize}
+\item MVN is generalization of univariate normal.
+\item For the MVN, we write $\bm{y} \sim
+\mathcal{MVN}(\bmu,\Sigma)$. 
+\item The $(i,j)^{\text{th}}$
+component of $\Sigma$ is the covariance between $Y_i$ and~$Y_j$ (so
+the diagonal of $\Sigma$ gives the component variances).
+\end{itemize}
+
+Example: $Cov(Y_1, Y_2)$ is just one element of the matrix $\Sigma.$
+
+Multivariate Normal
+===
+Just as the probability density of a scalar normal is
+\begin{equation}
+p(x) = {\left(2\pi\sigma^2\right)}^{-1/2}\exp{\left\{ -\frac{1}{2} \frac{(x-\mu)^2}{\sigma^2}\right\}},
+\end{equation}
+the probability density of the multivariate normal is
+\begin{equation}
+p(\bm{x}) = {\left(2\pi\right)}^{-p/2}(\det{\Sigma})^{-1/2} \exp{\left\{-\frac{1}{2} (\bm{x}-\bmu)^T\Sigma^{-1} (\bm{x} - \bmu)\right\}}.
+\end{equation}
+\textcolor{blue}{Univariate normal is special case of the multivariate normal with a one-dimensional mean ``vector'' and a one-by-one variance ``matrix.''}
+
+Standard Multivariate Normal Distribution
+===
+
+Lemma 3. 
+
+Consider $$Z_1, \ldots, Z_n \stackrel{iid}{\sim} N(0,1).$$
+Show that $$Z_1,\ldots,Z_n \sim MVN(\textbf{0},I_{n \times n}).$$
+
+Proof of Lemma 3
+===
+Proof:
+
+\begin{align}
+f_z(z) &= \prod_{i=1}^n (2\pi)^{-1/2} e^{-z_i^2/2}\\
+& = (2\pi)^{-n/2} e^{\sum_i-z_i^2/2}\\
+& = (2\pi)^{-n/2} e^{-z^Tz/2}.
+\end{align}
+The last line is follows since  $\sum_i-z_i^2 = -z^Tz.$
+
+Thus, $Z_1,\ldots,Z_n \sim \text{MVN}(\textbf{0},I).$
+
+
+
+
+
+Likelihood
+===
+
+\begin{align}
+p(\bm{y} \mid \btheta, \Sigma) &= \prod_{i=1}^n
+{\left(2\pi\right)}^{-p/2}\det{\Sigma}^{-1/2} \exp{\left\{-\frac{1}{2} (y_i-\btheta)^T\Sigma^{-1} (y_i - \btheta)\right\}}\\
+\propto 
+& \exp-\frac{1}{2} {\left \{ \sum_i y_i^T \Sigma^{-1} y_i -2 \sum_i \btheta^T \Sigma^{-1} y_i + 
+\sum_i \btheta^T\Sigma^{-1} \btheta 
+ \right \}}\\
+ & \propto \exp-\frac{1}{2} {\left \{  -2 \btheta^T \Sigma^{-1} n\bar{y} + 
+n \btheta^T\Sigma^{-1} \btheta 
+ \right \}}\\
+  & \propto \exp-\frac{1}{2} {\left \{  -2 \btheta^T b_1+ 
+\btheta^T A_1 \btheta \right \}},
+\end{align}
+where $$b_1= \Sigma^{-1} n\bar{y}, \quad A_1 = n\Sigma^{-1}$$ and 
+$$\bar{y} := (\frac{1}{n}\sum_i y_{i1} ,\ldots, \frac{1}{n} \sum_i y_{ip})^T.$$
+
+
+
+
+
+
+
+
+
+Working with Multivariate Normal Distribution
+===
+The `R` package, `mvtnorm`, contains functions for evaluating and simulating from a multivariate normal density.
+
+```{r}
+library(ggplot2)
+library(MASS)
+library(mvtnorm)
+library(car)
+```
+
+Simulating Data
+===
+Simulate a single multivariate normal random vector using the `rmvnorm` function.
+
+```{r}
+# Each row corresponds to a sample
+# Here we have one sample (one row)
+rmvnorm(n = 1, mean = rep(0, 2), sigma = diag(2))
+```
+
+Simulation Study and Investigation
+===
+
+```{r}
+n <- 500  # Number of samples
+mu <- c(5, 10, 15)  # Mean vector
+Sigma <- matrix(c(4, 2, 1, 
+                  2, 5, 2, 
+                  1, 2, 3), 
+                ncol = 3)  # Covariance matrix
+data <- mvrnorm(n = n, mu = mu, Sigma = Sigma)
+colnames(data) <- c("X1", "X2", "X3")
+data <- as.data.frame(data)
+```
+
+Scatterplot Matrix
+===
+```{r}
+scatterplotMatrix(~ X1 + X2 + X3, data = data, 
+                  main = "Scatterplot Matrix of Multivariate Data")
+```
+
+
+Marginal Histogram
+===
+```{r, echo = F}
+# Marginal histograms with density plots
+par(mfrow = c(1, 3))  # Layout for plots
+for (i in 1:3) {
+  hist(data[[i]], breaks = 30, probability = TRUE, 
+       main = paste("Histogram of", colnames(data)[i]),
+       xlab = colnames(data)[i])
+  lines(density(data[[i]]), col = "red", lwd = 2)
+}
+```
+
+Q-Q Plots
+===
+```{r, echo = F}
+# Q-Q plots to assess normality
+par(mfrow = c(1, 3))
+for (i in 1:3) {
+  qqnorm(data[[i]], main = paste("Q-Q Plot of", colnames(data)[i]))
+  qqline(data[[i]], col = "blue", lwd = 2)
+}
+```
+
+Not sure
+===
+```{r, echo = F, message = FALSE}
+# Combine visualizations with ggplot2
+library(ggplot2)
+pair_plot <- GGally::ggpairs(data, 
+                             lower = list(continuous = "smooth"),
+                             diag = list(continuous = "densityDiag"),
+                             upper = list(continuous = "cor"))
+print(pair_plot)
+```
+
+<!-- Evaluation -->
+<!-- === -->
+<!-- Evaluate the multivariate normal density at a single value using the `dmvnorm` function. -->
+
+<!-- ```{r} -->
+<!-- dmvnorm(rep(0, 2), mean = rep(0, 2), sigma = diag(2)) -->
+<!-- ``` -->
+
+<!-- Working with the Multivariate Normal -->
+<!-- === -->
+<!-- - Now let's simulate many multivariate normals.  -->
+<!-- - Each row is a different sample from this multivariate normal distribution. -->
+<!-- ```{r} -->
+<!-- rmvnorm(n = 3, mean = rep(0, 2), sigma = diag(2)) -->
+<!-- ``` -->
+
+
+
+
+<!-- Load in data -->
+<!-- === -->
+<!-- ```{r} -->
+<!-- # read in data -->
+<!-- Y <- structure(c(59, 43, 34, 32, 42, 38, 55, 67, 64,  -->
+<!--                  45, 49, 72, 34, 70, 34, 50, 41, 52,  -->
+<!--                  60, 34, 28, 35, 77, 39, 46, 26, 38,  -->
+<!--                  43, 68, 86, 77, 60, 50, 59, 38, 48,  -->
+<!--                  55, 58, 54, 60, 75, 47, 48, 33),  -->
+<!--                .Dim = c(22L, 2L), .Dimnames = list(NULL,  -->
+<!--                 c("pretest", "posttest"))) -->
+<!-- # number of observations -->
+<!-- ``` -->
+
+<!-- Quick calculations -->
+<!-- ```{r} -->
+<!-- (n <- dim(Y)[1]) -->
+<!-- ybar <- apply(Y,2,mean) -->
+<!-- Sigma <- cov(Y) -->
+<!-- ``` -->
+
+
+
+
+Detailed Takeaways on Background 
+===
+
+- Understanding vectors, matrices and notation  
+- Understanding how to write multivariate notation for a conceptual problem
+- Understanding how to write general multivariate notation
+- Background on linear algebra 
+- Determinants, traces, quadratic forms
+- Knowing how to do simple proofs such as the exercises from class 
+
+Detailed Takeaways on Multivariate Normal Models
+===
+
+- The multivariate normal distribution (MVN)
+- Exercise with the MVN
+
+
+Proof of Lemma 1
+===
+
+$$tr(AB) = tr(BA)$$
+
+Proof: Suppose that $A_{n \times n}$ and $B_{n \times n}.$
+
+Recall that by definition $tr(A) = \sum_{i=1}^n a_{ii}.$ By definition
+\begin{align}
+tr(AB) &= \sum_{i=1}^n (AB)_{ii} \\
+& \sum_{i=1}^n \sum_{j=1}^n a_{ij} b_{ji}\\
+& \sum_{i=1}^n \sum_{j=1}^n b_{ji} a_{ij} \\
+&= \sum_{i=1}^n (BA)_{ii} 
+= tr(BA)
+\end{align}
+

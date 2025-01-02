@@ -1,0 +1,353 @@
+---
+title: "Unifying Theory of GLMs"
+author: "Rebecca C. Steorts (slide adaption from Maria Tacket)\\ and material from Chapter 5 of Roback and Legler text."
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+bibliography: references.bib
+---
+
+## Computing set up
+
+```{r setup, echo = TRUE, message = FALSE, warning= FALSE}
+library(tidyverse)
+library(tidymodels)
+library(knitr)
+library(viridis)
+
+knitr::opts_chunk$set(fig.width = 8,
+                      fig.asp = 0.618, 
+                      fig.retina = 3, 
+                      dpt = 300, 
+                      out.width = "70%",
+                      fig.align = "center")
+
+ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
+
+colors <- tibble::tibble(green = "#B5BA72")
+```
+
+## Topics
+
+-   Identify the components common to all generalized linear models
+
+-   Find the canonical link based on the distribution of the response variable
+
+-   Properties of GLMs
+
+::: aside
+Notes based on Chapter 5 @roback2021beyond unless noted otherwise.
+:::
+
+# Unifying theory of GLMs
+
+## Many models; one family 
+
+We have studied models for a variety of response variables
+
+-   Least squares (Normal)
+-   Logistic (Bernoulli, Binomial, Multinomial)
+-   Log-linear (Poisson, Negative Binomial)
+
+These models are all examples of **generalized linear models**.
+
+GLMs have a similar structure for their likelihoods, MLEs, variances, so we can use a generalized approach to find the model estimates and associated uncertainty.
+
+## Components of a GLM 
+
+@nelder1972generalized defines a broad class of models called **generalized linear models** that generalizes multiple linear regression. GLMs are characterized by three components:
+
+\pause
+
+1. Response variable with parameter $\theta$ whose probability function can be written in exponential family form (**random component**)
+
+
+\pause 
+
+2.  A linear combination of predictors, $\eta = \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p$ (**systematic component**)
+
+\pause 
+
+3. A **link** function $g(\theta)$ that connects $\theta$ to $\eta$
+
+## One-parameter exponential family form 
+
+Suppose a probability (mass or density) function has a parameter $\theta$. It is said to have a **one-parameter exponential family form** if
+
+
+- The support (set of possible values) does not depend on $\theta$, and
+
+- The probability function can be written in the following form
+
+$$f(y;\theta) = e^{[a(y)b(\theta) + c(\theta) + d(y)]}$$
+
+## Mean and variance 
+
+One-parameter exponential family form
+
+$$f(y;\theta) = e^{[a(y)b(\theta) + c(\theta) + d(y)]}$$
+
+Using this form:
+
+$$E(Y) = -\frac{c'(\theta)}{b'(\theta)} \hspace{20mm} Var(Y) = \frac{b''(\theta)c'(\theta) - c''(\theta)b'(\theta)}{[b'(\theta)]^3}$$
+
+-----------
+
+## Poisson in one-parameter exponential family form 
+
+
+$$P(Y = y) = \frac{e^{-\lambda}\lambda^y}{y!} \hspace{10mm} y = 0, 1, 2, \ldots, \infty$$
+
+
+$$\begin{aligned}P(Y = y) &= e^{-\lambda}e^{y\log(\lambda)}e^{-\log(y!)}\\
+& = e^{y\log(\lambda) - \lambda - \log(y!)}\end{aligned}$$
+
+
+
+Recall the form: $f(y;\theta) = e^{[a(y)b(\theta) + c(\theta) + d(y)]}$, where the parameter $\theta = \lambda$ for the Poisson distribution
+
+
+
+-   $a(y) = y$
+-   $b(\lambda) = \log(\lambda)$
+-   $c(\lambda) = -\lambda$
+-   $d(y) = -\log(y!)$
+
+## Poisson in exponential family form 
+
+- The support for the Poisson distribution is $y = 0, 1, 2, \ldots, \infty$. This does not depend on the parameter $\lambda$.
+
+
+- The probability mass function can be written in the form $f(y;\theta) = e^{[a(y)b(\theta) + c(\theta) + d(y)]}$
+
+
+
+**The Poisson distribution can be written in one-parameter exponential family form.**
+
+## Canonical link
+
+Suppose there is a response variable $Y$ from a distribution with parameter $\theta$ and a set of predictors that can be written as a linear combination $\eta = \beta_0 + \sum_{j=1}^{p}\beta_jx_j = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p$
+
+-   A **link function**, $g()$, is a monotonic and differentiable function that connects $\theta$ to $\eta$
+
+-   When working with a member of the one-parameter exponential family, $b(\theta)$ is called the **canonical link**
+
+-   Most commonly used link function
+
+## Canonical link for Poisson
+
+Recall the exponential family form:
+
+$$P(Y = y) = e^{y\log(\lambda) - \lambda - \log(y!)}$$
+
+then the canonical link is $b(\lambda) = \log(\lambda)$
+
+## GLM framework: Poisson response variable 
+
+1. Response variable with parameter $\theta$ whose probability function can be written in exponential family form
+
+$$P(Y = y) = e^{y\log(\lambda) - \lambda - \log(y!)}$$
+
+\pause
+
+2. A linear combination of predictors, $$\eta = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p$$
+
+
+\pause
+
+3.  A function $g(\lambda)$ that connects $\lambda$ and $\eta$
+
+$$\log(\lambda) = \eta =  \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \dots + \beta_p x_p$$
+
+## Activity: Generalized linear models
+
+::: question
+For your group's distribution
+
+-   Write the pmf or pdf in one-parameter exponential form.
+
+-   Describe an example of a setting where this random variable may be used.
+
+-   Identify the canonical link function.
+:::
+
+## Activity: Generalized linear models 
+
+::: question
+**Distributions**
+
+1.  Exponential
+2.  Gamma (with fixed $r$)
+3.  Geometric
+4.  Binary
+
+See [BMLR - Section 3.6](https://bookdown.org/roback/bookdown-BeyondMLR/ch-distthry.html#additional-resources) for details on the distributions.
+:::
+
+If your group finishes early, try completing the exercise for another distribution.
+
+## Using the exponential family form
+
+The one-parameter exponential family form is utilized for
+
+-   Calculating MLEs of coefficients (recall iteratively re-weighted least squares)
+
+-   Inference for coefficients
+
+-   Likelihood ratio and drop-in-deviance tests
+
+The specific calculations are beyond the scope of this course. See Section 4.6 of @dunn2018generalized for more detail (available at Duke library).
+
+## Exponential Distribution
+
+Let Y = time spent waiting for the first event in a Poisson process with an average rate $\lambda$ events per time unit. 
+
+$$f(y, \lambda) = \lambda \exp\{ - \lambda y \}.$$
+
+## Exponential Distribution
+
+a. Write the pmf or pdf in one-parameter exponential form and c. give the canonical link. 
+
+\begin{align}
+f(y, \lambda) &= \lambda \exp\{ - \lambda y \} \\
+&= \exp\{
+\log (
+\lambda \exp\{ - \lambda y \}
+)
+\} \\
+&= \exp\{
+\log \lambda - \lambda y
+\}
+\end{align}
+
+Recall the form: $f(y;\theta) = e^{[a(y)b(\theta) + c(\theta) + d(y)]}$, where the parameter $\theta = \lambda$ for the Exponential distribution.
+
+-   $a(y) = -y$
+-   $b(\lambda) = \lambda = \text{canonical link}$
+-   $c(\lambda) = \log(\lambda)$
+-   $d(y) = 0$
+
+## Exponential Distribution
+
+b. Example: The exponential distribution can be used to model the number of miles traveled until encountering the first pothole on a North Carolina road.
+
+## Gamma distribution (with fixed $r$)
+
+Y = time spent waiting for the $r$th event in a Poisson process with an average rate of $\lambda$ events per unit of time. 
+
+$$f(y, \lambda) = \frac{\lambda^r}{\Gamma(r)} y^{r-1} \exp\{
+- \lambda y
+\}.$$
+
+## Gamma distribution (with fixed $r$)
+
+a. Write the pmf or pdf in one-parameter exponential form and c. give the canonical link. 
+
+\begin{align}
+f(y, \lambda) &= 
+\frac{\lambda^r}{\Gamma(r)} y^{r-1} \exp\{
+- \lambda y
+\} \\
+&= 
+\exp \left[
+\log
+\left(
+\frac{\lambda^r}{\Gamma(r)} y^{r-1} 
+\exp\{
+- \lambda y
+\} 
+\right)
+\right] \\
+&= \exp\left[
+r \log \lambda - \log(\Gamma(r)) + (r-1)\log y -\lambda y 
+\right] \\ 
+&\propto \alpha \exp\left[
+-\lambda y + r \log \lambda + (r-1)\log y  
+\right]
+\end{align}
+
+Recall the form: $f(y;\theta) = e^{[a(y)b(\theta) + c(\theta) + d(y)]}$, where the parameter $\theta = \lambda$ for the Gamma distribution.
+
+-   $a(y) = -y$
+-   $b(\lambda) = \lambda = \text{canonical link}$
+-   $c(\lambda) = r \log(\lambda)$
+-   $d(y) = (r-1)\log y$
+
+## Gamma distribution (with fixed $r$)
+
+b. Example: The gamma distribution can be used to model the number of miles traveled until encountering 10 potholes on a North Carolina road.
+
+## Geometric distribution 
+
+Y = number of failures before the first success in a Bernoulli process
+
+$$f(y, p) = (1-p)^y p.$$
+
+## Geometric distribution 
+
+a. Write the pmf or pdf in one-parameter exponential form and c. give the canonical link. 
+
+\begin{align}
+f(y, \lambda) &= 
+(1-p)^y p \\
+&= \exp\{
+\log [
+(1-p)^y p
+]
+\} \\
+&=\exp\{
+y \log(1-p) + \log(p)
+\}
+\end{align}
+
+Recall the form: $f(y;\theta) = e^{[a(y)b(\theta) + c(\theta) + d(y)]}$, where the parameter $\theta = \log(1-p)$ for the Geometric distribution.
+
+-   $a(y) = y$
+-   $b(p) = \log(1-p) = \text{canonical link}$
+-   $c(p) = \log(p)$
+-   $d(y) = 0$
+
+## Geometric distribution
+
+b. Example: A geometric distribution can be used to model the number of random people you call who decline before someone agrees to complete a survey.
+
+## Binary distribution 
+
+$$f(y, p) = p^y(1-p)^{1-y}$$
+
+
+## Binary distribution 
+
+a. Write the pmf or pdf in one-parameter exponential form and c. give the canonical link. 
+
+\begin{align}
+f(y, p) &= 
+p^y(1-p)^{1-y} \\
+&=
+\exp\{
+\log[
+p^y 
+(1-p)^{1-y}
+]
+\} \\
+&= 
+\exp\{
+y \log p
++ (1-y) \log(1-p)
+\} \\
+&= 
+\exp\{
+y \log(\frac{p}{1-p}) + \log(1-p)
+\}
+\end{align}
+
+Recall the form: $f(y;\theta) = e^{[a(y)b(\theta) + c(\theta) + d(y)]}$, where the parameter $\theta = \log(\frac{p}{1-p})$ for the Binary distribution.
+
+-   $a(y) = y$
+-   $b(p) = \log(\frac{p}{1-p}) = \text{canonical link}$
+-   $c(p) = \log(1-p)$
+-   $d(y) = 0$
+
+## References

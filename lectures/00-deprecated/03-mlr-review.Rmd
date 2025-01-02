@@ -1,0 +1,541 @@
+
+---
+title: "Multiple Linear Regression Review"
+author: "Rebecca C. Steorts (slide adaption from Maria Tacket)\\ and material from Chapter 1 of Roback and Legler text."
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+
+```{r}
+#| include: false
+
+# figure options
+knitr::opts_chunk$set(
+  fig.width = 10, fig.asp = 0.618, out.width = "90%",
+  fig.retina = 3, dpi = 300, fig.align = "center"
+)
+```
+
+## Computing set up
+
+```{r setup, echo = TRUE, message = FALSE, warning= FALSE}
+library(tidyverse)
+library(tidymodels)
+library(GGally)
+library(knitr)
+library(patchwork)
+library(viridis)
+
+ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
+
+colors <- tibble::tibble(green = "#B5BA72")
+```
+
+## Topics
+
+-   Define statistical models
+
+-   Motivate generalized linear models and multilevel models
+
+-   Review multiple linear regression
+
+::: aside
+Notes based on Chapter 1 of @roback2021beyond unless noted otherwise.
+:::
+
+
+# Statistical models
+
+## Models and statistical models
+
+Suppose we have observations $y_1, \ldots, y_n$
+
+-   **Model**: Mathematical description of the process we think generates the observations
+
+-   **Statistical model**: Model that includes an equation describing the impact of explanatory variables (**deterministic part)** and probability distributions for parts of the process that are assumed to be random variation (**random part)**
+
+::: aside
+Definitions adapted from @stroup2012generalized
+:::
+
+## Statistical models
+
+A statistical model must include
+
+1.  The observations
+2.  The deterministic (systematic) part of the process
+3.  The random part of the process with a statement of the presumed probability distribution
+
+::: aside
+Definitions adapted from @stroup2012generalized
+:::
+
+## Example 
+
+Suppose we have the model for comparing two means:
+
+$$
+y_{ij} = \mu_i + \epsilon_{ij}
+$$
+
+where
+
+-   $i = 1, 2$: group
+
+
+-   $j = 1, \ldots, n$: observation number
+-   $n_i$: number of observations in group $i$
+-   $\mu_i$: mean of group $i$
+-   $y_{ij}$: $j^{th}$ observation in the $i^{th}$ group
+-   $\epsilon_{ij}$ : random error (variation) associated with $ij^{th}$ observation
+
+::: aside
+Adapted from @stroup2012generalized
+:::
+
+## Example
+
+$$
+y_{ij} = \mu_i + \epsilon_{ij}
+$$
+
+
+-   $y_{ij}$: the observations
+
+-   $\mu_i$: deterministic part of the model, no random variability
+
+-   $e_{ij}$ : random part of the model, indicating observations vary about their mean
+
+-   Typically assume $\epsilon_{ij}$ are independent and identically distributed (i.i.d.) $N(0, \sigma^2)$
+
+
+::: aside
+Adapted from @stroup2012generalized
+:::
+
+## Practice
+
+::: question
+Suppose $y_{ij}$'s are observed outcome data and $x_i$'s are values of the explanatory variable. Assume a linear regression model can used to describe the process of generating $y_{ij}$ based on the $x_i$.
+
+1.  Write the specification of the statistical model.
+2.  Label the 3 components of the model equation (observation, deterministic part, random part)
+3.  What is $E(y_{ij})$, the expected value of the observations?
+:::
+
+## Practice Solution
+
+Consider 
+
+$$y_{ij} = \beta_0 + \beta_1 x_i + \epsilon_{ij}.$$
+
+- $y_{ij}$ are the observed data. 
+- $\epsilon_{ij}$ is random.
+- $\beta_0$, $\beta_1$, and $x_i$ are deterministic, fixed.
+
+$E[y_{ij}] = \beta_0 + \beta_1x_i$
+
+# Motivating generalized linear models (GLMs) and multilevel models
+
+## Assumptions for linear regression
+
+-   <u>**L**</u>**inearity**: Linear relationship between mean response and predictor variable(s)
+
+-   <u>**I**</u>**ndependence**: Residuals are independent. There is no connection between how far any two points lie above or below regression line.
+
+-   <u>**N**</u>**ormality**: Response follows a normal distribution at each level of the predictor (or combination of predictors)
+
+-   <u>**E**</u>**qual variance**: Variability (variance or standard deviation) of the response is equal for all levels of the predictor (or combination of predictors)
+
+## Assumptions for linear regression {.midi}
+
+::: columns
+::: {.column width="50%"}
+```{r, echo=FALSE, warning=FALSE, message = FALSE}
+#| echo: false
+#| out-width: 100%
+#| fig-cap: Modified from Figure 1.1. in BMLR
+
+##   Code modified from https://stackoverflow.com/questions/31794876/ggplot2-how-to-curve-small-gaussian-densities-on-a-regression-line?rq=1
+
+## Modified based on BYSH: https://bookdown.org/roback/bookdown-bysh/ch-MLRreview.html#ordinary-least-squares-ols-assumptions
+
+set.seed(0)
+dat <- data.frame(x=(x=runif(10000, 0, 50)),
+                  y=rnorm(10000, 10*x, 100))
+
+## breaks: where you want to compute densities
+breaks <- seq(0, max(dat$x), len=5)
+dat$section <- cut(dat$x, breaks)
+
+## Get the residuals
+dat$res <- residuals(lm(y ~ x, data=dat))
+
+## Compute densities for each section, and flip the axes, and add means of sections
+## Note: the densities need to be scaled in relation to the section size (2000 here)
+dens <- do.call(rbind, lapply(split(dat, dat$section), function(x) {
+    d <- density(x$res, n=50)
+    res <- data.frame(x=max(x$x)- d$y*2000, y=d$x+mean(x$y))
+    res <- res[order(res$y), ]
+    ## Get some data for normal lines as well
+    xs <- seq(min(x$res), max(x$res), len=50)
+    res <- rbind(res, data.frame(y=xs + mean(x$y),
+                                 x=max(x$x) - 2000*dnorm(xs, 0, sd(x$res))))
+    res$type <- rep(c("empirical", "normal"), each=50)
+    res
+}))
+dens$section <- rep(levels(dat$section), each=100)
+
+dens <- dens |>
+  filter(type == "normal")
+
+## Plot both empirical and theoretical
+ggplot(dat, aes(x, y)) +
+  geom_point(alpha = 0.08, size = 0.2) +
+  geom_smooth(method="lm", fill=NA, se = FALSE, color = "steelblue") +
+  geom_path(data=dens, aes(x, y, group=interaction(section)), color = "red", lwd=1.1) +
+geom_vline(xintercept=breaks, lty=2, color = "grey") +
+  labs(x = "x", 
+       y = "y") +
+  theme_classic() + 
+  annotate("text", x = 10, y = 600, label = latex2exp::TeX("$\\mu_{Y|X} = \\beta_0 + \\beta_1X$"), color = "steelblue", size = 8) +
+  annotate("text", x = 20, y = 400, label = latex2exp::TeX("$\\sigma^2$"), color = "red", size = 8) +
+  theme(axis.title = element_text(size = 16),
+        axis.ticks = element_blank(), 
+        axis.text.x = element_blank(), 
+       axis.text.y = element_blank()
+      )
+```
+:::
+
+::: {.column width="50%"}
+-   **Linearity**: Linear relationship between mean of the response $Y$ and the predictor $X$
+
+-   **Independence**: No connection between how far any two points lie from regression line
+
+-   **Normality**: Response $Y$ follows a normal distribution at each level of the predictor $X$ (red curves)
+
+-   **Equal variance**: Variance of the response $Y$ is equal for all levels of the predictor $X$
+:::
+:::
+
+## Violations in assumptions
+
+*Do wealthy households tend to have fewer children compared to households with lower income?* Annual income and family size are recorded for a random sample of households.
+
+-   The response variable is number of children in the household.
+-   The predictor variable is annual income in US dollars.
+
+::: question
+Which assumption(s) are obviously violated, if any?
+:::
+
+## Violations in assumptions
+
+Medical researchers investigated the outcome of a particular surgery for patients with comparable stages of disease but different ages. The 10 hospitals in the study had at least two surgeons performing the surgery of interest. Patients were randomly selected for each surgeon at each hospital. The surgery outcome was recorded on a scale of 1 - 10.
+
+-   The response variable is surgery outcome, 1 - 10.
+-   The predictor variable is patient age in years.
+
+::: question
+Which assumption(s) are obviously violated, if any?
+:::
+
+## Beyond linear regression {.midi}
+
+::: incremental
+-   When drawing conclusions from linear regression models, we do so assuming LINE are all met
+
+-   **Generalized linear models** require different assumptions and can accommodate violations in LINE
+
+    -   Relationship between response and predictor(s) can be nonlinear
+    -   Response variable can be non-normal
+    -   Variance in response can differ at each level of predictor(s)
+    -   **The independence assumption still must hold!**
+
+-   **Multilevel models** are used to model data that violate the independence assumption, i.e. correlated observations
+:::
+
+# Multiple linear regression
+
+## Data: Kentucky Derby Winners {.midi}
+
+Today's data is from the Kentucky Derby, an annual 1.25-mile horse race held at the Churchill Downs race track in Louisville, KY. The data is in the file [data/derbyplus.csv](data/derbyplus.csv) and contains information for races 1896 - 2017.
+
+::: columns
+::: {.column width="50%"}
+**Response variable**
+
+-   `speed`: Average speed of the winner in feet per second (ft/s)
+
+**Additional variable**
+
+-   `winner`: Winning horse
+:::
+
+::: {.column width="50%"}
+**Predictor variables**
+
+-   `year`: Year of the race
+-   `condition`: Condition of the track (good, fast, slow)
+-   `starters`: Number of horses who raced
+:::
+:::
+
+**Goal: Understand variability in average winner speed based on characteristics of the race.**
+
+## Data
+
+```{r, warning = FALSE, message = FALSE}
+derby <- read_csv("data/derbyplus.csv")
+```
+
+## Data
+
+```{r, warning = FALSE, message = FALSE}
+derby |>
+  head(5) |> kable()
+```
+
+## Exploratory data analysis (EDA)
+
+-   Once you're ready for the statistical analysis, the first step should always be **exploratory data analysis**.
+
+-   The EDA will help you
+
+    -   begin to understand the variables and observations
+    -   identify outliers or potential data entry errors
+    -   begin to see relationships between variables
+    -   identify the appropriate model and identify a strategy
+
+-   The EDA is exploratory; formal modeling and statistical inference are used to draw conclusions.
+
+## Univariate EDA
+
+```{r univar-eda-plot, echo = F, warning=FALSE, message = F}
+p1 <- ggplot(data = derby, aes(x = speed)) + 
+  geom_histogram(fill = colors$green, color = "black") + 
+  labs(x = "Winning speed (ft/s)", y = "Count")
+
+p2 <- ggplot(data = derby, aes(x = starters)) + 
+  geom_histogram(fill = colors$green, color = "black", binwidth = 2) + 
+  labs(x = "Number of Starters", y = "Count")
+
+p3 <- ggplot(data = derby, aes(x = condition)) +
+   geom_bar(fill = colors$green, color = "black", aes(x = ))
+
+p1 + (p2 / p3) + 
+  plot_annotation(title = "Univariate data analysis")
+```
+
+
+
+## Bivariate EDA
+
+```{r bivar-eda-plot, echo = F, warning=FALSE, echo = F}
+p4 <- ggplot(data = derby, aes(x = starters, y = speed)) + 
+  geom_point() + 
+  labs(x = "Number of Starters", y = "Speed (ft / s)")
+
+p5 <- ggplot(data = derby, aes(x = year, y = speed)) + 
+  geom_point() + 
+  labs(x = "Year", y = "Speed (ft / s)")
+
+p6 <- ggplot(data = derby, aes(x = condition, y = speed)) + 
+  geom_boxplot(fill = colors$green, color = "black") + 
+  labs(x = "Conditions", y = "Speed (ft / s)")
+
+(p4 + p5) / p6 +
+  plot_annotation(title = "Bivariate data analysis")
+```
+
+## Scatterplot matrix
+
+A **scatterplot matrix** helps quickly visualize relationships between many variable pairs. They are particularly useful to identify potentially correlated predictors.
+
+```{r scatterplot-matrix-plot, echo = F, fig.width = 10, warning=FALSE}
+#library(GGally)
+ggpairs(data = derby, 
+        columns = c("condition", "year", "starters", "speed"))
+```
+
+## Scatterplot matrix code
+
+Create using the `ggpairs()` function in the GGally package.
+
+```{r scatterplot-matrix, eval = F, warning=FALSE, message=F}
+library(GGally)
+ggpairs(data = derby, 
+        columns = c("condition", "year", 
+                    "starters", "speed"))
+```
+
+## Multivariate EDA
+
+Plot the relationship between the response and a predictor based on levels of another predictor to assess potential interactions.
+
+```{r multivar-eda-plot, echo = F, warning=FALSE, message = F}
+library(viridis)
+ggplot(data = derby, aes(x = year, y = speed, color = condition, 
+                         shape = condition, linetype = condition)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, aes(linetype = condition)) + 
+  labs(x = "Year", y = "Speed (ft/s)", color = "Condition",
+       title = "Speed vs. year", 
+       subtitle = "by track condition") +
+  guides(lty = FALSE, shape = FALSE) +
+  scale_color_viridis_d(end = 0.9)
+```
+
+## Candidate models
+
+Model 1: Main effects model (`year`, `condition`, `starters`)
+
+```{r}
+model1 <- lm(speed ~ starters + year + 
+               condition, data = derby)
+```
+
+
+
+Model 2: Main effects + $year^2$, the quadratic effect of `year`
+
+```{r}
+model2 <- lm(speed ~ starters + year + 
+               I(year^2) + condition,
+             data = derby)
+```
+
+
+
+Model 3: Main effects + interaction between `year` and `condition`
+
+```{r}
+model3 <- lm(speed ~ starters + year + 
+               condition + year * condition, 
+             data = derby)
+```
+
+## Inference for regression
+
+Use statistical inference to
+
+-   Evaluate if predictors are statistically significant (not necessarily practically significant!)
+
+-   Quantify uncertainty in coefficient estimates
+
+-   Quantify uncertainty in model predictions
+
+If LINE assumptions are met, we can use inferential methods based on mathematical models. If at least linearity and independence are met, we can use simulation-based inference methods.
+
+## Inference for regression {.midi}
+
+When LINE assumptions are met... . . .
+
+-   Use least squares regression to obtain the estimates for the model coefficients $\beta_0, \beta_1, \ldots, \beta_j$ and for $\sigma^2$
+
+-   $\hat{\sigma}$ is the **regression standard error**
+
+    $$
+    \hat{\sigma} = \sqrt{\frac{\sum_{i=1}^n(y_i - \hat{y}_i)^2}{n - p - 1}} = \sqrt{\frac{\sum_{i=1}^n e_i^2}{n-p-1}}
+    $$
+
+    where $p$ is the number of non-intercept terms in the model (e.g., $p = 1$ in simple linear regression)
+
+-   Goal is to use estimated values to draw conclusions about $\beta_j$
+
+    -   Use $\hat{\sigma}$ to calculate $SE_{\hat{\beta}_j}$ . [Click here](https://github.com/STA210-Sp19/supplemental-notes/blob/master/regression-basics-matrix.pdf) for more detail.
+
+## Hypothesis testing for $\beta_j$ {.small}
+
+1.  **State the hypotheses**. $H_0: \beta_j = 0 \text{ vs. } H_a: \beta_j \neq 0$, given the other variables in the model.
+
+2.  **Calculate the test statistic.**
+
+$$
+t = \frac{\hat{\beta}_j - 0}{SE_{\hat{\beta}_j}}
+$$
+
+3.  **Calculate the p-value.** The p-value is calculated from a $t$ distribution with $n - p - 1$ degrees of freedom.
+
+    $$
+    \text{p-value} = 2P(T > |t|) \hspace{4mm} T \sim t_{n-p-1}
+    $$
+
+4.  **State the conclusion in context of the data.**
+    -   Reject $H_0$ if p-value is sufficiently small.
+
+## Confidence interval for $\beta_j$
+
+The $C\%$ confidence confidence interval for $\beta_j$ is
+
+$$\hat{\beta}_j \pm t^* \times SE_{\hat{\beta}_j}$$
+
+where the critical value $t^* \sim t_{n-p-1}$
+
+
+**General interpretation for the confidence interval (LB, UB):**
+
+We are $C\%$ confident that for every one unit increase in $x_j$, the response is expected to change by LB to UB units, holding all else constant.
+
+## Inference for regression {.midi}
+
+When LINE assumptions are met... . . .
+
+
+-   Use least squares regression to obtain the estimates for the model coefficients $\beta_0, \beta_1, \ldots, \beta_j$ and for $\sigma^2$
+
+-   $\hat{\sigma}$ is the **regression standard error**
+
+    $$
+    \hat{\sigma} = \sqrt{\frac{\sum_{i=1}^n(y_i - \hat{y}_i)^2}{n - p - 1}} = \sqrt{\frac{\sum_{i=1}^n e_i^2}{n-p-1}}
+    $$
+
+    where $p$ is the number of non-intercept terms in the model (e.g., $p = 1$ in simple linear regression)
+
+-   Goal is to use estimated values to draw conclusions about $\beta_j$
+
+    -   Use $\hat{\sigma}$ to calculate $SE_{\hat{\beta}_j}$ . [Click here](https://github.com/STA210-Sp19/supplemental-notes/blob/master/regression-basics-matrix.pdf) for more detail.
+
+
+## Hypothesis testing for $\beta_j$ {.small}
+
+1.  **State the hypotheses**. $H_0: \beta_j = 0 \text{ vs. } H_a: \beta_j \neq 0$, given the other variables in the model.
+
+
+
+2.  **Calculate the test statistic.**
+
+$$
+t = \frac{\hat{\beta}_j - 0}{SE_{\hat{\beta}_j}}
+$$
+
+
+
+3.  **Calculate the p-value.** The p-value is calculated from a $t$ distribution with $n - p - 1$ degrees of freedom.
+
+    $$
+    \text{p-value} = 2P(T > |t|) \hspace{4mm} T \sim t_{n-p-1}
+    $$
+
+
+
+4.  **State the conclusion in context of the data.**
+    -   Reject $H_0$ if p-value is sufficiently small.
+
+## Confidence interval for $\beta_j$
+
+The $C\%$ confidence confidence interval for $\beta_j$ is
+
+$$\hat{\beta}_j \pm t^* \times SE_{\hat{\beta}_j}$$
+
+where the critical value $t^* \sim t_{n-p-1}$
+
+
+**General interpretation for the confidence interval (LB, UB):**
+
+We are $C\%$ confident that for every one unit increase in $x_j$, the response is expected to change by LB to UB units, holding all else constant.

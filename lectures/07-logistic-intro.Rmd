@@ -1,0 +1,596 @@
+---
+title: "Logistic Regression"
+author: "Rebecca C. Steorts (partial slide adaption from Maria Tacket)\\ some material from Chapter 5 of Roback and Legler text."
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+bibliography: references.bib
+---
+
+## Computing set up
+
+```{r setup, echo = TRUE, message = FALSE, warning= FALSE}
+library(tidyverse)
+library(tidymodels)
+library(knitr)
+library(patchwork)
+library(viridis)
+library(kableExtra)
+library(magrittr)
+
+knitr::opts_chunk$set(fig.width = 8,
+                      fig.asp = 0.618, 
+                      fig.retina = 3, 
+                      dpt = 300, 
+                      out.width = "90%",
+                      fig.align = "center")
+
+ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
+
+colors <- tibble::tibble(green = "#B5BA72")
+```
+
+## Topics
+
+-   Identify Bernoulli and binomial random variables
+
+-   Write GLM for binomial response variable
+
+-   Interpret the coefficients for a logistic regression model
+
+Notes based on Chapter 6 @roback2021beyond unless noted otherwise.
+
+
+# Basics of logistic regression
+
+## Bernoulli + Binomial random variables {.small}
+
+Logistic regression is used to analyze data with two types of responses:
+
+
+-   **Binary**: These responses take on two values success $(Y = 1)$ or failure $(Y = 0)$, yes $(Y = 1)$ or no $(Y = 0)$, etc.
+
+$$P(Y = y) = p^y(1-p)^{1-y} \hspace{10mm} y = 0, 1$$
+
+-   **Binomial**: Number of successes in a Bernoulli process, $n$ independent trials with a constant probability of success $p$.
+
+$$P(Y = y) = {n \choose y}p^{y}(1-p)^{n - y} \hspace{10mm} y = 0, 1, \ldots, n$$
+
+In both instances, the goal is to model $p$ the probability of success.
+
+<!-- ## Binary vs. Binomial data {.midi} -->
+
+<!-- For each example, identify if the response is a Bernoulli or Binomial response: -->
+
+<!-- 1.  Use median age and unemployment rate in a county to predict the percent of Obama votes in the county in the 2008 presidential election. -->
+<!-- 2.  Use GPA and MCAT scores to estimate the probability a student is accepted into medical school. -->
+<!-- 3.  Use sex, age, and smoking history to estimate the probability an individual has lung cancer. -->
+<!-- 4.  Use offensive and defensive statistics from the 2017-2018 NBA season to predict a team's winning percentage. -->
+
+
+## Logistic regression model {.midi}
+
+$$
+\log\Big(\frac{p}{1-p}\Big) = \beta_0 + \beta_1x_1 + \beta_2x_2 + \dots + \beta_px_p
+$$
+
+
+
+-   The response variable, $\log\Big(\frac{p}{1-p}\Big)$, is the log(odds) of success, i.e. the logit
+
+
+
+-   Use the model to calculate the probability of success $$\hat{p} = \frac{e^{\beta_0 + \beta_1x_1 + \beta_2x_2 + \dots + \beta_px_p}}{1 + e^{\beta_0 + \beta_1x_1 + \beta_2x_2 + \dots + \beta_px_p}}$$
+
+
+
+-   When the response is a Bernoulli random variable, the probabilities can be used to classify each observation as a success or failure
+
+## Logistic vs linear regression model
+
+```{r, OLSlogistic, fig.align="center", out.width="80%", fig.cap='Graph from BMLR Chapter 6', echo=FALSE, warning=FALSE, message=FALSE}
+
+set.seed(0)
+dat <- tibble(x=runif(200, -5, 10),
+                  p=exp(-2+1*x)/(1+exp(-2+1*x)),
+                  y=rbinom(200, 1, p),
+                  y2=.3408+.0901*x,
+                  logit=log(p/(1-p)))
+dat2 <- tibble(x = c(dat$x, dat$x),
+               y = c(dat$y2, dat$p),
+               `Regression model` = c(rep("linear", 200),
+                                      rep("logistic", 200)))
+
+ggplot() + 
+  geom_point(data = dat, aes(x, y)) +
+  geom_line(data = dat2, aes(x, y, linetype = `Regression model`, 
+                             color = `Regression model`)) + 
+  labs(title = "Linear vs. logistic regression models",
+  subtitle = "for binary response data") + 
+  scale_colour_manual(name = 'Regression model',
+                      values = c('blue', 'red'), 
+                      labels = c('linear', 'logistic'), guide ='legend')
+
+#ggplot(dat, aes(x = x)) +
+#  geom_point(aes(y = y)) +
+#  geom_smooth(aes(y = y, color = "blue"), method = "lm", 
+#              linetype = 1, se=FALSE) +
+#  geom_line(aes(y = p, color = "red"), linetype = 2) +
+#  scale_colour_manual(name = 'Regression model', 
+#         values = c('blue', 'red'), 
+#         labels = c('linear', 'logistic'), guide = 'legend')
+```
+
+## Logit link
+
+Bernoulli and Binomial random variables can be written in one-parameter exponential family form, $f(y;\theta) = e^{[a(y)b(\theta) + c(\theta) + d(y)]}$
+
+**Bernoulli**
+
+$$f(y;p) = e^{y\log(\frac{p}{1-p}) + \log(1-p)}$$
+
+**Binomial**
+
+$$f(y;n,p) = e^{y\log(\frac{p}{1-p}) + n\log(1-p) + \log{n \choose y}}$$
+
+. . .
+
+They have the same canonical link $b(p) = \log\big(\frac{p}{1-p}\big)$
+
+## Assumptions for logistic regression {.midi}
+
+The following assumptions need to be satisfied to use logistic regression to make inferences
+
+1. $\hspace{0.5mm}$ **Binary response**: The response is dichotomous (has two possible outcomes) or is the sum of dichotomous responses
+
+
+
+
+
+2. $\hspace{0.5mm}$ **Independence**: The observations must be independent of one another
+
+
+
+3. $\hspace{0.5mm}$ **Variance structure**: Variance of a binomial random variable is $np(1-p)$ $(n = 1 \text{ for Bernoulli})$ , so the variability is highest when $p = 0.5$
+
+
+
+4. $\hspace{0.5mm}$ **Linearity**: The log of the odds ratio, $\log\big(\frac{p}{1-p}\big)$, must be a linear function of the predictors $x_1, \ldots, x_p$
+
+## The Challenger Case Study
+
+
+On 28 January 1986, the Space Shuttle Challenger broke apart, 73 seconds into
+flight. All seven crew members died. The cause of the disaster was the failure of
+an o-ring on the right solid rocket booster.
+
+## O-rings
+
+
+- O-rings help seal the joints of different segments of the solid rocket boosters. 
+
+- We learned after this fatal mission that o-rings can fail at extremely low temperatures. 
+
+## Loading the Faraway Package
+
+```{r, warning = FALSE}
+# Load data from space shuttle missions
+library(faraway)
+data("orings")
+orings[1,] <- c(53,1)
+head(orings)
+```
+
+## Space Shuttle Missions
+
+
+The 1986 crash of the space shuttle Challenger was linked to failure of o-ring seals in the rocket engines. 
+
+Data was collected on the 23 previous shuttle missions, where the following variables were collected:
+
+- temperate for each mission
+- damage to the number of o-rings (failure versus non-failure)
+
+<!-- Plot -->
+<!-- === -->
+<!-- ```{r, echo=FALSE} -->
+<!-- plot(damage~temp, data=orings, xlab="temperature (F)", -->
+<!--      ylab="damage (out of 6)", -->
+<!--      pch=16, col="red", ylim=c(0,6)) -->
+<!-- ``` -->
+
+
+
+## Plot
+
+```{r}
+library(ggplot2)
+geom_boxplot(outlier.colour="black", outlier.shape=14,
+             outlier.size=2, notch=FALSE)
+damage <- as.factor(orings$damage)
+temp <- orings$temp
+head(damage) 
+```
+
+## Boxplot of temperature versus o-ring failure 
+
+```{r, warning=FALSE ,echo=FALSE}
+p <- ggplot(orings, aes(x=as.factor(orings$damage), y=temp)) + 
+  geom_boxplot()
+p + ggtitle("") +
+  xlab("Damage") + ylab("Temp (F)")
+```
+
+## Linear models
+
+
+Why is **linear regression** not appropriate for this data? 
+
+## Beyond Linear Models
+
+
+While linear models are useful, they are limited when  
+
+1. the range of $y_i$ is restricted (e.g., binary or count)
+2. the variance of $y_i$ depends on the mean
+
+**Generalized linear models** (GLMs) extend the linear model
+framework to address both of these issues.
+
+## Motivations and goals
+
+
+In order to understand this case study, we first need to learn about exponential families, generalized linear models, and logistic regression. We will consider this more formally than we did earlier.
+ 
+
+## Background
+
+
+We need to introduce:
+
+- exponential families
+- generalized linear models
+- and logistic regression 
+
+## Exponential Families
+
+
+Any density that can be written in the form of equation \ref{eqn:exponential} is called an **exponential family**. 
+
+\begin{align}
+\label{eqn:exponential}
+f(y; \theta, \phi) = \exp\left\{ \frac{y\theta - b(\theta)}{a(\phi)} + c(y,\phi) \right\},
+\end{align}
+
+where $\theta$ and $\phi$ are the **natural and dispersion parameters**, respectively and $a,b,c$ are functions.
+
+## Connection to GLMs
+
+
+In a GLM, pdfs or pmfs can be shown to be an exponential family using 
+equation~\ref{eqn:exponential}.
+
+When doing this, it's important to identify the parameters of the exponential family, namely: 
+
+$$\theta, \; \phi, \; a(\phi),\; b(\theta),\; c(y,\phi).$$
+Our overall goal is to estimate $\mu = E[Y \mid X].$
+
+## Connection to GLMs
+
+
+\begin{align}
+f(y; \theta, \phi) = \exp\left\{ \frac{y\theta - b(\theta)}{a(\phi)} + c(y,\phi) \right\},
+\end{align}
+
+- The natural parameter $\theta$ is used to govern the shape of the density $Y\mid X.$ Thus, $\mu$ depends on $\theta.$
+
+- The dispersion parameter $\phi$ is assumed known.
+
+- For GLM's, $\eta = \beta^T X= \beta_1 X_1 + \ldots \beta_p X_p.$ 
+
+Our goal is to model a transformation of the mean $\mu$ by a function of $X$:
+
+$$g(\mu) = \eta(X).$$
+
+## Generalized Linear Models 
+
+
+Given covariates $X$ and an outcome $Y,$ a **generalized linear model** is defined by three components:
+
+1. a **random component**, which specifies a distribution for $Y \mid X.$
+2. a **systematic component** that relates the parameter $\eta$ to the covariates $X$
+3. a **link function** that connects the random and systematic components
+
+## Exponential Families and GLMs
+
+
+We assume $\mu = E[Y\mid X]$ and our goal is to estimate $\mu.$
+
+- The **systematic component** relates $\eta$ to $X.$ 
+
+In a GLM, $$\eta = \beta^T X = \beta_1 X_1 + \ldots \beta_p X_p$$
+
+The **link component** connects the **random** and **systematic components**, via a link function $g.$ 
+
+The link function provides a connection between $\mu = E[Y\mid X]$ and $\eta.$ 
+
+
+## Exponential Families and GLMs
+
+\center
+\Large
+Let's look at an example to solidify our knowledge of exponential families and GLM's. 
+
+
+
+## Bernoulli Example
+
+
+Suppose $Y \in \{ 0, 1\}$  and 
+$$Y\mid X \stackrel{iid}{\sim} \text{Bernoulli}(p).$$
+
+Show that $Y \mid X$ is in the exponential family, and provide the respective parameters. Also, identify the link function g. 
+
+## Bernoulli Solution
+
+
+Note that:
+
+\begin{align}
+f(y) &= p^y(1-p)^{1-y} \\
+&= \exp\{
+y \log p + (1-y) \log(1-p)
+\} \\
+&= \exp\{
+y \log ({\frac{p}{1-p}}) + \log(1-p) + 0
+\} 
+\end{align}
+
+## Bernoulli Solution
+
+\begin{align}
+f(y; \theta, \phi) = \exp\left\{ \frac{y\textcolor{blue}{\theta} - \textcolor{magenta}{b(\theta)}}{\textcolor{red}{a(\phi)}} + \textcolor{orange}{c(y,\phi)} \right\},
+\end{align}
+
+\begin{align}
+f(y) &= \exp\{
+y \textcolor{blue}{\log ({\frac{p}{1-p}})} + \textcolor{magenta}{\log(1-p)} + \textcolor{orange}{0}
+\} 
+\end{align}
+
+- The natural parameter is $\theta = \log \dfrac{p}{1-p}.$
+
+- The mean is $\mu = p,$ which implies that
+$p = e^{\theta}/(1 + e^{\theta}).$
+
+- This implies $b(\theta) = -\log(1-p) = -\log(1 + e^{\theta}).$
+
+- There is no dispersion parameter, so $a(\phi) = 1$ and $c(y,\phi) = 0.$
+
+## Bernoulli Solution
+
+\begin{align}
+f(y) &= \exp\{
+y \log ({\frac{p}{1-p}}) + \log(1-p) + 0
+\} 
+\end{align}
+
+The link function is $$g(\mu) = \log(\frac{\mu}{1-\mu})$$ such that we model $$\log(\frac{\mu}{1-\mu}) = \text{logit}(\mu)= \beta^TX.$$
+
+This is known as **logistic regression**, which is a GLM with the **logit link**. 
+
+## Challenger Case Study
+
+
+Let's return to the case study of the challenger, where 
+
+- The response is the damage to the o-ring (in each shuttle launch). 
+
+- The covariate is the temperature (F) in each shuttle launch. 
+
+## Notation and Setup
+
+
+- Let $p_i$ be the probability that an o-ring $i$ fails. 
+
+- The corresponding **odds of failure** is $$\frac{p_i}{1-p_i}.$$
+
+## Notation and Setup
+
+
+- The probability of failure $p_i$ is between $[0,1]$
+
+- The odds of failure is any real number. 
+
+## Logistic Regression
+
+
+The response 
+
+\begin{align}
+Y_i \mid p_i &\sim \text{Bernoulli}(p_i)
+\end{align}
+for $i=1,\ldots,n.$
+
+The logistic GLM writes that the logit of the probability  $p_i$
+as linear function of the predictor variable(s) $x_i$: 
+
+\begin{align}
+\text{logit}(p_i)  &:= \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_i.
+\end{align}
+
+## Interpretation of Co-efficients
+
+
+- The regression coefficients $\beta_0$,  $\beta_1$ are directly related to the log odds $\log(\frac{p_i}{1-p_i})$
+and not $p_i.$
+
+- For example, the intercept $\beta_0$ is the $\log(\frac{p_i}{1-p_i})$ for observation $i$ when the predictor takes a value of 0.
+
+- The slope $\beta_1$ refers to the change in the expected log odds of failure of an o-ring for a decrease in temperature. 
+
+## Intuition of Model
+
+
+We assume our 23 data points are **conditionally independent**. 
+
+$$\text{Pr(failure = 1)} = \frac{\exp\{\beta_0 + \beta_1 \times \text{temp}\}}{1+ \exp\{\beta_0 + \beta_1 \times \text{temp}\}}$$
+\begin{align}
+&\text{failure}_1,\ldots, \text{failure}_{23} \mid \beta_0, \beta_1, \text{temp}_1,\ldots, \text{temp}_{23} \\
+& \sim 
+\prod_i 
+\left(\frac{\exp\{\beta_0 + \beta_1 \times \text{temp}_i\}}{1+ \exp\{\beta_0 + \beta_1 \times \text{temp}_i\}}\right)^{\text{failure}_i} \\
+&\times
+\left(\frac{1}{1+ \exp\{\beta_0 + \beta_1 \times \text{temp}_i\}}\right)^{\text{1-failure}_i}
+\end{align}
+
+
+
+## Exercise
+
+
+Assume that $\log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_i.$
+
+Show that $$p_i = \frac{e^{\beta_0 + \beta_1x_i}}{e^{\beta_0 + \beta_1x_i} + 1}.$$
+
+This shows that logit function guarantees that the probability $p_i$ lives in $[0,1].$
+
+
+
+## Logistic Regression
+
+
+Recall that 
+\begin{align}
+Y_i \mid p_i &\sim \text{Bernoulli}(p_i)
+\end{align}
+for $i=1,\ldots,n.$
+
+\begin{align}
+\text{logit}(p_i)  &:= \log(\frac{p_i}{1-p_i}) = \beta_0 + \beta_1x_i.
+\end{align}
+
+Note: This is the logistic GLM that we saw earlier. To perform logistic regression in \texttt{R}, you can use the \texttt{glm} function with the logit link. 
+
+## Challenger Data Exploration
+
+\textcolor{red}{Todo: look at the data set and show case logistic regression.}
+
+```{r}
+library(alr4)
+library(mosaic)
+library(DT)
+library(pander)
+```
+
+## Background 
+
+- The Challenger exploded 73 second after liftoff on January 28th, 1986 and claimed all seven lives on board.  
+- Engineers that manufactured the large boosters that launched the rocket were aware of the possible failures that could happen during cold temperatures. 
+
+## Data from Previous Launches
+
+- The main concern in launching the Challenger was the evidence that the large O-rings sealing the several sections of the boosters could fail in cold temperatures.
+
+- The “fail” column in the data set below records how many O-rings experienced failures during that particular launch. 
+
+- The “temp” column lists the outside temperature at the time of launch.
+
+- On the day of the explosion, the outside temperature was 31 degrees. 
+
+## Challenger Data Exploration
+
+<!-- Adapted from BYU Statistics write up -->
+<!--  https://byuistats.github.io/Statistics-Notebook/Analyses/Logistic%20Regression/Examples/challengerLogisticReg.html -->
+
+```{r}
+head(Challeng)
+```
+
+## Logistic Model
+
+The probability of at least one o-ring failing during a shuttle launch based on the known outside temperature at the time of launch is given by the following logistic regression model: 
+
+$$P(Y_i = 1 \mid x_i) = \frac{\exp\{\beta_0 + \beta_1 \times x_i\}}{1+ \exp\{\beta_0 + \beta_1 \times x_i \}} = \pi_i$$
+
+- $Y_i = 1$: denotes at least one o-ring failing for the given launch
+
+- $Y_i = 0$: no failures 
+
+- $x_i$: denotes the outside temperature 
+
+
+## Visualize the Model
+
+Plot showing how much colder it was on the day of the Challenger launch (31 degrees, shown by the vertical dashed gray line) compared to all 23 previous shuttle launches (black dots in the graph).
+
+```{r, echo = FALSE}
+plot( fail>0 ~ temp, data=Challeng, xlab="Outside Temperature at Time of Launch (Fahrenheit)", ylab='Probability of At least One O-ring Failing', pch=16, main="NASA Shuttle Launch Data from 1981 to 1985", xlim=c(30,85))
+curve(exp(15.043-0.232*x)/(1+exp(15.043-0.232*x)), add=TRUE)
+abline(v=31, lty=2, col="lightgray")
+text(31,0.3,"Outside Temp on Jan. 28, 1986 was 31", pos=4, cex=0.7, col="lightgray")
+abline(h=c(0,1), lty=1, col=rgb(.2,.2,.2,.2))
+legend("right", bty="n", legend=c("Previous Launches"), pch=16, col="black", cex=0.7)
+```
+
+## Is the coefficient of temperature statistically significant?
+
+\small
+```{r}
+chall.glm <- glm(fail>0 ~ temp, 
+                 data=Challeng, family=binomial)
+tidy(chall.glm, conf.int = T) |>
+  kable(digits = 3)
+```
+
+1. $H_0: \beta_1 = 0 \hspace{2mm} \text{ vs. } \hspace{2mm} H_a: \beta_1 \neq 0$
+
+
+2. $Z = \frac{\hat{\beta}_1 - 0}{SE(\hat{\beta}_1)} = \frac{-0.232 - 0}{0.108} = -2.145 \text{ (using exact values)}$
+
+
+
+3. $P(|Z| > |-2.145|) = 0.032 > 0.05$.
+
+4. Yes, it is statistically significant. 
+
+## What are plausible values for the coefficient of `temp`? 
+
+\small
+```{r echo = F}
+tidy(chall.glm, conf.int = T) |>
+  kable(digits = 3)
+```
+
+**95% confidence interval for the coefficient of `temp`**
+
+$$\hat{\beta}_1 \pm z^{*}\times SE(\hat{\beta}_1)$$
+
+where $z^* \sim N(0, 1)$ 
+$$-0.232 \pm 1.96 \times 0.108 = \mathbf{(-0.444, -0.020)}$$
+
+## Interpretation of coefficient estimates
+
+- Since the temperature being zero is not really realistic for this model, the value of $e^{\beta_o}$ is not interpretable. 
+
+- However, the value of $$e^{\beta_1} = e^{-0.232} = 0.79.$$
+shows that the odds of the o-rings failing for a given launch decreases by a factor of 0.79 for every 1 degree increase in temperature.
+
+- Said differently, the odds of an o-ring failure during launch decreases by $21\% (1-0.79)$ for every 1 degree increase in temperature.
+
+- From the reverse perspective, every 1 degree decrease in temperature increases the odds of a failed o-ring by a factor of $e^{0.232} = 1.26.$
+
+## Interpretation of coefficient estimates
+
+The Challenger shuttle was launched at a temperature of 31 degrees. By waiting until 53 degrees, the odds of failure would have been decreased by a factor of $e^{-0.232(53-31)} = 0.006$, which is a $99.4\%$ reduction in the odds of an o-ring failure!
+
+```{r}
+(pred <- predict(chall.glm, 
+                data.frame(temp=31), type='response'))
+```
+
+This illustrates that an o-ring failure was very likely to happen at such a cold temperature. 
+
+## References

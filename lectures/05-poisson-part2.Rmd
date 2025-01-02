@@ -1,0 +1,530 @@
+---
+title: "Poisson Regression"
+subtitle: Part II
+author: "Rebecca C. Steorts (slide adaption from Maria Tacket)\\ and material from Chapter 4 of @roback2021beyond."
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+bibliography: references.bib
+---
+
+
+
+```{r setup, include = F}
+knitr::opts_chunk$set(fig.width = 8,
+                      fig.asp = 0.618, 
+                      fig.retina = 3, 
+                      dpt = 300, 
+                      out.width = "70%",
+                      fig.align = "center")
+```
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(tidymodels)
+library(knitr)
+library(patchwork)
+library(viridis)
+ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
+```
+
+## Topics
+
+-   Define and calculate residuals for the Poisson regression model
+
+-   Use Goodness-of-fit to assess model fit
+
+-   Identify overdispersion
+
+-   Apply modeling approaches to deal with overdispersion
+
+    -   Quasi-Poisson
+
+    -   Negative binomial
+
+::: aside
+Notes based on Sections 4.4 and 4.9 of @roback2021beyond unless noted otherwise.
+:::
+
+## The data: Household size in the Philippines {.midi}
+
+The data [fHH1.csv](data/fHH1.csv) come from the 2015 Family Income and Expenditure Survey conducted by the Philippine Statistics Authority.
+
+**Goal**: Understand the association between household size and various characteristics of the household
+
+**Response**:
+
+-   `total`: Number of people in the household other than the head
+
+::: columns
+::: {.column width="50%"}
+**Predictors**:
+
+-   `location`: Where the house is located
+-   `age`: Age of the head of household
+-   `roof`: Type of roof on the residence (proxy for wealth)
+:::
+
+::: {.column width="50%"}
+**Other variables**:
+
+-   `numLT5`: Number in the household under 5 years old
+:::
+:::
+
+## The data
+
+```{r, message=FALSE}
+hh_data <- read_csv("data/fHH1.csv")
+```
+
+## Poisson regression model
+
+If $Y_i \sim Poisson$ with $\lambda = \lambda_i$ for the given values $x_{i1}, \ldots, x_{ip}$, then
+
+$$\log(\lambda_i) = \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \dots + \beta_p x_{ip}$$
+
+. . .
+
+-   Each observation can have a different value of $\lambda$ based on its value of the predictors $x_1, \ldots, x_p$
+
+-   $\lambda$ determines the mean and variance, so we don't need to estimate a separate error term
+
+## Model 1: Household vs. Age
+
+```{r}
+hh_age <- glm(total ~ age, data = hh_data, 
+              family = poisson)
+
+tidy(hh_age) |> 
+  kable(digits = 4)
+```
+
+$$\log(\hat{\lambda}) = 1.5499  - 0.0047 ~ age$$
+
+The mean household size is predicted to decrease by 0.47% (multiply by a factor of $e^{-0.0047}$) for each year older the head of the household is.
+
+<!-- ## Household vs. age and location -->
+
+<!-- Is the relationship between mean household size and age is consistent across region? Relationships are pretty similar; otherwise, we could consider adding an age-by-region interaction to our model. -->
+
+<!-- ```{r, warning = FALSE, message=FALSE} -->
+<!-- #| echo: false -->
+<!-- hh_data |>  -->
+<!--   group_by(age, location) |> -->
+<!--   summarise(mntotal = mean(total), -->
+<!--             logmntotal = log(mntotal), n=n()) |> -->
+<!--   ggplot(aes(x = age, y = logmntotal, color = location,  -->
+<!--              linetype = location, shape = location)) + -->
+<!--   geom_point(alpha = 0.4)+ -->
+<!--   geom_smooth(method = "loess", se = FALSE)+ -->
+<!--   labs(title = "Household vs. age",  -->
+<!--        subtitle = "by location", -->
+<!--        x = "Age of head of the household",  -->
+<!--        y = "Log empirical mean household size", -->
+<!--        color = "Location", -->
+<!--        linetype = "Location",  -->
+<!--        shape = "Location") + -->
+<!--   theme_set(ggplot2::theme_bw(base_size = 12)) -->
+
+<!-- ``` -->
+
+<!-- ::: aside -->
+<!-- Visualization recreated from [Figure 4.6](https://bookdown.org/roback/bookdown-BeyondMLR/ch-poissonreg.html#linear-least-squares-vs.-poisson-regression) in @roback2021beyond. -->
+<!-- ::: -->
+
+## Model 2: Add a quadratic effect for age
+
+\footnotesize
+```{r}
+hh_data <- hh_data %>%
+ mutate(age2 = age*age)
+model2 <- glm(total ~ age + age2, 
+              data = hh_data, family = poisson)
+tidy(model2, conf.int = T) %>%
+ kable(digits = 4)
+```
+
+\normalsize
+Determined Model 2 is a better fit than Model 1 based on the drop-in-deviance test.
+
+## Add $location$ to model?
+
+```{r}
+model3 <- glm(total ~ age + age2 + location, 
+              data = hh_data, family = poisson)
+```
+
+Use a drop-in-deviance test to determine if Model 2 or Model 3 (with location) is a better fit for the data.
+
+```{r}
+anova(model2, model3, test = "Chisq") %>%
+  kable(digits = 3)
+```
+
+The p-value is small (0.01 < 0.05), so we conclude that Model 3 is a better fit for the data.
+
+## Selected model {.midi}
+\tiny
+```{r echo = F, message = FALSE, warning = FALSE}
+tidy(model3, conf.int = TRUE) |>
+  kable(digits = 3)
+```
+
+. . .
+
+**Does this model sufficiently explain the variability in the mean household size?**
+
+## Goodness of Fit
+
+- Pearson residuals
+- Deviance residuals
+
+
+## Pearson residuals {.midi}
+
+We can calculate two types of residuals for Poisson regression: Pearson residuals and deviance residuals\
+\
+$$\text{Pearson residual}_i = \frac{\text{observed} - \text{predicted}}{\text{std. error}} = \frac{Y_i - \hat{\lambda}_i}{\sqrt{\hat{\lambda}_i}}$$
+
+. . .
+
+-   Similar interpretation as standardized residuals from linear regression
+
+-   Expect most to fall between -2 and 2
+
+-   Used to calculate overdispersion parameter (more on this soon)
+
+## Deviance residuals {.small}
+
+-   The **deviance residual** describes how the observed data deviates from the fitted model $$\text{deviance residual}_i = \text{sign}(Y_i - \hat{\lambda}_i)\sqrt{2\Bigg[Y_i\log\bigg(\frac{Y_i}{\hat{\lambda}_i}\bigg) - (Y_i - \hat{\lambda}_i)\Bigg]}$$
+
+where
+
+$$\text{sign}(Y_i - \hat{\lambda}_i)  =  \begin{cases}
+1 & \text{ if }(Y_i - \hat{\lambda}_i) > 0 \\
+-1 & \text{ if }(Y_i - \hat{\lambda}_i) < 0 \\
+0 & \text{ if }(Y_i - \hat{\lambda}_i) = 0
+\end{cases}$$
+
+-   Good fitting models $\Rightarrow$ small deviances
+
+## Selected model: Residual plots
+
+```{r, message = FALSE, warning = FALSE}
+model3_aug_pearson <- 
+  augment(model3, type.residuals = "pearson") 
+model3_aug_deviance <- 
+  augment(model3, type.residuals = "deviance")
+```
+
+```{r echo = F, message = FALSE, warning = FALSE}
+p1 <- ggplot(data = model3_aug_pearson, aes(x = .fitted, y = .resid)) + 
+  geom_point()  + 
+  geom_smooth() + 
+  labs(x = "Fitted values", 
+       y = "Pearson residuals", 
+       title = "Pearson residuals vs. fitted")
+
+p2 <-  ggplot(data = model3_aug_deviance, aes(x = .fitted, y = .resid)) + 
+  geom_point()  + 
+  geom_smooth() + 
+  labs(x = "Fitted values", 
+       y = "Deviance residuals", 
+       title = "Deviance residuals vs. fitted")
+
+p1 + p2
+```
+
+A "good fit" in a residual plot appears as random, evenly spread points around the horizontal axis (zero) without a discernible pattern.
+
+## Goodness-of-fit {.small}
+
+-   **Goal**: Use the (residual) deviance to assess how much the predicted values differ from the observed values.
+
+    $$
+    \text{deviance} = \sum_{i=1}^{n}(\text{deviance residual})_i^2
+    $$
+
+-   When a model is true, we expect\
+    $$\text{deviance} \sim \chi^2_{df}$$
+
+where $df$ is the model's residual degrees of freedom
+
+. . .
+
+-   **Question to answer**: What is the probability of observing a deviance larger than the one we've observed, given this model sufficiently fits the data?
+
+$$P(\chi^2_{df} > \text{ deviance})$$
+
+## Goodness-of-fit calculations
+
+```{r}
+model3$deviance
+model3$df.residual
+```
+
+. . .
+
+```{r}
+pchisq(model3$deviance, model3$df.residual, 
+       lower.tail = FALSE)
+```
+
+<br>
+
+. . .
+
+The probability of observing a deviance greater than `r round(model3$deviance,1)` is $\approx 0$, so there is significant evidence of **lack-of-fit**.
+
+## Lack-of-fit
+
+There are a few potential reasons for observing lack-of-fit:
+
+-   Missing important interactions or higher-order terms
+
+-   Missing important variables (perhaps this means a more comprehensive data set is required)
+
+-   There could be extreme observations causing the deviance to be larger than expected (assess based on the residual plots)
+
+-   There could be a problem with the Poisson model
+
+    -   Only one parameter $\lambda$ to describe mean and variance
+
+    -   May need more flexibility in the model to handle **overdispersion**
+
+## Overdispersion
+
+- The Poisson model only has one parameter, $\lambda$, which must describe both the mean and the variance
+
+- Often, the variance can appear larger than the corresponding means.
+
+- In this case, the response is more variable than assumed by the Poisson model, and the response is said to be overdispersed. 
+
+## Overdispersion
+
+**Overdispersion**: There is more variability in the response than what is implied by the Poisson model
+
+<br>
+
+::: columns
+::: {.column width="50%"}
+<center><b>Overall</b></center>
+
+```{r}
+#| echo: false
+
+hh_data |>
+  summarise(mean = mean(total), var = var(total)) |>
+  kable(digits = 3)
+
+```
+:::
+
+::: {.column width="50%"}
+<center><b>by Location</b></center>
+
+```{r}
+#| echo: false
+
+hh_data |>
+  group_by(location) |>
+  summarise(mean = mean(total), var = var(total)) |>
+  kable(digits = 3)
+```
+:::
+:::
+
+## Why overdispersion matters
+
+If there is overdispersion, then there is more variation in the response than what's implied by a Poisson model. This means
+
+The standard errors of the model coefficients are artificially small
+
+$\Rightarrow$ The p-values are artificially small
+
+$\Rightarrow$ Could lead to models that are more complex than what is needed
+
+. . .
+
+We can take overdispersion into account by
+
+-   inflating standard errors by multiplying them by a dispersion factor
+-   using a negative-binomial regression model
+
+# Quasi-Poisson
+
+## Dispersion parameter
+
+The **dispersion parameter** is represented by $\phi$ $$\hat{\phi} = \frac{\sum_{i=1}^{n}(\text{Pearson residuals})^2}{n - p}$$
+
+where $p$ is the number of terms in the model (including the intercept)
+
+. . .
+
+-   If there is no overdispersion $\hat{\phi} = 1$
+
+-   If there is overdispersion $\hat{\phi} > 1$
+
+## Accounting for dispersion
+
+-   We inflate the standard errors of the coefficient by multiplying the variance by $\hat{\phi}$
+
+$$SE_{Q}(\hat{\beta}) = \sqrt{\hat{\phi}}  * SE(\hat{\beta})$$
+
+- "Q" stands for **quasi-Poisson**, since this is an ad-hoc solution 
+
+- The process for model building and model comparison is called **quasilikelihood** (similar to likelihood without exact underlying distributions)
+
+## Quasi-Poisson model {.midi}
+
+```{r}
+#| code-line-numbers: "2"
+hh_age_loc_q <- glm(total ~ age + I(age^2) + location, 
+                    data = hh_data, family = quasipoisson) 
+```
+
+\tiny
+```{r, echo = F}
+tidy(hh_age_loc_q, conf.int = T) |> kable(digits = 4)
+```
+
+## Poisson vs. Quasi-Poisson models {.midi}
+
+::: columns
+::: {.column width="50%"}
+<center><b>Poisson</b></center>
+
+```{r}
+#| echo: false
+tidy(model3) |>
+  select(term, estimate, std.error) |>
+  kable(digits = 4)
+```
+:::
+
+::: {.column width="50%"}
+<center><b>Quasi-Poisson</b></center>
+
+```{r}
+#| echo: false
+tidy(hh_age_loc_q) |>
+  select(estimate, std.error) |>
+  kable(digits = 4)
+```
+:::
+:::
+
+## Quasi-Poisson: Inference for coefficients {.midi}
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| echo: false
+
+tidy(hh_age_loc_q) |>
+  select(term, estimate, std.error) |>
+  kable(digits = 4)
+
+```
+:::
+
+::: {.column width="50%"}
+<center><b>Test statistic</b></center>
+
+$$t = \frac{\hat{\beta} - 0}{SE_{Q}(\hat{\beta})} \sim t_{n-p}$$
+:::
+:::
+
+## Quasi-Poisson model {.midi}
+
+\tiny
+```{r}
+#| echo: false
+tidy(hh_age_loc_q, conf.int = T) |> 
+  kable(digits = 4)
+```
+
+# Negative binomial regression model
+
+## Negative binomial regression model {.midi}
+
+Another approach to handle overdispersion is to use a **negative binomial regression model**
+
+-   This has more flexibility than the quasi-Poisson model, because there is a new parameter in addition to $\lambda$
+
+<br>
+
+. . .
+
+Let $Y$ be a **negative binomial random variable**, $Y\sim NegBinom(r, p)$, then
+
+$$
+\begin{aligned}
+P(Y = y_i) = {y_i + r - 1 \choose r - 1}(1-p)^{y_i}p^r \hspace{5mm} y_i = 0, 1, 2, \ldots, \infty \\
+E(Y) = \frac{r(1-p)}{p} \hspace{8mm} SD(Y) = \sqrt{\frac{r(1-p)}{p^2}}
+\end{aligned}
+$$
+
+## Negative binomial regression model {.midi}
+
+::: incremental
+-   **Main idea**: Generate a $\lambda$ for each observation (household) and generate a count using the Poisson random variable with parameter $\lambda$
+
+    -   Makes the counts more dispersed than with a single parameter
+
+-   Think of it as a Poisson model such that $\lambda$ is also random $$\begin{aligned} &\text{If }\hspace{2mm} Y|\lambda \sim Poisson(\lambda)\\
+    &\text{ and } \lambda \sim Gamma\bigg(r, \frac{1-p}{p}\bigg)\\
+    &\text{ then } Y \sim NegBinom(r, p)\end{aligned}$$
+:::
+
+## Negative binomial regression in R
+
+Use the `glm.nb` function in the **MASS** R package.
+
+<br>
+
+::: callout-caution
+The **MASS** package has a `select` function that conflicts with the `select` function in **dplyr**. You can avoid this by (1) always loading **tidyverse** after **MASS**, or (2) use `MASS::glm.nb` instead of loading the package.
+:::
+
+## Negative binomial regression in R
+
+```{r}
+hh_age_loc_nb <- MASS::glm.nb(total ~ age + I(age^2) + 
+                                location, data = hh_data)
+tidy(hh_age_loc_nb) |> 
+  kable(digits = 4)
+```
+
+## Negative binomial vs. Quasi-Poisson {.midi}
+
+::: columns
+::: {.column width="50%"}
+<center><b>Quasi-Poisson</b></center>
+
+```{r}
+#| echo: false
+tidy(hh_age_loc_q) |>
+  select(term, estimate, std.error) |>
+  kable(digits = 4)
+```
+:::
+
+::: {.column width="50%"}
+<center><b>Negative binomial</b></center>
+
+```{r}
+#| echo: false
+tidy(hh_age_loc_nb) |>
+  select(estimate, std.error) |>
+  kable(digits = 4)
+```
+:::
+:::
+
+
+
+## References

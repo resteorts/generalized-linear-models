@@ -1,0 +1,415 @@
+---
+title: "Multiple Linear Regression Review"
+subtitle: Part II
+author: "Rebecca C. Steorts (slide adaption from Maria Tacket)\\ and material from Chapter 1 of Roback and Legler text."
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+```{r}
+#| include: false
+
+# figure options
+knitr::opts_chunk$set(
+  fig.width = 10, fig.asp = 0.618, out.width = "90%",
+  fig.retina = 3, dpi = 300, fig.align = "center"
+)
+```
+
+## Computing set up
+
+```{r setup, echo = TRUE, message = FALSE, warning= FALSE}
+library(tidyverse)
+library(tidymodels)
+library(GGally)
+library(xaringanExtra)
+library(knitr)
+library(patchwork)
+library(viridis)
+library(ggfortify)
+library(dplyr)
+
+ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
+
+colors <- tibble::tibble(green = "#B5BA72")
+```
+
+## Recap
+
+------------------------------------------------------------------------
+
+Today's data is from the Kentucky Derby, an annual 1.25-mile horse race held at the Churchill Downs race track in Louisville, KY. The data is in the file [derbyplus.csv](data/derbyplus.csv) and contains information for races 1896 - 2017.
+
+::: columns
+::: {.column width="50%"}
+**Response variable**
+
+-   `speed`: Average speed of the winner in feet per second (ft/s)
+
+**Additional variable**
+
+-   `winner`: Winning horse
+:::
+
+::: {.column width="50%"}
+**Predictor variables**
+
+-   `year`: Year of the race
+-   `condition`: Condition of the track (good, fast, slow)
+-   `starters`: Number of horses who raced
+:::
+:::
+
+**Goal: Understand variability in average winner speed based on characteristics of the race.**
+
+## Data
+
+```{r, warning = F, message = F}
+derby <- read_csv("data/derbyplus.csv")
+# center the response by smallest response value
+yearnew <- derby$year - min(derby$year)
+#mutate(yearnew = derby$year - 1896)
+derby <- cbind(yearnew, derby)
+```
+
+## Data
+
+```{r, warning = F, message = F}
+derby |>
+  head(5) |> kable()
+```
+
+## Candidate models
+
+Model 1: Main effects model (with centering)
+
+```{r, warning = F, message = F}
+model1Cent <- lm(speed ~ starters + yearnew + 
+                   condition, data = derby)
+tidy(model1Cent) %>% kable(digits = 3)
+```
+
+## Candidate models
+
+Model 2: Include quadratic effect for year
+
+```{r, warning = F, message = F}
+model2 <- lm(speed ~ starters + yearnew + I(yearnew^2) 
+             + condition, data = derby)
+tidy(model2) %>% kable(digits = 3)
+```
+
+## Model 1: Check model assumptions 
+
+1. The residuals versus fitted plot checks the linearity assumption. They should have no pattern around $Y = 0.$ If not, this indicates a pattern in the data not accounted by the model. 
+
+2. The Normal Q-Q plot checks the normality assumption. Deviations from a straight line indicate the distribution of the residuals do not conform to a theoretical normal distribution. 
+
+3. The scale location plot checks the equal variance assumption. Positive/negative trends across the fitted values suggest the variability is not constant.
+
+4. The residuals versus leverage plot is used to check for outliers (or highly influential points). 
+
+## Model 1: Check model assumptions
+
+```{r out.width = "70%"}
+autoplot(model1Cent)
+```
+
+See BMLR, page 15 for a discussion and more details. 
+
+## Model 1: Check model assumptions
+
+- The residuals versus fitted values suggests a quadratic fit might be better than a linear one. 
+- The others appear reasonable. 
+
+## Model 2: Check model assumptions
+
+```{r out.width = "70%"}
+autoplot(model2)
+```
+
+
+
+
+
+
+## Candidate models
+
+What about an interaction term?
+
+Recall from the EDA...
+
+```{r echo = F, out.width = "80%", warning = FALSE, message=FALSE}
+library(viridis)
+ggplot(data = derby, aes(x = year, y = speed, color = condition, 
+  shape = condition, linetype = condition)) + 
+  geom_point() + 
+  geom_smooth(method = "lm", se = FALSE, aes(linetype = condition)) + 
+  labs(x = "Year", y = "Speed (ft/s)", color = "Condition",
+       title = "Speed vs. year", 
+       subtitle = "by track condition") +
+  guides(lty = FALSE, shape = FALSE) +
+  scale_color_viridis_d(end = 0.9)
+```
+
+## Model 3: Include interaction term
+
+$$\begin{aligned}\widehat{speed} = & 52.387 - 0.003 ~ starters + 0.020 ~ yearnew - 1.070 ~ good \\
+& - 2.183 ~ slow +0.012 ~ yearnew \times good \\
+& + 0.012 ~ yearnew \times slow \end{aligned}$$
+
+```{r echo = F ,out.width = "70%"}
+model3 <- lm(speed ~ starters + yearnew + condition +
+               yearnew * condition, 
+             data = derby)
+tidy(model3) %>% kable(digits = 3)
+```
+
+
+## Interpreting interaction effects
+
+```{r echo = F}
+tidy(model3) %>%
+  kable(digits = 3)
+```
+
+## Measures of model performance
+
+-   $\color{blue}{R^2}$: Proportion of variability in the response explained by the model.
+    -   Will always increase as predictors are added, so it shouldn't be used to compare models
+-   $\color{blue}{Adj. R^2}$: Similar to $R^2$ with a penalty for extra terms
+
+## Measures of model performance
+
+- $\color{blue}{AIC}$: Likelihood-based approach balancing model performance and complexity
+
+-   $\color{blue}{BIC}$: Similar to AIC with stronger penalty for extra terms
+
+## Measures of model performance
+
+**Nested F Test (extra sum of squares F test)**: Generalization of t-test for individual coefficients to perform significance tests on nested models
+
+## Which model would you choose?
+
+Use the **`glance`** function to get model statistics.
+
+```{r echo = F}
+model1_glance <- glance(model1Cent) %>%
+  select(r.squared, adj.r.squared, AIC, BIC)
+model2_glance <- glance(model2) %>%
+  select(r.squared, adj.r.squared, AIC, BIC)
+model3_glance <- glance(model3) %>%
+  select(r.squared, adj.r.squared, AIC, BIC)
+
+model1_glance %>%
+  bind_rows(model2_glance) %>%
+  bind_rows(model3_glance) %>%
+  bind_cols(model = c("Model1", "Model2", "Model3")) %>%
+  select(model, everything()) %>%
+kable(digits = 3)
+```
+
+## **Which model would you choose?**
+
+## Characteristics of a "good" final model
+
+-   Model can be used to answer primary research questions
+-   Predictor variables control for important covariates
+-   Potential interactions have been investigated
+-   Variables are centered, as needed, for more meaningful interpretations
+-   Unnecessary terms are removed
+-   Assumptions are met and influential points have been addressed
+-   Model tells a "persuasive story parsimoniously"
+
+List from Section 1.6.7 of [BMLR](https://bookdown.org/roback/bookdown-BeyondMLR/)
+
+## Inference for regression
+
+Use statistical inference to
+
+-   Evaluate if predictors are statistically significant (not necessarily practically significant!)
+
+-   Quantify uncertainty in coefficient estimates
+
+-   Quantify uncertainty in model predictions
+
+If LINE assumptions are met, we can use inferential methods based on mathematical models. If at least linearity and independence are met, we can use simulation-based inference methods.
+
+## Inference for regression
+
+When L.I.N.E. conditions are met
+
+```{r echo = F, warning = FALSE, message = FALSE, out.width = "100%"}
+
+##   Code modified from https://stackoverflow.com/questions/31794876/ggplot2-how-to-curve-small-gaussian-densities-on-a-regression-line?rq=1
+
+## Modified based on BYSH: https://bookdown.org/roback/bookdown-bysh/ch-MLRreview.html#ordinary-least-squares-ols-assumptions
+
+set.seed(0)
+dat <- data.frame(x=(x=runif(10000, 0, 50)),
+                  y=rnorm(10000, 10*x, 100))
+
+## breaks: where you want to compute densities
+breaks <- seq(0, max(dat$x), len=5)
+dat$section <- cut(dat$x, breaks)
+
+## Get the residuals
+dat$res <- residuals(lm(y ~ x, data=dat))
+
+## Compute densities for each section, and flip the axes, and add means of sections
+## Note: the densities need to be scaled in relation to the section size (2000 here)
+dens <- do.call(rbind, lapply(split(dat, dat$section), function(x) {
+    d <- density(x$res, n=50)
+    res <- data.frame(x=max(x$x)- d$y*2000, y=d$x+mean(x$y))
+    res <- res[order(res$y), ]
+    ## Get some data for normal lines as well
+    xs <- seq(min(x$res), max(x$res), len=50)
+    res <- rbind(res, data.frame(y=xs + mean(x$y),
+                                 x=max(x$x) - 2000*dnorm(xs, 0, sd(x$res))))
+    res$type <- rep(c("empirical", "normal"), each=50)
+    res
+}))
+dens$section <- rep(levels(dat$section), each=100)
+
+dens <- dens %>%
+  filter(type == "normal")
+
+## Plot both empirical and theoretical
+ggplot(dat, aes(x, y)) +
+  geom_point(alpha = 0.05, size = 0.2) +
+  geom_smooth(method="lm", fill=NA, se = FALSE, color = "steelblue") +
+  geom_path(data=dens, aes(x, y, group=interaction(section)), color = "red", lwd=1.1) +
+geom_vline(xintercept=breaks, lty=2, color = "grey") +
+  labs(x = "x", 
+       y = "y") +
+  theme_classic() + 
+  annotate("text", x = 10, y = 600, label = latex2exp::TeX("$\\mu_{Y|X} = \\beta_0 + \\beta_1X$"), color = "steelblue", size = 8) +
+  annotate("text", x = 20, y = 400, label = latex2exp::TeX("$\\sigma^2$"), color = "red", size = 8) +
+  theme(axis.title = element_text(size = 16),
+        axis.ticks = element_blank(), 
+        axis.text.x = element_blank(), 
+       axis.text.y = element_blank()
+      )
+```
+
+## When L.I.N.E. conditions are met
+
+-   Use least squares regression to get the estimates $\hat{\beta}_0$, $\hat{\beta}_1$, and $\hat{\sigma}^2$
+
+-   $\hat{\sigma}$ is the **regression standard error**
+
+$$\hat{\sigma} = \sqrt{\frac{\sum_{i=1}^n(y_i - \hat{y}_i)^2}{n - p - 1}} = \sqrt{\frac{\sum_{i=1}^n e_i^2}{n-p-1}}$$
+
+where $p$ is the number of non-intercept terms in the model
+
+(p = 1 in simple linear regression)
+
+-   Use $\hat{\sigma}$ to calculate $SE_{\hat{\beta}_j}$ . [Click here](https://github.com/STA210-Sp19/supplemental-notes/blob/master/regression-basics-matrix.pdf) for more detail.
+
+## Inference for $\beta_j$
+
+-   Suppose we have the following model (for $i=1, \ldots,n$):
+
+$$
+\begin{aligned}
+y_i & = \beta_0 + \beta_1 x_{1i} + \beta_2 x_{2i} + \dots + \beta_p x_{pi} + \epsilon_i, \quad \text{where} \\
+& = \beta_0 + \sum_{j=1}^p x_{ji} \beta_j \\
+\quad \epsilon_i & \sim N(0, \sigma^2)
+\end{aligned}
+$$
+
+## Inference for $\beta_j$
+
+-   We use least squares regression to get estimates for the parameters $\beta_0, \beta_1, \ldots, \beta_p$ and $\sigma^2$. The regression equation is
+
+$$\hat{y} = \hat{\beta}_0 + \hat{\beta}_1 x_1 + \hat{\beta}_2 x_2 + \dots + \hat{\beta}_p x_p$$
+
+-   When the L.I.N.E. assumptions are met, $$\hat{\beta}_j \sim N(\beta_j, SE_{\hat{\beta}_j})$$
+-   One objective of statistical inference is to understand $\beta_j$
+-   Use $\hat{\sigma}$ to estimate $SE_{\hat{\beta}_j}$, the **standard error of** $\hat{\beta}_j$
+
+## Inference for $\beta_j$
+
+$$SE_{\hat{\beta}_j} = \hat{\sigma}\sqrt{\frac{1}{(n-1)s_{x_j}^2}}$$
+
+Conduct inference for $\beta_j$ using a $t$ distribution with $n-p-1$ degrees of freedom (df).
+
+-   $\hat{\beta}_j$ follows a $t$ distribution, because $\hat{\sigma}$ (not $\sigma$) is used to calculate the standard error of $\hat{\beta}_j$.
+
+-   The distribution has $n-p-1$ df because we use up $p + 1$ df to calculate $\hat{\sigma}$, so there are $n - p - 1$ df left to understand variability.
+
+## Hypothesis testing for $\beta_j$ {.small}
+
+1.  **State the hypotheses**. $H_0: \beta_j = 0 \text{ vs. } H_a: \beta_j \neq 0$, given the other variables in the model.
+
+2.  **Calculate the test statistic.**
+
+$$
+t = \frac{\hat{\beta}_j - 0}{SE_{\hat{\beta}_j}}
+$$
+
+3.  **Calculate the p-value.** The p-value is calculated from a $t$ distribution with $n - p - 1$ degrees of freedom.
+
+    $$
+    \text{p-value} = 2P(T > |t|) \hspace{4mm} T \sim t_{n-p-1}
+    $$
+
+4.  **State the conclusion in context of the data.**
+
+    -   Reject $H_0$ if p-value is sufficiently small.
+
+## Confidence interval for $\beta_j$
+
+The $C \%$ confidence confidence interval for $\beta_j$ is
+
+$$
+\begin{aligned}
+&\hat{\beta}_j \pm t^* \times SE_{\hat{\beta}_j}\\
+&\hat{\beta}_j \pm t^* \times \hat{\sigma}\sqrt{\frac{1}{(n-1)s_{x_{j}}^2}}
+\end{aligned}
+$$ 
+
+where the critical value $t^* \sim t(n-p-1)$
+
+**General interpretation:** We are $C$ percent confident that for every one unit increase in $x_j$, the response is expected to change by LB to UB units, holding all else constant.
+
+## Inference Activity (\~8 minutes)
+
+-   Use the Model 3 output on the next slide to conduct a hypothesis test of the variable `yearnew` interpret the 95% confidence interval. 
+
+- You do not need to do the calculations by hand. 
+
+## Model 3 output
+
+\small
+```{r echo = F}
+tidy(model3, conf.int = TRUE) %>%
+  kable(digits = 3)
+```
+
+## Solution
+
+1.  **State the hypotheses**. $H_0: \beta_{yearnew} = 0 \text{ vs. } H_a: \beta_{yearnew} \neq 0$, given the other variables in the model.
+
+2.  **Calculate the test statistic.**
+
+$$t = 7.576$$
+
+3.  **Calculate the p-value.** 
+
+The p-value is 0.
+
+4.  **State the conclusion in context of the data.**
+
+    -   Reject $H_{newyear}$ since the p-value is sufficiently small.
+
+
+## Solution
+
+We are $95$ percent confident that for every one unit increase in \textcolor{blue}{yearnew}, the response is expected to change by \color{blue}{0.014 to 0.025} units, holding all else constant.
+
+
+

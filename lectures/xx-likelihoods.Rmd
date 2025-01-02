@@ -1,0 +1,191 @@
+
+---
+title: "Likelihoods"
+author: "Rebecca C. Steorts"
+date: This material loosely follows Chapter 2 of Roback and Legler. 
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+
+## Topics
+
+- What is a likelihood
+- Principle of a maximum likelihood estimator 
+- How to obtain a maximum likelihood estimator 
+ 
+## Notation
+
+Consider observed data $x_{1:n}$ and a fixed, but unknown parameter $\theta.$ 
+
+Our data can come from any type of distribution. Let's consider a situation where the data is not normally distributed. 
+
+## Example 
+
+Assume we observe one coin flip (observed data) and a success is the coin landing on heads. 
+
+What is the distribution of our data? 
+
+## Distribution of our data
+
+Each trial can be summarized as a Bernoulli coin flip with unknown parameter $\theta.$ 
+
+The probability mass function is given by
+
+$$P(X = x \mid \theta) = \theta^x (1- \theta)^{1-x}.$$
+
+## Likelihood
+
+A likelihood is function that tells us how likely we are to observe our data for a given parameter value $\theta.$
+
+## Likelihood Function
+
+The likelihood function for the Bernoulli distribution becomes 
+
+$$L(\theta) = \prod_{i=1}^n \theta^{x_i} (1- \theta)^{1- x_i}$$
+
+## Example 
+
+Suppose we observe 3 heads and 7 tails.
+
+```{r, echo = FALSE}
+n <- 10  
+successes <- 3 
+failures <- n - successes 
+
+likelihood_function <- function(theta) {
+  return((theta^successes) * ((1 - theta)^failures))
+}
+
+theta_values <- seq(0, 1, length.out = 100)
+
+# Calculate the likelihood for each theta
+likelihood_values <- sapply(theta_values, likelihood_function)
+
+# Plot the likelihood function
+plot(theta_values, likelihood_values, type = "l", col = "blue", 
+     main = "Likelihood Function for Bernoulli Distribution",
+     xlab = "Theta (Heads)",
+     ylab = "Likelihood", lwd = 2)
+```
+
+## Graphical Maximum Likelihood Estimate
+
+To graphically approximate the Maximum Likelihood Estimator (MLE) of $\theta$ for the Bernoulli distribution, we can visually identify the value of $\theta$ where the likelihood function reaches its maximum. 
+
+Since the Bernoulli distribution's likelihood function is unimodal (it has a single peak), the MLE corresponds to the value of $\theta$
+ that maximizes the likelihood function.
+ 
+## Steps 
+
+1. Set up a grid of $\theta$ values. 
+We will create a sequence of values between 0 and 1 to evaluate the likelihood function at each point.
+
+2. Evaluate the likelihood function at each point: For each $\theta$ value in the grid, we will compute the likelihood for the observed data.
+
+3. Find the value of $\theta$ that maximizes the likelihood.  The value of $\theta$ that gives the highest likelihood is the MLE.
+
+## Grid Search
+
+```{r, echo = FALSE}
+ # Placeholder for likelihood values
+likelihood_values <- numeric(length(theta_values)) 
+
+# Perform grid search
+for (i in 1:length(theta_values)) {
+  likelihood_values[i] <- likelihood_function(theta_values[i])
+}
+
+# Find the theta value that maximizes the likelihood
+theta_MLE <- theta_values[which.max(likelihood_values)]
+max_likelihood <- max(likelihood_values)
+
+# Output MLE and the corresponding likelihood
+cat("The MLE for theta is:", round(theta_MLE, 4), "\n")
+cat("The maximum likelihood value is:", round(max_likelihood, 4), "\n")
+
+# Plot the likelihood function
+plot(theta_values, likelihood_values, type = "l", col = "blue", 
+     xlab = "Theta (Heads)",
+     ylab = "Likelihood", lwd = 2)
+grid()
+
+# Add vertical line at MLE (estimated theta)
+abline(v = theta_MLE, col = "red", lty = 2)
+
+# Annotate the MLE on the plot
+text(theta_MLE + 0.05, max_likelihood, labels = paste("MLE =", round(theta_MLE, 2)), col = "red")
+```
+
+## Finding the MLE using Calculus
+
+A more general way to find the MLE is using calculus, which provides us with a generalized solution. 
+
+Perhaps think about why we would not want to perform a grid-search in practice? Think about potentially computational issues! 
+
+## Finding the MLE
+
+Recall that 
+
+$$L(\theta) = \prod_{i=1}^n \theta^{x_i} (1- \theta)^{1- x_i}  = \theta^{\sum_i x_i} (1- \theta)^{n- \sum_i x_i}$$
+
+Consider the log-likelihood
+
+\begin{align}
+\ell(\theta) &= 
+\log \left [
+\theta^{\sum_i x_i} (1- \theta)^{n- \sum_i x_i}
+\right ] \\
+& = 
+\sum_i x_i \log \theta + (n- \sum_i x_i) \log(1 - \theta)
+\end{align}
+
+## Finding the MLE
+
+$$ \frac{\partial \ell(\theta)}{\partial \theta}
+= \frac{\sum_i x_i}{\theta} - \frac{(n - \sum_i x_i)}{(1- \theta)} =: 0
+$$
+
+Now, we solve for $\theta.$
+
+## Finding the MLE
+
+\begin{align}
+\frac{\sum_i x_i}{\theta} &= \frac{(n - \sum_i x_i)}{(1- \theta)} \\
+\sum_i x_i  (1 - \theta) &= (n - \sum_i x_i) \theta \\
+\sum_i x_i - \theta \sum_i x_i &= n \theta - \theta \sum_i x_i \\
+\sum_i x_i  &= n \theta - \theta \sum_i x_i + \theta \sum_i x_i \\
+\sum_i x_i  &= n \theta \\
+\theta &= \frac{1}{n} \sum_i x_i
+\end{align}
+
+## Second derivative check 
+
+The second derivative of $\ell(\theta)$ is 
+
+$$ - \frac{\sum_i x_i}{\theta^2} - \frac{n- \sum_i x_i}{(1-\theta)^2} $$
+
+Because $\theta$ is between 0 and 1, both terms are negative, so the second derivative is negative, confirming that the critical point corresponds to a maximum.
+
+## Circuling back to our example
+
+Thus, for our particular example, we can calculate the MLE directly (and can do so for any problem moving forward instead of performing a grid search). 
+
+## Practice with the Poisson Distribution 
+
+The probability mass function (PMF) of a Poisson-distributed random variable $X$ with parameter $\lambda$ is given by:
+
+$$
+P(X = x) = \frac{\lambda^x e^{-\lambda}}{x!}, \quad x = 0, 1, 2, \dots
+$$
+
+where $\lambda > 0$ is the rate parameter, which represents both the mean and variance of the distribution.
+
+## Questions
+
+1. Write out the likelihood for the Poisson distribution for $x_{1:n}.$
+2. Derive using calculus based methods the MLE of $\lambda$ is $\sum_i x_i/n$ (sample mean) and show that it is in fact a maximum. 
+3. Verify using a grid-search that your solution matches to the calculus based one. 

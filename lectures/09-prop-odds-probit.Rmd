@@ -1,0 +1,535 @@
+---
+title: "Proportional odds and Probit regression"
+author: "Rebecca C. Steorts (slide adaption from Maria Tacket)\\ and material Chapters 6 and 7 of McNulty (2021)."
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+bibliography: references.bib
+---
+
+## Computing set up
+
+```{r setup, echo = TRUE, message = FALSE, warning= FALSE}
+library(tidyverse)
+library(tidymodels)
+library(knitr)
+library(margins)
+
+knitr::opts_chunk$set(fig.width = 8,
+                      fig.asp = 0.618, 
+                      fig.retina = 3, 
+                      dpt = 300, 
+                      out.width = "70%",
+                      fig.align = "center")
+
+ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
+
+colors <- tibble::tibble(green = "#B5BA72")
+```
+
+
+## Learning goals
+
+-   Introduce proportional odds and probit regression models
+
+-   Understand how these models are related to logistic regression models
+
+-   Interpret coefficients in context of the data
+
+-   See how these models are applied in research contexts
+
+::: aside
+Notes based on Chapters 6 and 7 of @mcnulty2021handbook unless stated otherwise.
+:::
+
+# Proportional odds models
+
+## Predicting ED wait and treatment times
+
+@ataman2021predicting use ordinal logistic regression to predict patient wait and treatment times in an emergency department (ED). The goal is to identify relevant factors that can be used to inform recommendations for reducing wait and treatment times, thus improving the quality of care in the ED.
+
+**Data**: Daily records for ED arrivals in August 2018 at a public hospital in Izmir, Turkey.\
+
+::: aside
+[Click here](https://canvas.duke.edu/courses/25310/files/folder/journal-articles?preview=897957) to access the article on Canvas.
+:::
+
+## Predicting ED wait and treatment times {.midi}
+
+**Response variables:**
+
+-   `Wait time`:
+
+    -   Patients who wait less than 10 minutes
+    -   Patients whose waiting time is in the range of 10 - 60 minutes
+    -   Patients who wait more than 60 minutes
+
+-   `Treatment time`:
+
+    -   Patients who are treated for up to 10 minutes
+
+    -   Patients whose treatment time is in the range of 10 - 120 minutes
+
+    -   Patients who are treated for longer than 120 minutes
+
+## Predicting ED wait and treatment times {.midi}
+
+**Predictor variables:**
+
+::: columns
+::: {.column width="50%"}
+-   `Gender`:
+    -   Male
+    -   Female
+-   `Age`:
+    -   0 - 14
+    -   15 - 64
+    -   65 - 84
+    -   $\geq$ 85
+-   `Arrival mode`:
+    -   Walk-in
+    -   Ambulance
+:::
+
+::: {.column width="50%"}
+-   `Triage level`:
+
+    -   Red (urgent)
+    -   Green (non-urgent)
+
+-   `ICD-10 diagnosis`: Codes specifying patient's diagnosis
+:::
+:::
+
+## Ordered vs. unordered variables {.midi}
+
+**Categorical variables with 3+ levels**
+
+::: columns
+::: {.column width="50%"}
+**Unordered (Nominal)**
+
+-   Voting choice in election with multiple candidates
+
+-   Type of cell phone owned by adults in the U.S.
+
+-   Favorite social media platform among undergraduate students
+:::
+
+::: {.column width="50%"}
+**Ordered (Ordinal)**
+
+-   Wait and treatment times in the emergency department
+
+-   Likert scale ratings on a survey
+
+-   Employee job performance ratings
+:::
+:::
+
+## Proportional odds model {.midi}
+
+Let $Y$ be an ordinal response variable that takes levels $1, 2, \ldots, J$ with associated probabilities $p_1, p_2, \ldots, p_J$
+
+. . .
+
+The **proportional odds model** can be written as the following:
+
+$$\begin{aligned}&\log\Big(\frac{P(Y 
+\leq 1)}{P(Y > 1)}\Big) = \beta_{01} - \beta_1x_1 - \dots -  \beta_px_p \\
+& \log\Big(\frac{P(Y\leq 2)}{P(Y > 2)}\Big) = \beta_{02} -\beta_1x_1 - \dots -  \beta_px_p \\
+& \dots \\
+& \log\Big(\frac{P(Y\leq J-1)}{P(Y > J-1)}\Big) = \beta_{0{J-1}} - \beta_1x_1 - \dots - \beta_px_p\end{aligned}$$
+
+::: question
+What does $\beta_{01}$ mean? What does $\beta_1$ mean?
+:::
+
+## Solution: What does $\beta_{01}$ mean?
+
+The term \(\beta_{01}\) is the \textbf{intercept} in the first cumulative log-odds equation:
+\[
+\log\left(\frac{P(Y \leq 1)}{P(Y > 1)}\right) = \beta_{01} - \beta_1 x_1 - \dots - \beta_p x_p.
+\]
+This represents the \textbf{log-odds} of the outcome \(Y \leq 1\) (i.e., the probability that \(Y\) is either 1 or less) compared to \(Y > 1\) (i.e., the probability that \(Y\) is greater than 1), when all covariates \(x_1, x_2, \dots, x_p\) are equal to zero.
+
+In simpler terms, \(\beta_{01}\) reflects the \textbf{baseline log-odds} of being in the lower category of \(Y\) (i.e., \(Y \leq 1\)) versus being in a higher category, when no explanatory variables (\(x_1, x_2, \dots, x_p\)) are present. It essentially sets the starting point for the relationship between the covariates and the odds of being in a lower ordinal category.
+
+## Solution: What does $\beta_{1}$ mean?
+
+The term \(\beta_1\) is the coefficient for the first explanatory variable \(x_1\) in all of the log-odds equations:
+\[
+\log\left(\frac{P(Y \leq j)}{P(Y > j)}\right) = \beta_{0j} - \beta_1 x_1 - \dots - \beta_p x_p \quad \text{for each } j = 1, 2, \dots, J-1.
+\]
+The coefficient \(\beta_1\) represents the \textbf{change in the log-odds} of being in a lower or equal category (i.e., \(Y \leq j\)) versus being in a higher category (i.e., \(Y > j\)) for a \textbf{one-unit increase} in \(x_1\), holding all other covariates constant.
+
+\begin{itemize}
+  \item A \textbf{positive \(\beta_1\)} means that as \(x_1\) increases, the odds of being in a lower category (or a category less than or equal to \(j\)) increase, suggesting that higher values of \(x_1\) are associated with being in higher ordinal categories.
+  \item A \textbf{negative \(\beta_1\)} means that as \(x_1\) increases, the odds of being in a lower category decrease, suggesting that higher values of \(x_1\) are associated with being in higher ordinal categories.
+\end{itemize}
+
+
+## Proportional odds model {.midi}
+
+Let's consider one portion of the model:
+
+$$
+\log\Big(\frac{P(Y\leq k)}{P(Y > k)}\Big) = \beta_{0k} - \beta_1x_1 - \dots -  \beta_px_p
+$$
+
+. . .
+
+::: incremental
+-   The response variable is $logit(Y\leq k)$, the log-odds of observing an outcome less than or equal to category $k$.
+
+-   $\beta_j > 0$ is associated with increased **log-odds** of being in a **higher** category of $Y$
+
+    -   $e^{\beta_j}$ associated with an increased **odds** of being in a **higher** category of $Y$
+
+-   Effect of one unit increase in $x_j$ the same regardless of which category of $Y$
+:::
+
+## Example 
+
+Suppose you have an ordinal outcome variable, ``Satisfaction'', with categories: ``Low'', ``Medium'', ``High'', and a predictor ``Income''. The proportional odds model might give the following coefficient:
+
+\[
+\log \left( \frac{P(Y \leq \text{Medium})}{P(Y > \text{Medium})} \right) = -0.5 + 0.2 \times \text{Income}
+\]
+
+\begin{itemize}
+    \item The coefficient for \textbf{Income} is \( 0.2 \). This means that for each one-unit increase in Income, the log-odds of being in a higher satisfaction category (compared to being in a lower category) increase by 0.2.
+    \item In terms of odds, \( e^{0.2} \approx 1.22 \), which means that for each additional unit increase in Income, the odds of being in a higher category of Satisfaction (Medium or High vs. Low) increase by a factor of 1.22.
+\end{itemize}
+
+## Effect of arrival mode on waiting time
+
+![Waiting time model output from @ataman2021predicting](images/09/oridinal-logistic-output.png){fig-align="center"}
+
+The variable `arrival mode` has two possible values: ambulance and walk-in. Describe the effect of arrival mode on waiting time. Note: The baseline category is walk-in.
+
+## Solution
+
+- Arrival mode has two possible values: "ambulance" and "walk-in".
+
+- Baseline category is "walk-in". This means that the model's intercept is associated with "walk-in", and the coefficient for "ambulance" describes how the log-odds change relative to the "walk-in" category.
+
+- The coefficient for "arrival mode" (for ambulance) is -3.398.
+
+- For individuals arriving by ambulance (compared to those who walk in), the log odds of waiting time decrease by 3.398.
+
+- A negative coefficient suggests that arriving by ambulance is associated with a lower log-odds of waiting time compared to walking in.
+
+## Effect of triage level
+
+Consider the full output with the ordinal logistic models for wait and treatment times.
+
+![Waiting and treatment time model output from @ataman2021predicting.](images/09/ordinal-model-full.png){fig-align="center"}
+
+::: question
+Triage levels have three possible values: "trauma", "red," and "yellow."
+Use the results from both models to describe the effect of triage level on waiting and treatment times. Note: The baseline category is green.
+:::
+
+## Solution
+
+- Triage Levels: "trauma", "red", and "yellow" (with green as the baseline category).
+
+- The baseline category is green, so the interpretation of the coefficient applies to the comparison between the triage levels "trauma", "red", and "yellow" relative to "green".
+
+- The coefficient for triage level is 0.016 (for waiting time); the coefficient for triage level is -0.950 for treatment time. 
+
+- The coefficient of 0.016 implies that patients with higher triage levels (compared to the "green" baseline) have a slightly higher likelihood of experiencing longer waiting time. 
+
+- The coefficient of -0.950 implies that patients with higher triage levels (compared to the "green" baseline) have a lower likelihood of experiencing a longer treatment time. 
+
+## Fitting proportional odds models in R
+
+Fit proportional odds models using the `polr` function in the **MASS** package:
+
+```{r}
+#| eval: false
+
+proportional_model <- 
+  polr(Y ~ x1 + x2 + x3, data = my_data)
+```
+
+<!--Do the soccer data example from the people analytics book -->
+
+<!--https://peopleanalytics-regression-book.org/ord-reg.html#ord-walkthrough-->
+
+## Multinomial logistic model {.midi}
+
+Suppose the outcome variable $Y$ is categorical and can take values $1, 2, \ldots, K$ such that
+
+$$
+P(Y = 1) = p_1, \ldots , P(Y = K) = p_K  \hspace{5mm} \text{ and } \hspace{5mm}  \sum_{k = 1}^{K} p_k = 1
+$$
+
+. . .
+
+Choose baseline category. Let's choose $Y = 1$ . Then
+
+. . .
+
+$$\begin{aligned}&\log\Big(\frac{P(Y = 2)}{P(Y = 1)}\Big) = \beta_{02} - \beta_{12}x_1 - \dots -  \beta_{p2}x_p \\
+& \log\Big(\frac{P(Y = 3)}{P(Y =1)}\Big) = \beta_{03} -\beta_{13}x_1 - \dots -  \beta_{p3}x_p \\
+& \dots \\
+& \log\Big(\frac{P(Y = K)}{P(Y = 1)}\Big) = \beta_{0{K}} - \beta_{1K}x_1 - \dots - \beta_{pK}x_{p}\end{aligned}$$
+
+## Multinomial logistic vs. proportional odds
+
+::: question
+How is the proportional odds model similar to the multinomial logistic model? How is it different? What is an advantage of each model? What is a disadvantage?
+:::
+
+## Solution
+
+How is the proportional odds model similar to the multinomial logistic model?
+
+1. Both models are used when the dependent variable is categorical with more than two categories.
+2. Both models aim to understand how independent variables (predictors) influence the probability of observing one of the different categories of the dependent variable.
+3. Both models are appropriate for analyzing multicategory responses (e.g., categories like "low", "medium", "high"). 
+4. Both models assume a log-odds framework. The relationship between the independent variables and the dependent variable is expressed in terms of log-odds. In this way, both models allow for non-linear relationships between the predictors and the response variable.
+
+## Solution
+
+How is the proportional odds model different from the multinomial logistic model? 
+
+1. In the proportional odds model, the dependent variable is ordinal, meaning it has categories with a natural order or ranking. 
+2. In the multinomial logistic model, the dependent variable is nominal, which does not assume any ordering of the variables. 
+
+## Solution
+
+What is a disadvantage of multinomial logistic model compared to the proportional odds model?
+
+The multinomial logistic model requires more parameters to be estimated than the proportional odds model, particularly when the dependent variable has more than two categories.
+
+- The multinomial logistic models separate sets of coefficients for each category compared to a baseline category. For an outcome for $K$ categories, the multinomial logistic model estimates $K-1$ coefficients. 
+
+- The proportional odds model only estimates one set of coefficients, which is more parsimonious and computationally more efficient.
+
+## start here 
+
+\textcolor{red}{start here and possibly break these up into multiple lectures.}
+
+# Probit regression {.midi}
+
+## Impact of nature documentary on recycling
+
+@ibanez2022impact conducted an experiment to understand the impact of watching a nature documentary on pro-environmental behavior. The researchers randomly assigned the 113 participants to watch an video about architecture in NYC (control) or a video about Yellowstone National Park (treatment). As part of the experiment, participants were asked to dispose of their headphone coverings in a recycle bin available at the end of the experiment.
+
+::: aside
+[Click here](https://canvas.duke.edu/courses/25310/files/folder/journal-articles?preview=897959) to access the article on Canvas.
+:::
+
+## Impact of nature documentary on recycling
+
+**Response variable**: Recycle headphone coverings vs. not
+
+**Predictor variables:**
+
+-   Age
+-   Gender
+-   Student
+-   Made donation to environmental organization in previous part of experiment
+-   Environmental beliefs measured by the new ecological paradigm scale (NEP)
+
+## Probit regression
+
+Let $Y$ be a binary response variable that takes values 0 or 1, and let $p = P(Y = 1 | x_1, \ldots, x_p)$
+
+$$
+probit(p) = \Phi^{-1}(p) = \beta_0 + \beta_1 x_1+ \dots + \beta_px_p
+$$
+
+where $\Phi^{-1}$ is the inverse normal distribution function.
+
+<br>
+
+. . .
+
+The outcome is the z-score at which the cumulative probability is equal to $p$
+
+-   e.g. $probit(0.975) = \Phi^{-1}(0.975) = 1.96$
+
+## Interpretation
+
+-   $\hat{\beta}_j$ is the estimated change in z-score for each unit increase in $x_j$, holding all other factors constant.
+
+-   This is a fairly clunky interpretation, so the **(average) marginal effect** of $x_j$ is often interpreted instead
+
+-   The marginal effect of $x_j$ is essentially the change the probability from variable $x_j$
+
+## Impact of nature documentary
+
+::: columns
+::: {.column width="60%"}
+![Recycling model from @ibanez2022impact](images/09/probit-regression-model.PNG){fig-align="center" width="100%"}
+:::
+
+::: {.column width="40%"}
+::: question
+Interpret the effect of watching the nature documentary `Nature (T2)` on recycling. Assume NEP is low, `NEP-High` = 0.
+:::
+:::
+:::
+
+
+## Solution
+
+Interpret the effect of watching the nature documentary `Nature (T2)` on recycling. Assume NEP is low, `NEP-High` = 0.
+
+
+Participants exposed to the natural setting (Nature (T2), 0.841***) are more likely to recycle than those exposed to the urban setting (T1). 
+
+This is reflected in the marginal effects in terms of percentage points:
+the probability of performing a green deed rises under exposure to nature (Nature (T2), 0.279***) compared with the urban exposure treatment. 
+
+(See page 13, Ibanez and Roussel (2022).)
+
+
+
+
+## Probit vs. logistic regression {.midi}
+
+**Pros of probit regression:**
+
+-   Some statisticians like assuming the normal distribution over the logistic distribution.
+
+-   Easier to work with in more advanced settings, such as multivariate and Bayesian modeling
+
+. . .
+
+**Cons of probit regression:**
+
+-   Z-scores are not as straightforward to interpret as the outcomes of a logistic model.
+
+-   We can't use odds ratios to describe findings.
+
+-   It's more mathematically complicated than logistic regression.
+
+-   It does not work well for response variable with 3+ categories
+
+::: aside
+List adapted from [Categorical Regression](https://bookdown.org/sarahwerth2024/CategoricalBook/probit-regression-r.html).
+:::
+
+## Fitting probit regression models in R
+
+Fit probit regression models using the `glm` function with `family = binomial(link = probit)`.
+
+<br>
+
+Calculate marginal effects using the `margins` function from the **margins** R package.
+
+```{r}
+#| eval: false
+margins(my_model, variables = "my_variables")
+```
+
+## Ideology vs. issue statements
+
+Let's look at the model using ideology and party ID to explain the number of issue statements by politicians. 
+
+We will use probit regression for the "hurdle" part of the model - the likelihood a candidate comments on at least one issue (`has_issue_stmt`)
+
+. . .
+
+```{r, message=FALSE}
+#| echo: false
+politics <- read_csv("data/ambiguity.csv") |>
+  select(ideology, democrat, totalIssuePages) |>
+  drop_na() |>
+  mutate(has_issue_stmt = factor(if_else(totalIssuePages > 0, 1, 0)), democrat = as_factor(democrat))
+```
+
+```{r}
+hurdle_probit <- glm(has_issue_stmt ~ 
+                       ideology + democrat, 
+             data = politics, 
+             family = binomial(link = probit))
+```
+
+::: aside
+See Section 4.11.2 of @roback2021beyond for more detail about the data.
+:::
+
+## Hurdle (using probit regression)
+
+```{r}
+tidy(hurdle_probit) |>
+  kable(digits = 3)
+
+margins(hurdle_probit)
+```
+
+::: question
+Interpret the effect of `democrat` on commenting on at least one issue.
+:::
+
+## Hurdle (using logistic regression)
+
+```{r}
+hurdle_logistic <- glm(has_issue_stmt ~ ideology + democrat, 
+             data = politics, 
+             family = binomial)
+
+tidy(hurdle_logistic) |>
+  kable(digits = 3)
+```
+
+## Probit vs. logistic models
+
+::: columns
+::: {.column width="50%"}
+**Probit model**
+
+```{r}
+#| echo: false
+tidy(hurdle_probit) |> 
+  select(term, estimate) |>
+  kable(digits  = 3)
+```
+:::
+
+::: {.column width="50%"}
+**Logistic model**
+
+```{r}
+#| echo: false
+tidy(hurdle_logistic) |> 
+  select(term, estimate) |>
+  kable(digits  = 3)
+```
+:::
+:::
+
+<br>
+
+::: question
+Suppose there is democratic representative with ideology score -2.5. Based on the probit model, what is the probability they will comment on at least one issue? What is the probability based on the logistic model?
+:::
+
+# Wrap up GLM for independent observations
+
+## Wrap up {.midi}
+
+-   Covered fitting, interpreting, and drawing conclusions from GLMs
+
+    -   Looked at Poisson, Negative Binomial, and Logistic, Proportional odds, and Probit models in detail
+
+-   Used Pearson and deviance residuals to assess model fit and determine if new variables should be added to the model
+
+-   Addressed issues of overdispersion and zero-inflation
+
+-   Used the properties of the one-parameter exponential family to identify the best link function for any GLM
+
+. . .
+
+Everything we've done thus far as been under the assumption that the observations are *independent*. Looking ahead we will consider models for data with **dependent (correlated) observations**.
+
+
+## References
