@@ -10,8 +10,8 @@ output: pdf_document
 |  Role        | Name       | Office Hours         | Location              |
 |----------|-----------|---------------|-----------------------|
 | Instructor | Professor Rebecca Steorts  | MW 1:00 pm -- 2:00 PM |    Old Chem 216         |
-| Teaching Assistant   |  Suchismita  Roy   |   TuTh   4:00 -- 5:00 PM             |            TBD          |
-| Teaching Assistant   |  Wenxin Guo        |    MW 5:00 -- 6:00 PM               |             TBD         |
+| Teaching Assistant   |  Suchismita  Roy   |   TuTh   4:00 -- 5:00 PM             |            Zoom        |
+| Teaching Assistant   |  Wenxin Guo        |    MW 5:00 -- 6:00 PM               |           Zoom         |
 
 ## Course info
 
@@ -19,6 +19,10 @@ output: pdf_document
 |----------|-----------|---------------|-----------------------|
 | Lectures | Mon & Wed | 11:45 am - 1:00 pm | Gray 228         |
 | Lab   | Friday    | 11:45 am - 1:00 pm | Social Sciences 105       |
+
+## Zoom Information
+
+We will utilize the following zoom link for unscheduled office hours, zoom office hours, or other emergent issues as needed regarding any classes. Zoom Meeting ID: 979 2535 4560. The passcode will be posted on canvas for security reasons. 
 
 ## Textbooks
 
@@ -77,7 +81,7 @@ The [Student Disability Access Office (SDAO)](https://access.duke.edu/students) 
 
 ### Communication
 
-All lecture notes, assignment instructions, an up-to-date schedule, and other course materials may be found on the course website, [sta310-sp24.netlify.app](https://sta310-sp24.netlify.app/)
+All lecture notes, assignment instructions, an up-to-date schedule, and other course materials may be found on the course website, [https://github.com/resteorts/generalized-linear-models](https://github.com/resteorts/generalized-linear-models)
 
 Announcements will be sent through Canvas and email. Please check your email regularly to ensure you have the latest announcements for the course. Most course announcements will be made in class, so please be sure to stay up to date with these if you do miss class as I will not re-post these items. 
 
@@ -115,19 +119,15 @@ Lectures will be interactive with a mix of presenting lecture notes, short in-cl
 
 ### Homework
 
-There will be 6 homework assignments during the semester. In these assignments, you will apply what you've learned as you answer conceptual questions and complete guided and open-ended analyses. You may discuss homework assignments with other students; however, homework should be completed and submitted individually. Homework will be submitted to Gradescope.
+There will be a series of homework assignments during the semester. In these assignments, you will apply what you've learned as you answer conceptual questions and complete guided and open-ended analyses. You may discuss homework assignments with other students; however, homework should be completed and submitted individually. Homework will be submitted to both Gradescope and Canvas.
 
 *The lowest homework grade is dropped.*
 
 ### Quizzes
 
-There will be 6 quizzes during the semester. Quizzes will cover the readings, lecture notes and activities, and any assignments since the previous quiz.
+There will be 4-6 quizzes during the semester. Quizzes will cover the readings, lecture notes and activities, and any assignments since the previous quiz. 
 
 *The lowest quiz grade is dropped.*
-
-### Projects
-
-There will be 2 short group projects and 1 final individual project in this course. Teams will be randomly assigned for each of the mini projects. More details about each project will be available as they are assigned.
 
 ## Grading
 
@@ -175,8 +175,6 @@ By participating in this course, you agree to abide by the following when comple
 
 -   You may not discuss or otherwise work with others on quizzes. Unauthorized collaboration or using unauthorized materials will be considered a violation for all students involved.
 
--   For the projects collaboration within teams is not only allowed, but expected. Communication between teams at a high level is also allowed however you may not share code or components of the project across teams.
-
 -   **Reusing code**: Unless explicitly stated otherwise, you may make use of online resources (e.g. StackOverflow) for coding examples on assignments. If you directly use code from an outside source (or use it as inspiration), you must explicitly cite where you obtained the code. Any recycled code that is discovered and is not explicitly cited will be treated as plagiarism.
 
 -   **Use of artificial intelligence (AI)**: You should treat AI tools, such as ChatGPT, the same as other online resources. There are two guiding principles that govern how you can use AI in this course:^[2](https://sta210-fa23.netlify.app/syllabus#fn2)^ (1) *Cognitive dimension:* Working with AI should not reduce your ability to think clearly. We will practice using AI to facilitate---rather than hinder---learning. (2) *Ethical dimension***:** Students using AI should be transparent about their use and make sure it aligns with academic integrity.
@@ -206,7 +204,7 @@ only be considered if points were tallied incorrectly or a correct answer was mi
 
 ### Attendance
 
-You are expected to attend all lectures and labs with a fully-charged laptop or tablet with access to RStudio. We understand there may be times when you are unable to attend a class meeting; in such instances it is your responsibility to make up the missed material. Labs will primarily be used to work on homework and the projects. If you miss a lab meeting dedicated to group work, please communicate with your teammates to make a plan to contribute to the assignment. [Click here](https://trinity.duke.edu/undergraduate/academic-policies/class-attendance-and-missed-work) for more information on the Trinity attendance policies.
+You are expected to attend all lectures and labs with a fully-charged laptop or tablet with access to RStudio. We understand there may be times when you are unable to attend a class meeting; in such instances it is your responsibility to make up the missed material. Labs will primarily be used to work on homework assignments or clarify questions from lecture. If you miss a lab meeting dedicated to homework or a review session, it is your responsibility to catch up on this information. [Click here](https://trinity.duke.edu/undergraduate/academic-policies/class-attendance-and-missed-work) for more information on the Trinity attendance policies.
 
 ### Attendance Policy Related to COVID Symptoms, Exposure, or Infection
 
@@ -249,6 +247,6 @@ If your mental health concerns and/or stressful events negatively affect your da
 
 Students with demonstrated high financial need who have limited access to computers may request assistance in the form of loaner laptops. For new Spring 2024 technology assistance requests, please go [here](https://dukelife.duke.edu/technology-assistance-program/). Please note that supplies are limited.
 
-See the [Support](support.qmd) page for a more comprehensive list of academic and mental health wellness resources.
+
 
 

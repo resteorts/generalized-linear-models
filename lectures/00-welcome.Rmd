@@ -143,7 +143,7 @@ STA 210 and STA 230 / STA 240
 
 ## Course toolkit
 
-**GitHub**: [github.com/sta310-sp24](https://github.com/sta310-sp24)
+**GitHub**: [https://github.com/resteorts/generalized-linear-models](https://github.com/resteorts/generalized-linear-models)
 
 -   Course information and course scheudle 
 
@@ -247,13 +247,13 @@ Access RStudio through [Docker container](https://cmgr.oit.duke.edu/containers) 
 
 ## Homework (40%)
 
--   6 individual assignments
+-   Individual assignments
 -   Combination of conceptual questions, guided analyses, and open-ended analyses
 -   Lowest homework grade is dropped
 
 ## Quizzes (60%)
 
--   6 individual online quizzes
+-   Individual online quizzes
 
 -   Covers content since the previous quiz, including readings, lecture notes, in-class activities, and homework
 
