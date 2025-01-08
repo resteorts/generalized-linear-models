@@ -164,17 +164,17 @@ You will start using these computing tools in Lab 01.
 
 -   Visual editor to make document editing experience similar to a word processor (Google docs, Word, Pages, etc.)
 
-## Quarto
+## Rmarkdown
 
 ![](images/03/quarto.png){fig-align="center"}
 
-## How will we use Quarto?
+## How will we use RMarkdown?
 
--   Every application exercise and assignment is written in a Quarto document
+-   Every assignment is written in an Rmarkdown document (you can use Quarto instead if you prefer). 
 
--   You'll have a template Quarto document to start with
+-   You'll have a template document to start with
 
--   The amount of scaffolding in the template will decrease over the semester
+-   If you have used Rmarkdown and Quarto, think about what the similarities and differences are between them. 
 
 # Version control with git and GitHub
 
