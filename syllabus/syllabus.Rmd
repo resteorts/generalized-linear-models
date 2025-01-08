@@ -11,7 +11,7 @@ output: pdf_document
 |----------|-----------|---------------|-----------------------|
 | Instructor | Professor Rebecca Steorts  | MW 1:00 pm -- 2:00 PM |    Old Chem 216         |
 | Teaching Assistant   |  Suchismita  Roy   |   TuTh   4:00 -- 5:00 PM             |            Zoom        |
-| Teaching Assistant   |  Wenxin Guo        |    MW 5:00 -- 6:00 PM               |           Zoom         |
+| Teaching Assistant   |  Wenxin Guo        |    MW 4:30 -- 5:30 PM               |           Zoom         |
 
 ## Course info
 
