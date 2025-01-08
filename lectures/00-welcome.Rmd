@@ -31,8 +31,15 @@ Suchismita Roy
 Wenxin Guo
 
 
+
+
 :::
 :::
+
+## Announcements
+
+- We will meet on Friday, January 10th for lecture, so please come prepared for lecture and not lab. 
+- The course webpage (https://resteorts.github.io/teach/generalized.html) will be updated on roughly a weekly basis, so please check this frequently for any updates. 
 
 ## Course logistics
 
@@ -42,7 +49,7 @@ Mondays and Wednesdays, 11:45 - 1:00 pm, Gray 228
 
 <br>
 
-**Labs**
+**Labs (Office Hour or Alternate Lecture Time)**
 
 Lab 01: Friday, 11:45 - 1:00 pm, Social Sciences 105
 
@@ -143,9 +150,9 @@ STA 210 and STA 230 / STA 240
 
 ## Course toolkit
 
-**GitHub**: [https://github.com/resteorts/generalized-linear-models](https://github.com/resteorts/generalized-linear-models)
+**Course webpage**: [https://resteorts.github.io/teach/generalized.html](https://github.com/resteorts/generalized-linear-models)
 
--   Course information and course scheudle 
+-   Course information and course schedule
 
 **Canvas**
 
@@ -173,10 +180,11 @@ STA 210 and STA 230 / STA 240
 :::
 
 ::: {.column width="50%"}
-**Labs (start January 17)**
+**Labs (start January 10)**
 
 -   Work on class assignments with TA support
 -   Time for clarifying questions regarding course material 
+-   Alternative lecture time when needed
 
 :::
 :::
@@ -231,7 +239,7 @@ Access RStudio through [Docker container](https://cmgr.oit.duke.edu/containers) 
 
 - Unfortunately, there is no platform that does both (to my knowledge). 
 
-- Feedback will be given in Gradscrope and is invidivual and private. 
+- Feedback will be given in Gradescope and is individual and private. 
 
 ## Ed Discussion
 
