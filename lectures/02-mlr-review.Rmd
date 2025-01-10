@@ -123,6 +123,22 @@ Suppose $y_{ij}$'s are observed outcome data and $x_i$'s are values of the expla
 2.  Label the 3 components of the model equation (observation, deterministic part, random part)
 3.  What is $E(y_{ij})$, the expected value of the observations?
 
+<!-- ## Solution to Practice -->
+
+<!-- 1. Write the specification of the statistical model.  -->
+
+<!-- Solution: $$y_{ij} = \mu_i + \epsilon_{ij}$$ -->
+
+<!-- 2. Label the 3 components of the model equation (observation, deterministic part, random part) -->
+
+<!-- Solution: -->
+
+<!-- - observations: $y_{ij}$, -->
+<!-- - deterministic component: $\mu_i$ -->
+<!-- - random component: $\epsilon_{ij}$ -->
+
+<!-- 3. What is $E(y_{ij})$, the expected value of the observations? Solution: $\mu_i.$ -->
+
 ## Motivating generalized linear models (GLMs) and multilevel models
 
 Now, we review the basic assumptions for linear regression that often do not hold in practice. 
@@ -213,6 +229,23 @@ geom_vline(xintercept=breaks, lty=2, color = "grey") +
 
 ## Violations in assumptions
 
+*Is the time studying predictive of success on an exam?* The time spent studying for an exam (in hours) and success (pass/fail) are recorded for randomly selected students. 
+
+- The response variable is the exam outcome (pass/fail). 
+- The explanatory variable is the time spent studying in hours. 
+
+::: question
+Which assumption(s) are obviously violated, if any?
+:::
+
+<!-- ## Solution: -->
+
+<!-- The response variable is a binary outcome, which violates the assumption that the response is normally distributed. (Chapter 6 introduces logistic regression, which is more suitable for binary data).  -->
+
+
+
+## Violations in assumptions
+
 *Do wealthy households tend to have fewer children compared to households with lower income?* Annual income and family size are recorded for a random sample of households.
 
 -   The response variable is number of children in the household.
@@ -221,6 +254,14 @@ geom_vline(xintercept=breaks, lty=2, color = "grey") +
 ::: question
 Which assumption(s) are obviously violated, if any?
 :::
+
+<!-- ## Solution -->
+
+<!-- Family size is a count taking on any integer value (with no upper bound).  -->
+
+<!-- The normality assumption may be problematic as the distribution of family size may be skewed. For example, think of how family sizes may occur in practice (one or two children versus five/six children).  -->
+
+<!-- This concern along with the discrete nature of the response variable raise issues with the normality assumption. (Chapter 4 will introduce Poisson models, which may be more appropriate).  -->
 
 ## Violations in assumptions
 
@@ -232,6 +273,14 @@ Medical researchers investigated the outcome of a particular surgery for patient
 ::: question
 Which assumption(s) are obviously violated, if any?
 :::
+
+<!-- ## Solution -->
+
+<!-- - Outcomes for patients operated on by the same surgeon are more likely to be similar and have similar results.  -->
+
+<!-- - Outcomes at one hospital may be more similar due to factors associated with different patient populations.  -->
+
+<!-- The structure of the data suggests that the independence assumption may be violated.  -->
 
 ## Beyond linear regression {.midi}
 
