@@ -2,8 +2,11 @@
 title: "Multiple Linear Regression Review"
 author: "Rebecca C. Steorts (slide adaption from Maria Tacket)\\ and material from Chapter 1 of Roback and Legler text."
 output: 
-     beamer_presentation
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
 font-size: 8px
+bibliography: references.bib
 ---
 
 ```{r}
@@ -15,6 +18,10 @@ knitr::opts_chunk$set(
   fig.retina = 3, dpi = 300, fig.align = "center"
 )
 ```
+
+## Reading
+
+BMLR: Chapter 1: https://bookdown.org/roback/bookdown-BeyondMLR/
 
 ## Computing set up
 
@@ -123,21 +130,21 @@ Suppose $y_{ij}$'s are observed outcome data and $x_i$'s are values of the expla
 2.  Label the 3 components of the model equation (observation, deterministic part, random part)
 3.  What is $E(y_{ij})$, the expected value of the observations?
 
-<!-- ## Solution to Practice -->
+## Solution to Practice
 
-<!-- 1. Write the specification of the statistical model.  -->
+1. Write the specification of the statistical model.
 
-<!-- Solution: $$y_{ij} = \mu_i + \epsilon_{ij}$$ -->
+Solution: $$y_{ij} = \mu_i + \epsilon_{ij}$$
 
-<!-- 2. Label the 3 components of the model equation (observation, deterministic part, random part) -->
+2. Label the 3 components of the model equation (observation, deterministic part, random part)
 
-<!-- Solution: -->
+Solution:
 
-<!-- - observations: $y_{ij}$, -->
-<!-- - deterministic component: $\mu_i$ -->
-<!-- - random component: $\epsilon_{ij}$ -->
+- observations: $y_{ij}$,
+- deterministic component: $\mu_i$
+- random component: $\epsilon_{ij}$
 
-<!-- 3. What is $E(y_{ij})$, the expected value of the observations? Solution: $\mu_i.$ -->
+3. What is $E(y_{ij})$, the expected value of the observations? Solution: $\mu_i.$
 
 ## Motivating generalized linear models (GLMs) and multilevel models
 
@@ -238,9 +245,9 @@ geom_vline(xintercept=breaks, lty=2, color = "grey") +
 Which assumption(s) are obviously violated, if any?
 :::
 
-<!-- ## Solution: -->
+## Solution
 
-<!-- The response variable is a binary outcome, which violates the assumption that the response is normally distributed. (Chapter 6 introduces logistic regression, which is more suitable for binary data).  -->
+The response variable is a binary outcome, which violates the assumption that the response is normally distributed. (Chapter 6 introduces logistic regression, which is more suitable for binary data).
 
 
 
@@ -255,13 +262,13 @@ Which assumption(s) are obviously violated, if any?
 Which assumption(s) are obviously violated, if any?
 :::
 
-<!-- ## Solution -->
+## Solution
 
-<!-- Family size is a count taking on any integer value (with no upper bound).  -->
+Family size is a count taking on any integer value (with no upper bound).
 
-<!-- The normality assumption may be problematic as the distribution of family size may be skewed. For example, think of how family sizes may occur in practice (one or two children versus five/six children).  -->
+The normality assumption may be problematic as the distribution of family size may be skewed. For example, think of how family sizes may occur in practice (one or two children versus five/six children).
 
-<!-- This concern along with the discrete nature of the response variable raise issues with the normality assumption. (Chapter 4 will introduce Poisson models, which may be more appropriate).  -->
+This concern along with the discrete nature of the response variable raise issues with the normality assumption. (Chapter 4 will introduce Poisson models, which may be more appropriate).
 
 ## Violations in assumptions
 
@@ -274,13 +281,13 @@ Medical researchers investigated the outcome of a particular surgery for patient
 Which assumption(s) are obviously violated, if any?
 :::
 
-<!-- ## Solution -->
+## Solution
 
-<!-- - Outcomes for patients operated on by the same surgeon are more likely to be similar and have similar results.  -->
+- Outcomes for patients operated on by the same surgeon are more likely to be similar and have similar results.
 
-<!-- - Outcomes at one hospital may be more similar due to factors associated with different patient populations.  -->
+- Outcomes at one hospital may be more similar due to factors associated with different patient populations.
 
-<!-- The structure of the data suggests that the independence assumption may be violated.  -->
+The structure of the data suggests that the independence assumption may be violated.
 
 ## Beyond linear regression {.midi}
 

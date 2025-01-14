@@ -9,6 +9,11 @@ output:
 font-size: 8px
 ---
 
+Reading
+===
+
+BMLR: Chapter 3:
+https://bookdown.org/roback/bookdown-BeyondMLR/
 
 Agenda
 ===
