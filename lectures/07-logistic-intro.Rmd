@@ -1,6 +1,6 @@
 ---
 title: "Logistic Regression"
-author: "Rebecca C. Steorts (partial slide adaption from Maria Tacket)\\ some material from Chapter 5 of Roback and Legler text."
+author: "Rebecca C. Steorts (partial slide adaption from Maria Tacket)\\ some material from Chapter 6 of Roback and Legler text."
 output: 
      beamer_presentation:
       includes: 
