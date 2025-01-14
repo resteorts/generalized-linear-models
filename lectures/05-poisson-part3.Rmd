@@ -1,7 +1,7 @@
 ---
 title: "Poisson Regression"
 subtitle: Part III
-author: "Rebecca C. Steorts (slide adaption from Maria Tacket)\\ and material from Chapter 1 of Roback and Legler text."
+author: "Rebecca C. Steorts (slide adaption from Maria Tacket)\\ and material from Chapter 4 of Roback and Legler text."
 output: 
      beamer_presentation:
       includes: 
