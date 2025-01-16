@@ -15,6 +15,8 @@ Reading
 BMLR: Chapter 3:
 https://bookdown.org/roback/bookdown-BeyondMLR/
 
+I would like to thank Wenxin Guo for helping correct some typos. 
+
 Agenda
 ===
 
@@ -303,10 +305,11 @@ p = seq(0,1, length=100)
 plot(p, dbeta(p, 2, 10), ylab='density', type ='l', col='purple')
 lines(p, dbeta(p, 2, 2), col='red') 
 lines(p, dbeta(p, 5, 2), col='blue')
+lines(p, dbeta(p, 1, 1), col='green4')
 
 #add legend
-legend(.7, 4, c('Beta(2, 10)','Beta(2, 2)','Beta(1,1)'),
-       lty=c(1,1,1),col=c('purple', 'red', 'blue'))
+legend(.7, 4, c('Beta(2, 10)','Beta(2, 2)','Beta(5, 2)','Beta(1,1)'),
+       lty=c(1,1,1,1),col=c('purple', 'red', 'blue', 'green4'))
 
 ```
 
