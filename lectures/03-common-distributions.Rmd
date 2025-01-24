@@ -73,7 +73,7 @@ Suppose $Y = \sum_i X_{i=1}^n.$ Then $Y \sim Binomial(n, \theta)$.\footnote{This
 
 \vspace*{1em}
 
-Remark: A binomial random variable with parameter $n=1$
+Remark: A binomial (or binary) random variable with parameter $n=1$
 is equivalent to a Bernoulli random variable, i.e. there is only one trial.
 
 
