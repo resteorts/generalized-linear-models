@@ -63,7 +63,7 @@ likelihood_function <- function(theta) {
   return((theta^successes) * ((1 - theta)^failures))
 }
 
-theta_values <- seq(0, 1, length.out = 100)
+theta_values <- seq(0, 1, length.out = 10000)
 
 # Calculate the likelihood for each theta
 likelihood_values <- sapply(theta_values, likelihood_function)

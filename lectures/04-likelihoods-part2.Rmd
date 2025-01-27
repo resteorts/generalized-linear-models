@@ -352,31 +352,31 @@ $$\begin{aligned}\log (Lik(p_{H| N}, p_{H|H Bias}, p_{H |V Bias})) &= 25 \log(p_
 
 ------------------------------------------------------------------------
 
-## Exercise
+<!-- ## Exercise -->
 
-::: question
-If fouls within a game are independent, how would you expect $\hat{p}_H$, $\hat{p}_{H\vert H Bias}$ and $\hat{p}_{H\vert V Bias}$ to compare?
+<!-- ::: question -->
+<!-- If fouls within a game are independent, how would you expect $\hat{p}_H$, $\hat{p}_{H\vert H Bias}$ and $\hat{p}_{H\vert V Bias}$ to compare? -->
 
-a.  $\hat{p}_H$ is greater than $\hat{p}_{H\vert H Bias}$ and $\hat{p}_{H \vert V Bias}$
+<!-- a.  $\hat{p}_H$ is greater than $\hat{p}_{H\vert H Bias}$ and $\hat{p}_{H \vert V Bias}$ -->
 
-b.  $\hat{p}_{H\vert H Bias}$ is greater than $\hat{p}_H$ and $\hat{p}_{H \vert V Bias}$
+<!-- b.  $\hat{p}_{H\vert H Bias}$ is greater than $\hat{p}_H$ and $\hat{p}_{H \vert V Bias}$ -->
 
-c.  $\hat{p}_{H\vert V Bias}$ is greater than $\hat{p}_H$ and $\hat{p}_{H \vert V Bias}$
+<!-- c.  $\hat{p}_{H\vert V Bias}$ is greater than $\hat{p}_H$ and $\hat{p}_{H \vert V Bias}$ -->
 
-d.  They are all approximately equal.
-:::
+<!-- d.  They are all approximately equal. -->
+<!-- ::: -->
 
-## Exercise
+<!-- ## Exercise -->
 
-::: question
-If there is a tendency for referees to call a foul on the team that already has more fouls, how would you expect $\hat{p}_H$ and $\hat{p}_{H\vert H Bias}$ to compare?
+<!-- ::: question -->
+<!-- If there is a tendency for referees to call a foul on the team that already has more fouls, how would you expect $\hat{p}_H$ and $\hat{p}_{H\vert H Bias}$ to compare? -->
 
-a.  $\hat{p}_H$ is greater than $\hat{p}_{H\vert H Bias}$
+<!-- a.  $\hat{p}_H$ is greater than $\hat{p}_{H\vert H Bias}$ -->
 
-b.  $\hat{p}_{H\vert H Bias}$ is greater than $\hat{p}_H$
+<!-- b.  $\hat{p}_{H\vert H Bias}$ is greater than $\hat{p}_H$ -->
 
-c.  They are approximately equal.
-:::
+<!-- c.  They are approximately equal. -->
+<!-- ::: -->
 
 ## Model Comparisons
 
@@ -420,7 +420,7 @@ $$\begin{aligned}&H_0: p_{H| N} = p_{H| H Bias} = p_{H| V Bias} = p_H \\ &H_a: \
 
 4. Use the Likelihood Ratio Test to determine if the difference is statistically significant
 
-## Steps 1
+## Step 1
 
 Model 1: \(\hat{p}_H = 46/90 = 0.511\)
 
@@ -430,6 +430,8 @@ loglik1 <- function(ph){
 }
 loglik1(46/90)
 ```
+
+Solution = -62.36
 
 ## Step 2
 
@@ -447,6 +449,8 @@ loglik2 <- function(phn, phh, phv) {
 (loglik2(25/48, 8/20, 13/22))
 ```
 
+Solution = -61.57
+
 ## Step 3
 
 Find the difference in the log-likelihoods
@@ -454,6 +458,8 @@ Find the difference in the log-likelihoods
 ```{r}
 (diff <- loglik2(25/48, 8/20, 13/22) - loglik1(46/90))
 ```
+
+Diff = 0.7878
 
 Is the difference in the maximum log-likelihoods statistically significant?
 
@@ -472,15 +478,25 @@ LRT follows a \(\chi^2\) distribution where the degrees of freedom equal the dif
 (LRT <- 2 * (loglik2(25/48, 8/20, 13/22) - loglik1(46/90)))
 ```
 
+LRT = 1.576
+
 The test statistic follows a \(\chi^2\) distribution with 2 degrees of freedom. Therefore, the p-value is \(P(\chi^2 > LRT)\).
 
 ```{r}
 pchisq(LRT, 2, lower.tail = FALSE)
 ```
 
-The p-value is very large, so we fail to reject \(H_0\). We do not have convincing evidence that the conditional model is an improvement over the unconditional model. Therefore, we can stick with the unconditional model.
+p-value = 0.4548
+
+The p-value is very large, so we fail to reject \(H_0\). We do not have convincing evidence that the conditional model is an improvement over the unconditional model. 
+
+Therefore, we can stick with the **unconditional** model.
 
 # Comparing non-nested models
+
+## Comparing non-nested models
+
+We can also consider AIC and BIC. We cannot consider a LRT for a non-nested model. 
 
 ## Comparing non-nested models
 
@@ -490,9 +506,13 @@ AIC = -2(max log-likelihood) + 2p
 (Model1_AIC <- 2 * loglik1(46/90) + 2 * 1)
 ```
 
+AIC_1 = -122.72
+
 ```{r}
 (Model2_AIC <-2 * loglik2(25/48, 8/20, 13/22) + 2 * 3)
 ```
+
+AIC_2 = -117.15
 
 ## Comparing non-nested models
 
@@ -500,11 +520,15 @@ AIC = -2(max log-likelihood) + 2p
 (Model1_BIC <- 2 * loglik1(46/90) + 1 * log(30))
 ```
 
+BIC_1 = -121.32
+
 ```{r}
 (Model2_BIC <-2 * loglik2(25/48, 8/20, 13/22) + 3 * log(30))
 ```
 
-Choose Model 1, the unconditional model, based on AIC and BIC
+BIC_2 = -112.94
+
+Which model would you choose and why based upon the AIC and BIC values? 
 
 
 ## Looking ahead 
