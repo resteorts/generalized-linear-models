@@ -52,28 +52,14 @@ $$L(\theta) = \prod_{i=1}^n \theta^{x_i} (1- \theta)^{1- x_i}$$
 
 ## Example 
 
-Suppose we observe 3 heads and 7 tails.
+Suppose we observe 3 heads and 7 tails. We do not know $\theta.$
 
-```{r, echo = FALSE}
-n <- 10  
-successes <- 3 
-failures <- n - successes 
+The likelihood for this example is as follows:
 
-likelihood_function <- function(theta) {
-  return((theta^successes) * ((1 - theta)^failures))
-}
+\begin{align}
+L(\theta) =  \theta^{3} (1- \theta)^{7}
+\end{align}
 
-theta_values <- seq(0, 1, length.out = 10000)
-
-# Calculate the likelihood for each theta
-likelihood_values <- sapply(theta_values, likelihood_function)
-
-# Plot the likelihood function
-plot(theta_values, likelihood_values, type = "l", col = "blue", 
-     main = "Likelihood Function for Bernoulli Distribution",
-     xlab = "Theta (Heads)",
-     ylab = "Likelihood", lwd = 2)
-```
 
 ## Graphical Maximum Likelihood Estimate
 
@@ -85,42 +71,56 @@ Since the Bernoulli distribution's likelihood function is unimodal (it has a sin
 ## Steps 
 
 1. Set up a grid of $\theta$ values. 
-We will create a sequence of values between 0 and 1 to evaluate the likelihood function at each point.
+We will create a sequence of values between 0 and 1 to evaluate the log-likelihood function at each point.
 
-2. Evaluate the likelihood function at each point: For each $\theta$ value in the grid, we will compute the likelihood for the observed data.
+2. Evaluate the log-likelihood function at each point: For each $\theta$ value in the grid, we will compute the log-likelihood for the observed data.
 
-3. Find the value of $\theta$ that maximizes the likelihood.  The value of $\theta$ that gives the highest likelihood is the MLE.
+3. Find the value of $\theta$ that maximizes the log-likelihood.  The value of $\theta$ that gives the highest log-likelihood is the MLE.
 
 ## Grid Search
 
 ```{r, echo = FALSE}
- # Placeholder for likelihood values
-likelihood_values <- numeric(length(theta_values)) 
+# Given data
+n <- 10
+successes <- 3  
+failures <- 7 
 
-# Perform grid search
-for (i in 1:length(theta_values)) {
-  likelihood_values[i] <- likelihood_function(theta_values[i])
+
+log_likelihood_function <- function(theta) {
+  # Avoid log(0) by ensuring theta is not exactly 0 or 1
+  if (theta == 0 || theta == 1) {
+    return(-Inf)  # Log likelihood is -Inf at extremes of theta (log(0) = -Inf)
+  } else {
+    return(successes * log(theta) + failures * log(1 - theta))
+  }
 }
 
-# Find the theta value that maximizes the likelihood
-theta_MLE <- theta_values[which.max(likelihood_values)]
-max_likelihood <- max(likelihood_values)
+# Set up a sequence of thete values
+theta_values <- seq(0, 1, length.out = 10000)
 
-# Output MLE and the corresponding likelihood
-cat("The MLE for theta is:", round(theta_MLE, 4), "\n")
-cat("The maximum likelihood value is:", round(max_likelihood, 4), "\n")
+# Calculate the log-likelihood for each theta
+log_likelihood_values <- sapply(theta_values, log_likelihood_function)
 
-# Plot the likelihood function
-plot(theta_values, likelihood_values, type = "l", col = "blue", 
-     xlab = "Theta (Heads)",
-     ylab = "Likelihood", lwd = 2)
-grid()
+# Find the theta that maximizes the log-likelihood
+mle_theta <- theta_values[which.max(log_likelihood_values)]
 
-# Add vertical line at MLE (estimated theta)
-abline(v = theta_MLE, col = "red", lty = 2)
+# Print the MLE for theta
+cat("MLE for theta:", mle_theta, "\n")
 
-# Annotate the MLE on the plot
-text(theta_MLE + 0.05, max_likelihood, labels = paste("MLE =", round(theta_MLE, 2)), col = "red")
+# Plot the log-likelihood function
+plot(theta_values, log_likelihood_values, type = "l", col = "blue", 
+     xlab = "Theta", ylab = "Log-Likelihood", 
+     main = "Log-Likelihood")
+
+# Add a vertical dashed line at the MLE for theta
+abline(v = mle_theta, col = "red", lty = 2)
+
+# Add a text annotation showing the MLE on the plot with the value of MLE
+text(mle_theta + 0.05, max(log_likelihood_values) - 0.5, 
+     paste("MLE=", round(mle_theta, 3)), col = "red", pos = 4, cex = 1.2)
+
+# Add a legend
+legend("topright", legend = paste("MLE =", round(mle_theta, 3)), col = "red", lty = 2)
 ```
 
 ## Finding the MLE using Calculus
@@ -195,11 +195,11 @@ $$
 
 where $\lambda > 0$ is the rate parameter, which represents both the mean and variance of the distribution.
 
-## Questions
+## Exercise (goes with Homework 3)
 
 1. Write out the likelihood for the Poisson distribution for $x_{1:n}.$
 2. Derive using calculus based methods the MLE of $\lambda$ is $\sum_i x_i/n$ (sample mean) and show that it is in fact a maximum. 
-3. Verify using a grid-search that your solution matches to the calculus based one. Assume $\sum_{i=1}^n x_i = 500.$ and $n=100.$ In this example, you should find that $\lambda \approx 5.$
+3. Verify using a grid-search that your solution matches to the calculus based one. Assume $\sum_{i=1}^n x_i = 500.$ and $n=100.$ In this example, you should find that $\hat{\lambda}_{MLE} \approx 5.$
 
 ## Discrete Likelihoods
 
