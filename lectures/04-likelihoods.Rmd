@@ -148,6 +148,14 @@ Consider the log-likelihood
 
 ## Finding the MLE
 
+Recall that 
+
+\begin{align}
+\ell(\theta) 
+& = 
+\sum_i x_i \log \theta + (n- \sum_i x_i) \log(1 - \theta)
+\end{align}
+
 $$ \frac{\partial \ell(\theta)}{\partial \theta}
 = \frac{\sum_i x_i}{\theta} - \frac{(n - \sum_i x_i)}{(1- \theta)} =: 0
 $$
