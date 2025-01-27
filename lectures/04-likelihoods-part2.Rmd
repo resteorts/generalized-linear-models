@@ -235,6 +235,16 @@ ph[lik == max(lik)]
 optimize(ref_lik, interval = c(0,1), maximum = TRUE)
 ```
 
+## Find the MLE using numerical approximation
+
+Exercise: 
+
+1. Re-write the code to find the MLE using the log-likelihood. 
+2. The MLE should be the same. 
+3. Remember why we work with the log-likelihood (convenience and numerical stability).
+
+Video on connections between likelihood and log-likelihood: https://www.youtube.com/watch?v=8nogLkirA3I
+
 ## Find MLE using calculus
 
 -   Find the MLE by taking the first derivative of the likelihood function.
