@@ -199,7 +199,7 @@ where $\lambda > 0$ is the rate parameter, which represents both the mean and va
 
 1. Write out the likelihood for the Poisson distribution for $x_{1:n}.$
 2. Derive using calculus based methods the MLE of $\lambda$ is $\sum_i x_i/n$ (sample mean) and show that it is in fact a maximum. 
-3. Verify using a grid-search that your solution matches to the calculus based one. Assume $\lambda = 5$ and $n=100.$
+3. Verify using a grid-search that your solution matches to the calculus based one. Assume $\sum_{i=1}^n x_i = 500.$ and $n=100.$ In this example, you should find that $\lambda \approx 5.$
 
 ## Discrete Likelihoods
 
