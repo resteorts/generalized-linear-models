@@ -20,6 +20,24 @@ knitr::opts_chunk$set(
 )
 ```
 
+## Announcements
+
+1. Office hours (mine) today will be from 3:00 -- 4:00 PM in my office. 
+2. Homework 3 has been posted. 
+3. Any typos from last lecture have been updated, so please check for these. 
+4. Homework 3 has been posted (and the exercise has been clarified that corresponds with this.) Thanks to Zoe regarding catching this! 
+5. Homework 1 has been returned. 
+
+## Comments on Homework 1
+
+1. For Exercise 2 part b, some students had a misunderstanding that if a predictor is binary, the linearity assumption is violated.
+
+2. For Exercise 3 part a, some students did not fully understand what does "holding a variable constant" or "adjusting for a variable" mean when interpreting results from a multiple linear regression. 
+
+3. Question 6: Issue regarding the concept of interpreting the coefficients in the presence of an interaction term was not clear to all students. 
+
+Please attend lab on Friday if you would like to go over some of these concepts. 
+
 
 ## Computing set up
 
@@ -169,7 +187,7 @@ Fill in **A** and **B**.
 | V      | V      | V      | 2   | $(1 - p_H)^3$           |
 
 ::: question
-Observe that $n$ does not matter here. The order of the fouls does not matter either.  
+  
 :::
 
 
@@ -259,6 +277,8 @@ Exercise:
 3. Remember why we work with the log-likelihood (convenience and numerical stability).
 
 Video on connections between likelihood and log-likelihood: https://www.youtube.com/watch?v=8nogLkirA3I
+
+**While it's correct to work with either one, it's best practice to work with the log-likelihood, so please do this in your homework assignment.** 
 
 ## Find MLE using calculus
 
