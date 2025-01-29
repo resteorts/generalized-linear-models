@@ -1,0 +1,88 @@
+---
+title: 'Review of Likelihoods'
+author: "STA 310: Homework 3"
+output: pdf_document
+---
+
+```{r}
+library(knitr)
+library(magrittr)
+library(kableExtra)
+```
+
+# Instructions
+
+-   Write all narrative using full sentences. Write all interpretations and conclusions in the context of the data.
+-   Be sure all analysis code is displayed in the rendered pdf.
+-   If you are fitting a model, display the model output in a neatly formatted table. (The `tidy` and `kable` functions can help!)
+-   If you are creating a plot, use clear and informative labels and titles.
+-   Render and back up your work reguarly, such as using Github. 
+-   When you're done, we should be able to render the final version of the Rmd document to fully reproduce your pdf.
+- Upload your pdf to Gradescope. Upload your Rmd, pdf (and any data) to Canvas. 
+
+# Exercises
+
+## Exercise 1
+
+Write out the likelihood for the Poisson distribution for $x_{1:n}.$
+
+The probability mass function (PMF) of a Poisson-distributed random variable \( X \) with parameter \( \lambda \) is given by:
+
+\[
+P(X = x) = \frac{\lambda^x e^{-\lambda}}{x!}, \quad x = 0, 1, 2, \dots
+\]
+
+where \( \lambda > 0 \) is the rate parameter, which represents both the mean and variance of the distribution.
+
+## Exercise 2
+
+Derive using calculus based methods the MLE of $\lambda$ is $\sum_i x_i/n$ (sample mean) and show that it is in fact a maximum. 
+
+## Exercise 3 
+
+Verify using a grid-search that your solution matches to the calculus based one, where you may assume for simplicity that $\sum_i x_i = 500.$ You may assume 100 observations. (Hint: show that the approximated MLE is 5.)
+
+## Exercise 4 (Derived from Chapter 2 of BMLR).
+
+**The hot hand in basketball.**  @Gilovich1985 wrote a controversial but compelling article claiming that there is no such thing as “the hot hand” in basketball.  That is, there is no empirical evidence that shooters have stretches where they are more likely to make consecutive shots, and basketball shots are essentially independent events.  One of the many ways they tested for evidence of a “hot hand” was to record sequences of shots for players under game conditions and determine if players are more likely to make shots after made baskets than after misses.  For instance, assume we recorded data from one player's first 5 three-point attempts over a 5-game period.  We can assume games are independent, but we’ll consider two models for shots within a game:
+
+- No Hot Hand (1 parameter): $p_B$ = probability of making a basket (thus $1-p_B$ = probability of not making a basket).
+
+- Hot Hand (2 parameters): $p_B$ = probability of making a basket after a miss (or the first shot of a game); $p_{B|B}$ = probability of making a basket after making the previous shot.
+
+a. Fill out Table \@ref(tab:hothandchp2)---write out the contribution of each game to the likelihood for both models along with the total likelihood for each model.
+
+b. Given that, for the No Hot Hand model, $\textrm{Lik}(p_B)=p_B^{10}(1-p_B)^{15}$ for the 5 games where we collected data, how do we know that 0.40 (the maximum likelihood estimator (MLE) of $p_B$) is a better estimate than, say, 0.30?
+
+c. Find the MLEs for the parameters in each model, and then use those MLEs to determine if there's significant evidence that the hot hand exists using a likelihood ratio test (LRT). Be sure to specify the test and provide all details of your approach, including reproducible code used. 
+
+```{r, include=FALSE}
+Game <- c(1,2,3,4,5, "Total")
+First5 <- c("BMMBB", "MBMBM", "MMBBB", "BMMMB", "MMMMM", " ")
+NoHotHand <- c(" "," "," "," "," "," ")
+HotHand <- c(" "," "," "," "," "," ")
+```
+
+```{r, hothandchp2, echo=FALSE}
+hothandchp2 <- data.frame(Game, First5, NoHotHand, HotHand)
+kable(hothandchp2, booktabs = T, 
+      col.names = c("Game", "First 5 shots", 
+                    "Likelihood (No Hot Hand)", 
+                    "Likelihood (Hot Hand)"),
+      caption = "Data for Exercise 4.  (B = made basket.  M = missed basket.)") %>% 
+  column_spec(1:4, width = "2cm")
+```
+    
+
+
+# Grading
+
+| **Total**             | **15** |
+|-----------------------|:------:|
+| Ex 1                  |   2    |
+| Ex 2                  |   5    |
+| Ex 3                  |   5    |
+| Ex 4                  |   8    |
+| Workflow & formatting |   3    |
+
+The "Workflow & formatting" grade is to based on the organization of the assignment write up along with the reproducible workflow. This includes having an organized write up with neat and readable headers, code, and narrative, including properly rendered mathematical notation. It also includes having a reproducible Rmd or Quarto document that can be rendered to reproduce the submitted PDF.
