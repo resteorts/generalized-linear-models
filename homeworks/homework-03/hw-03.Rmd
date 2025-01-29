@@ -56,23 +56,15 @@ b. Given that, for the No Hot Hand model, $\textrm{Lik}(p_B)=p_B^{10}(1-p_B)^{15
 
 c. Find the MLEs for the parameters in each model, and then use those MLEs to determine if there's significant evidence that the hot hand exists using a likelihood ratio test (LRT). Be sure to specify the test and provide all details of your approach, including reproducible code used. 
 
-```{r, include=FALSE}
-Game <- c(1,2,3,4,5, "Total")
-First5 <- c("BMMBB", "MBMBM", "MMBBB", "BMMMB", "MMMMM", " ")
-NoHotHand <- c(" "," "," "," "," "," ")
-HotHand <- c(" "," "," "," "," "," ")
-```
+| Game | First five shots  | Likelihood (no hot hand) | Likelihood (hot hand)
+|--------|-----------------|--------------------------|-----------------------|
+| 1      | BMMBB            |                         |                       |
+| 2      | MBMBM            |                         |                       |
+| 3      | MMBBB            |                         |                       |
+| 4      | BMMMB            |                         |                       |
+| 5      | MMMMM            |                         |                       |
 
-```{r, hothandchp2, echo=FALSE}
-hothandchp2 <- data.frame(Game, First5, NoHotHand, HotHand)
-kable(hothandchp2, booktabs = T, 
-      col.names = c("Game", "First 5 shots", 
-                    "Likelihood (No Hot Hand)", 
-                    "Likelihood (Hot Hand)"),
-      caption = "Data for Exercise 4.  (B = made basket.  M = missed basket.)") %>% 
-  column_spec(1:4, width = "2cm")
-```
-    
+
 
 
 # Grading

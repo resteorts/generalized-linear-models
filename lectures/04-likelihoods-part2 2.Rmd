@@ -20,24 +20,6 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Announcements
-
-1. Office hours (mine) today will be from 3:00 -- 4:00 PM in my office. 
-2. Homework 3 has been posted. 
-3. Any typos from last lecture have been updated, so please check for these. 
-4. Homework 3 has been posted (and the exercise has been clarified that corresponds with this.) Thanks to Zoe regarding catching this! 
-5. Homework 1 has been returned. 
-
-## Comments on Homework 1
-
-1. For Exercise 2 part b, some students had a misunderstanding that if a predictor is binary, the linearity assumption is violated.
-
-2. For Exercise 3 part a, some students did not fully understand what does "holding a variable constant" or "adjusting for a variable" mean when interpreting results from a multiple linear regression. 
-
-3. Question 6: Issue regarding the concept of interpreting the coefficients in the presence of an interaction term was not clear to all students. 
-
-Please attend lab on Friday if you would like to go over some of these concepts. 
-
 
 ## Computing set up
 
@@ -180,16 +162,15 @@ Fill in **A** and **B**.
 | H      | H      | H      | 3   | $p_H^3$                 |
 | H      | H      | V      | 2   | $p_H^2(1 - p_H)$        |
 | H      | V      | H      | 3   | $p_H^2(1 - p_H)$        |
-| H      | V      | V      | 7   | \textcolor{blue}{$p_H(1 - p_H)^2$}                  
-| V      | H      | H      | 7   | \textcolor{blue}{$p_H^2(1 - p_H)$}               
+| H      | V      | V      | 7   | \textcolor{blue}{$p_H(1 - p_H)^2$}                  |
+| V      | H      | H      | 7   | \textcolor{blue}{$p_H^2(1 - p_H)$}               |
 | V      | H      | V      | 1   | $p_H(1 - p_H)^2$        |
 | V      | V      | H      | 5   | $p_H(1 - p_H)^2$        |
-| V      | V      | V      | 2   | $(1 - p_H)^3$           | 
-|--------|--------|--------|-----|-------------------------
-|Total |          |        |    | $p_H^{46}(1 - p_H)^{44}$
+| V      | V      | V      | 2   | $(1 - p_H)^3$           |
 
-
-$$46 = (3 \times 3 + 2 \times 2 + 3 \times 2 + 7 \times 1 + 7 \times 2 + 1 \times 1 + 5 \times 1)$$
+::: question
+Observe that $n$ does not matter here. The order of the fouls does not matter either.  
+:::
 
 
 ## Model 1: Likelihood function
@@ -279,8 +260,6 @@ Exercise:
 
 Video on connections between likelihood and log-likelihood: https://www.youtube.com/watch?v=8nogLkirA3I
 
-**While it's correct to work with either one, it's best practice to work with the log-likelihood, so please do this in your homework assignment.** 
-
 ## Find MLE using calculus
 
 -   Find the MLE by taking the first derivative of the likelihood function.
@@ -290,11 +269,11 @@ Video on connections between likelihood and log-likelihood: https://www.youtube.
 . . .
 
 ```{r echo = F, out.width = "60%"}
-loglik_plot <- ggplot(data = x1, aes(x = p, y = log(lik))) + 
-  geom_point() + 
-  geom_line() + 
-  geom_vline(xintercept = 46/90, color = "red") + 
-    labs(y = "log(Likelihood)", 
+loglik_plot <- ggplot(data = x1, aes(x = p, y = log(lik))) +
+  geom_point() +
+  geom_line() +
+  geom_vline(xintercept = 46/90, color = "red") +
+    labs(y = "log(Likelihood)",
        title = "log(Likelihood) of p_H")
 
 lik_plot + loglik_plot
@@ -411,31 +390,31 @@ Define new parameters:
 Fill in **A** and **B.**
 :::
 
-## Model 2: Solution Likelihood contributions {.midi}
+<!-- ## Model 2: Solution Likelihood contributions {.midi} -->
 
-+--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+
-| Foul 1 | Foul 2 | Foul 3 | n   | Likelihood contribution                                                                                                                     |
-+========+========+========+=====+=============================================================================================================================================+
-| H      | H      | H      | 3   | | $(p_{H\vert N})(p_{H\vert H Bias})(p_{H\vert H Bias}) = (p_{H\vert N})(p_{H\vert H Bias})^2$                                              |
-+--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+
-| H      | H      | V      | 2   | | $(p_{H\vert N})(p_{H\vert H Bias})(p_{H\vert H Bias}) = (p_{H\vert N})(p_{H\vert H Bias})^2$                                              |
-+--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+
-| H      | V      | H      | 3   | | $(p_{H\vert N})(p_{H\vert H Bias})(1 - p_{H\vert H Bias})$                                                                                |
-+--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+
-| H      | V      | V      | 7   | \textcolor{blue}{$(p_{H\vert N})(1- p_{H\vert H Bias})(1 - p_{H\vert N})$}
-+--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+
-| V      | H      | H      | 7   | \textcolor{blue}{$(1- p_{H\vert N})(p_{H\vert V Bias})(p_{H\vert N})$}
-+--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+
-| V      | H      | V      | 1   | | $(1 - p_{H\vert N})(p_{H\vert V Bias})(1 - p_{H\vert N}) = (1 - p_{H\vert N})^2(p_{H\vert V Bias})$                                       |
-+--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+
-| V      | V      | H      | 5   | | $(1 - p_{H\vert N})(1-p_{H\vert V Bias})(p_{H\vert V Bias})$                                                                              |
-+--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+
-| V      | V      | V      | 2   | | $\begin{aligned}&(1 - p_{H\vert N})(1-p_{H\vert V Bias})(1-p_{H\vert V Bias})\\ &=(1 - p_{H\vert N})(1-p_{H\vert V Bias})^2\end{aligned}$ |
-+--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+
+<!-- +--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+ -->
+<!-- | Foul 1 | Foul 2 | Foul 3 | n   | Likelihood contribution                                                                                                                     | -->
+<!-- +========+========+========+=====+=============================================================================================================================================+ -->
+<!-- | H      | H      | H      | 3   | | $(p_{H\vert N})(p_{H\vert H Bias})(p_{H\vert H Bias}) = (p_{H\vert N})(p_{H\vert H Bias})^2$                                              | -->
+<!-- +--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+ -->
+<!-- | H      | H      | V      | 2   | | $(p_{H\vert N})(p_{H\vert H Bias})(p_{H\vert H Bias}) = (p_{H\vert N})(p_{H\vert H Bias})^2$                                              | -->
+<!-- +--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+ -->
+<!-- | H      | V      | H      | 3   | | $(p_{H\vert N})(p_{H\vert H Bias})(1 - p_{H\vert H Bias})$                                                                                | -->
+<!-- +--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+ -->
+<!-- | H      | V      | V      | 7   | \textcolor{blue}{$(p_{H\vert N})(1- p_{H\vert H Bias})(1 - p_{H\vert N})$}                                                                                                                                 -->
+<!-- +--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+ -->
+<!-- | V      | H      | H      | 7   | \textcolor{blue}{$(1- p_{H\vert N})(p_{H\vert V Bias})(p_{H\vert N})$}                                                                                                                                       -->
+<!-- +--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+ -->
+<!-- | V      | H      | V      | 1   | | $(1 - p_{H\vert N})(p_{H\vert V Bias})(1 - p_{H\vert N}) = (1 - p_{H\vert N})^2(p_{H\vert V Bias})$                                       | -->
+<!-- +--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+ -->
+<!-- | V      | V      | H      | 5   | | $(1 - p_{H\vert N})(1-p_{H\vert V Bias})(p_{H\vert V Bias})$                                                                              | -->
+<!-- +--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+ -->
+<!-- | V      | V      | V      | 2   | | $\begin{aligned}&(1 - p_{H\vert N})(1-p_{H\vert V Bias})(1-p_{H\vert V Bias})\\ &=(1 - p_{H\vert N})(1-p_{H\vert V Bias})^2\end{aligned}$ | -->
+<!-- +--------+--------+--------+-----+---------------------------------------------------------------------------------------------------------------------------------------------+ -->
 
-::: question
-Fill in **A** and **B.**
-:::
+<!-- ::: question -->
+<!-- Fill in **A** and **B.** -->
+<!-- ::: -->
 
 ## Likelihood function
 
@@ -452,6 +431,28 @@ $$\begin{aligned}\log (Lik(p_{H| N}, p_{H|H Bias}, p_{H |V Bias})) &= 25 \log(p_
 ## Exercise
 
 On your own, fill in the table and verify that the likelihood is indeed correct. 
+
+## A and B
+
+**A** = \textcolor{blue}{$(p_{H\vert N})(1- p_{H\vert H Bias})(1 - p_{H\vert N})$}
+
+Foul1: H -- Given there is no foul in both teams (N), the first foul is on the home team (H)
+
+Foul2: V -- Given there is one more prior foul on the home team (H Bias), the second foul is on the visiting team (V)
+
+Foul3: V -- Given there is one foul in both teams (N), the third foul is on the visiting team (V)
+
+**B** = \textcolor{blue}{$(1- p_{H\vert N})(p_{H\vert V Bias})(p_{H\vert N})$}
+
+Foul1: V -- Given there is no foul in both teams (N), the first foul is on the visiting team (V)
+
+Foul2: H -- Given there is one more prior foul on the visiting team (V Bias), the second foul is on the home team (H)
+
+Foul3: H -- Given there is one foul in both teams (N), the third foul is on the home team (H)
+
+## Likelihood
+
+After filling in **A** and **B**, we multiply all the likelihood contributions (since the n = 30 games are independent from one another) to obtain the total likelihood.
 
 <!-- ## Exercise -->
 
