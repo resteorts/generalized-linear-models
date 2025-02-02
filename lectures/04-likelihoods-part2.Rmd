@@ -437,9 +437,21 @@ Fill in **A** and **B.**
 Fill in **A** and **B.**
 :::
 
+## Contributions to the Likelihood
+
+1. $$p_{H|N}:  22$$
+2. $$(1 - P_{H|N}):  23$$
+Total: 22 + 23 = 45
+3. $$p_{H|Hbias}: 13$$
+4. $$(1 - P_{H|HBias}):  10$$
+Total = 13 + 10 = 23
+5. $$P_{H|Vbias} : 13$$
+6. $$(1 - P_{H|VBias}):  9$$
+Total = 13 + 9 = 22.
+
 ## Likelihood function
 
-$$\begin{aligned}Lik(p_{H| N}, p_{H|H Bias}, p_{H |V Bias}) &= [(p_{H| N})^{25}(1 - p_{H|N})^{23}(p_{H| H Bias})^8 \\ &(1 - p_{H| H Bias})^{12}(p_{H| V Bias})^{13}(1-p_{H|V Bias})^9]\end{aligned}$$
+$$\begin{aligned}Lik(p_{H| N}, p_{H|H Bias}, p_{H |V Bias}) &= [(p_{H| N})^{22}(1 - p_{H|N})^{23}(p_{H| H Bias})^{13} \\ &(1 - p_{H| H Bias})^{10}(p_{H| V Bias})^{13}(1-p_{H|V Bias})^{9}]\end{aligned}$$
 
 **(Note: The exponents sum to 90, the total number of fouls in the data)**
 
@@ -447,11 +459,11 @@ $$\begin{aligned}Lik(p_{H| N}, p_{H|H Bias}, p_{H |V Bias}) &= [(p_{H| N})^{25}(
 
 . . .
 
-$$\begin{aligned}\log (Lik(p_{H| N}, p_{H|H Bias}, p_{H |V Bias})) &= 25 \log(p_{H| N}) + 23 \log(1 - p_{H|N}) \\ & + 8 \log(p_{H| H Bias}) + 12 \log(1 - p_{H| H Bias})\\ &+ 13 \log(p_{H| V Bias}) + 9 \log(1-p_{H|V Bias})\end{aligned}$$
+$$\begin{aligned}\log (Lik(p_{H| N}, p_{H|H Bias}, p_{H |V Bias})) &= 22 \log(p_{H| N}) + 23 \log(1 - p_{H|N}) \\ & + 13 \log(p_{H| H Bias}) + 10 \log(1 - p_{H| H Bias})\\ &+ 13 \log(p_{H| V Bias}) + 9 \log(1-p_{H|V Bias})\end{aligned}$$
 
-## Exercise
 
-On your own, fill in the table and verify that the likelihood is indeed correct. 
+
+ 
 
 <!-- ## Exercise -->
 
@@ -496,7 +508,10 @@ $$\begin{aligned}&\text{Model A: }y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \eps
 
 Model A is nested in Model B. We could use likelihoods to test whether it is useful to add \(x_3\) and \(x_4\) to the model.
 
-$$\begin{aligned}&H_0: \beta_3 = \beta_4 = 0 \\ &H_a: \text{ at least one }\beta_j \text{ is not equal to 0}\end{aligned}$$
+$$\begin{aligned}&H_0: \beta_3 = \beta_4 = 0 \\ 
+&H_a: \text{ at least one }\beta_j \text{ is not equal to 0}
+\end{aligned}$$
+where $j=3,4.$
 
 ## Nested Models
 
@@ -538,29 +553,29 @@ Solution = -62.36
 
 Model 2: 
 
-- \(\hat{p}_{H|N} = 25 / 48 = 0.521\)
-- \(\hat{p}_{H|H Bias} = 8 /20 = 0.4\)
-- \(\hat{p}_{H|V Bias} = 13/ 22 = 0.591\)
+- \(\hat{p}_{H|N} = 22 / 45 = 0.489\)
+- \(\hat{p}_{H|H Bias} = 13 /23 = 0.565\)
+- \(\hat{p}_{H|V Bias} = 13/ 22 = 0.590\)
 
 ```{r}
 loglik2 <- function(phn, phh, phv) {
-  log(phn^25 * (1 - phn)^23 * phh^8 * 
-        (1 - phh)^12 * phv^13 * (1 - phv)^9)
+  log(phn^{22} * (1 - phn)^{23} * phh^{13} * 
+        (1 - phh)^{10} * phv^{13} * (1 - phv)^9)
 }
-(loglik2(25/48, 8/20, 13/22))
+(loglik2(22/45, 13/23, 13/22))
 ```
 
-Solution = -61.57
+Solution = -61.81
 
 ## Step 3
 
 Find the difference in the log-likelihoods
 
 ```{r}
-(diff <- loglik2(25/48, 8/20, 13/22) - loglik1(46/90))
+(diff <- loglik2(22/45, 13/23, 13/22) - loglik1(46/90))
 ```
 
-Diff = 0.7878
+Diff = 0.5507
 
 Is the difference in the maximum log-likelihoods statistically significant?
 
@@ -576,10 +591,10 @@ LRT follows a \(\chi^2\) distribution where the degrees of freedom equal the dif
 ## Step 4
 
 ```{r}
-(LRT <- 2 * (loglik2(25/48, 8/20, 13/22) - loglik1(46/90)))
+(LRT <- 2 * (loglik2(22/45, 13/23, 13/22) - loglik1(46/90)))
 ```
 
-LRT = 1.576
+LRT = 1.10
 
 The test statistic follows a \(\chi^2\) distribution with 2 degrees of freedom. Therefore, the p-value is \(P(\chi^2 > LRT)\).
 
@@ -587,7 +602,7 @@ The test statistic follows a \(\chi^2\) distribution with 2 degrees of freedom. 
 pchisq(LRT, 2, lower.tail = FALSE)
 ```
 
-p-value = 0.4548
+p-value = 0.5765
 
 The p-value is very large, so we fail to reject \(H_0\). We do not have convincing evidence that the conditional model is an improvement over the unconditional model. 
 
@@ -610,10 +625,10 @@ AIC = -2(max log-likelihood) + 2p
 AIC_1 = -122.72
 
 ```{r}
-(Model2_AIC <-2 * loglik2(25/48, 8/20, 13/22) + 2 * 3)
+(Model2_AIC <-2 * loglik2(22/45, 13/23, 13/22) + 2 * 3)
 ```
 
-AIC_2 = -117.15
+AIC_2 = -117.62
 
 ## Comparing non-nested models
 
@@ -624,10 +639,11 @@ AIC_2 = -117.15
 BIC_1 = -121.32
 
 ```{r}
-(Model2_BIC <-2 * loglik2(25/48, 8/20, 13/22) + 3 * log(30))
+(Model2_BIC <-2 * loglik2(22/45, 13/23, 13/22) 
+ + 3 * log(30))
 ```
 
-BIC_2 = -112.94
+BIC_2 = -113.42
 
 Which model would you choose and why based upon the AIC and BIC values? 
 
