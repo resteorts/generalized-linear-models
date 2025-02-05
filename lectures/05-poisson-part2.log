@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.4)  5 FEB 2025 11:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.2.4)  5 FEB 2025 12:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1319,6 +1319,26 @@ Overfull \hbox (43.22733pt too wide) in alignment at lines 1220--1220
 [47
 
 ]
+
+[48
+
+]
+
+[49
+
+]
+
+[50
+
+]
+
+[51
+
+]
+
+[52
+
+]
 \tf@nav=\write6
 \openout6 = `05-poisson-part2.nav'.
 
@@ -1335,18 +1355,18 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 27039 strings out of 475111
- 518750 string characters out of 5762079
+ 27066 strings out of 475111
+ 519007 string characters out of 5762079
  910019 words of memory out of 5000000
- 49151 multiletter control sequences out of 15000+600000
- 676515 words of font info for 211 fonts, out of 8000000 for 9000
+ 49161 multiletter control sequences out of 15000+600000
+ 676616 words of font info for 212 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  101i,13n,107p,1013b,615s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss12.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss9.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso12.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on 05-poisson-part2.pdf (47 pages, 512002 bytes).
+Output written on 05-poisson-part2.pdf (52 pages, 519440 bytes).
 PDF statistics:
- 469 PDF objects out of 1000 (max. 8388607)
- 369 compressed objects within 4 object streams
- 146 named destinations out of 1000 (max. 500000)
+ 504 PDF objects out of 1000 (max. 8388607)
+ 399 compressed objects within 4 object streams
+ 161 named destinations out of 1000 (max. 500000)
  67648 words of extra memory for PDF output out of 74296 (max. 10000000)
 

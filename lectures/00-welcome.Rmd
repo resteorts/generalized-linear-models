@@ -321,6 +321,18 @@ See the course syllabus for letter grade thresholds.
 
 See the syllabus regarding additional academic and mental health and wellness resources. 
 
+## Latex Resources
+
+1. https://wch.github.io/latexsheet/latexsheet.pdf
+
+2. https://www.bu.edu/math/files/2013/08/LongTeX1.pdf
+
+3. https://www.docx2latex.com/tutorials/mathematical-equations-latex/
+
+
+
+
+
 ## Questions 
 
 Questions? 
