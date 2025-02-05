@@ -10,7 +10,12 @@ font-size: 8px
 bibliography: references.bib
 ---
 
+## Announcements
 
+1. Homework 3 due Friday at 5 PM. 
+2. Quiz 1 will be released on Gradescope later this week along with a deadline. Coverage will be Chapters 1 -- 3 of BMLR. This quiz is open note/open book and take home. If you use other resources, cite them and instructions will be on the quiz. 
+3. This quiz is to be completed individually. You will have one opportunity to submit it, so be careful regarding this. 
+4. Any questions should be sent through direct message in Canvas (or email). DO NOT make any group postings about quiz information! 
 
 ```{r setup, include = F}
 knitr::opts_chunk$set(fig.width = 8,
@@ -475,7 +480,9 @@ $$
 
     -   Makes the counts more dispersed than with a single parameter
 
--   Think of it as a Poisson model such that $\lambda$ is also random $$\begin{aligned} &\text{If }\hspace{2mm} Y|\lambda \sim Poisson(\lambda)\\
+-   Think of it as a Poisson model such that $\lambda$ is also random 
+
+$$\begin{aligned} &\text{If }\hspace{2mm} Y|\lambda \sim Poisson(\lambda)\\
     &\text{ and } \lambda \sim Gamma\bigg(r, \frac{1-p}{p}\bigg)\\
     &\text{ then } Y \sim NegBinom(r, p)\end{aligned}$$
 :::
@@ -526,5 +533,110 @@ tidy(hh_age_loc_nb) |>
 :::
 
 
+## Exercise
+
+Suppose
+\begin{align}
+Y|\lambda &\sim \text{Poisson}(\lambda)\\
+\lambda &\sim \text{Gamma}\bigg(r, \frac{p}{1-p}\bigg).\\
+\end{align}
+
+It follows that  $$Y \sim \text{NegBinom}(r, p).$$
+
+
+
+## Exercise
+
+We are given that:
+\[
+Y \mid \lambda \sim \text{Poisson}(\lambda),
+\]
+which means that the conditional probability mass function (PMF) of \( Y \), given \( \lambda \), is
+\[
+P(Y = y \mid \lambda) = \frac{\lambda^y e^{-\lambda}}{y!}, \quad y = 0, 1, 2, \dots.
+\]
+
+Additionally, we are given that:
+\[
+\lambda \sim \text{Gamma}\left( r, \frac{p}{1-p} \right). 
+\]
+
+Thus,
+
+$$p(\lambda) = \frac{1}{\Gamma(r)(\frac{p}{1-p})^r} \lambda^{r-1} e^{-\lambda(\frac{1-p}{p})}.
+$$
+
+<!-- ## Solution  -->
+
+<!-- The marginal distribution of \( Y \) is found by integrating out \( \lambda \) from the joint distribution of \( Y \) and \( \lambda \). That is: -->
+
+<!-- \begin{align} -->
+<!-- P(Y = y) &= \int_0^\infty P(Y = y, \lambda) d\lambda \\ -->
+<!-- P(Y = y) &= \int_0^\infty P(Y=y \mid \lambda) f(\lambda) d\lambda. -->
+<!-- \end{align} -->
+
+<!-- This follows from the fact that  -->
+
+<!-- $$P(A, B) = P(A \mid B) P(B).$$ -->
+
+<!-- ## Solution -->
+
+<!-- It follows that  -->
+<!-- \begin{align} -->
+<!-- p(y) &= \int_0^\infty P(Y=y \mid \lambda) f(\lambda) d\lambda \\ -->
+<!-- &= \int_0^\infty \frac{\lambda^y e^{-\lambda}}{y!} \times  -->
+<!-- \frac{1}{\Gamma(r)(\frac{p}{1-p})^r} \lambda^{r-1} e^{-\lambda(\frac{1-p}{p})} d\lambda \\ -->
+<!-- &= \frac{p(1-p)^{-r}}{\Gamma(r) y!} -->
+<!-- \int_0^\infty  -->
+<!-- \lambda^{y + r - 1}  -->
+<!-- e^{-\lambda(\frac{1}{p})} d\lambda -->
+<!-- \end{align} -->
+
+<!-- ## Solution -->
+
+<!-- Observe that  -->
+<!-- $$\int_0^\infty  -->
+<!-- \lambda^{y + r - 1}  -->
+<!-- e^{-\lambda(\frac{1}{p})} d\lambda -->
+<!-- $$ -->
+
+<!-- is the kernel (part without the normalizing constants) of a Gamma distribution with parameters $a = 1/p$ and $b=y+r.$ -->
+
+<!-- This implies that  -->
+
+<!-- $$\int_0^\infty  -->
+<!-- \lambda^{y + r - 1}  -->
+<!-- e^{-\lambda(\frac{1}{p})} d\lambda -->
+<!-- = \frac{\Gamma(y+r)}{(1/p)^{y+r}} -->
+<!-- = \Gamma(y+r) p^{y+r}. -->
+<!-- $$ -->
+
+
+<!-- ## Solution -->
+
+<!-- Fact: $\Gamma(c) = (c-1)!$ when $c$ is an integer.  -->
+
+<!-- Using the Gamma kernel fact, it follows that -->
+<!-- \begin{align} -->
+<!-- p(y) &= \frac{p(1-p)^{-r}}{\Gamma(r) y!} -->
+<!-- \int_0^\infty  -->
+<!-- \lambda^{y + r - 1}  -->
+<!-- e^{-\lambda(\frac{1}{p})} d\lambda \\ -->
+<!-- &= \frac{p(1-p)^{-r}}{\Gamma(r) y!} -->
+<!-- \times \Gamma(y+r) p ^{y+r} \\ -->
+<!-- &=  -->
+<!-- \frac{\Gamma(y+r)}{\Gamma(r) y!} p^y (1-p)^r \\ -->
+<!-- &= \frac{(r + y - 1)!}{(r-1)! y!} p^y (1-p)^r, -->
+<!-- \end{align} -->
+
+<!-- which is a Negative Binomial distribution(r, p), where $r$ is the number of successes until the experiment is stopped and $p$ is the success probability.   -->
+
+<!-- ## Additional resources -->
+
+<!-- You may find this post helpful, which outlines different parameterizations of the Gamma distribution.  -->
+
+<!-- https://timothy-barry.github.io/posts/2020-06-16-gamma-poisson-nb/ -->
+
+<!-- If you have taken STA 360 (or will take it), this derivation is known as calculating the marginal distribution.  -->
 
 ## References
