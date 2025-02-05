@@ -534,9 +534,15 @@ tidy(model2, conf.int = T) |>
 
 We can determine whether to keep $age^2$ in the model in two ways:
 
-1. Use the p-value (or confidence interval) for the coefficient (since we are adding a single term to the model)
+1. Use the p-value (or confidence interval) for the coefficient (since we are adding a single term to the model). This is known as a Wald-type statistic. 
 
 2. Conduct a drop-in-deviance test
+
+## Wald-type statistic
+
+Observe that $Z = -11.058$ with p-value approximately 0. 
+
+This supports the alternative hypothesis that the quadratic term is statistically significant in the model. 
 
 ## Deviance
 
@@ -597,17 +603,21 @@ c.  What does the value 1 tell you?
 d.  What is your conclusion?
 
 ## Drop-in-deviance to compare Model1 and Model2
-a. $$\textrm{Null (reduced) Model}: \log(\lambda) = \beta_0 \textrm{ or } \beta_1=0$$
+a. $$\textrm{Null (reduced) Model}: \log(\lambda) = \beta_0 + \beta_1 \text{age}$$
 
-$$\textrm{Larger (full) Model}: \log(\lambda) = \beta_0 + \beta_1\textrm{age} \textrm{ or } \beta_1 \neq 0 $$
+$$\textrm{Larger (full) Model}: \log(\lambda) = \beta_0 + \beta_1\textrm{age} + \beta_2 \text{age}^2$$
 
-b. A residual deviance for the null model is reported as 2337.1 (with 1498 df.)
+b. What does the value 2337.089 tell you? 
+
+The value 2337.1 (with 1498 df.) provides the residual deviance for the null model.
 
 c. There is only 1 degree of freedom difference between the two models. 
 
+## Drop-in-deviance to compare Model1 and Model2 (continued)
+
 d. The drop-in-deviance is $2337.089 - 2200.94 = 136.15 \approx \chi_1^2$. 
 
-The p-value is 0, indicating there is statistically significant evidence that average household size decreases as age of the head of household increases.
+The p-value is 0, indicating there is statistically significant evidence that average household size decreases as age of the head of household increases. This provides significant support for rejecting the null hypothesis (in favor of the alternative) and including the quadratic term. 
 
 
 ## Add `location` to the model? {.midi}
@@ -632,7 +642,7 @@ Which of the following are reliable ways to determine if `location` should be ad
 
 ## Add `location` to the model? {.midi}
 
-- See Section 4.4.7 regarding adding location to the model. 
+- See Section 4.4.7 regarding adding location to the model. (Pages 109 -- 110).
 
 - Solution: Drop-in-deviance, AIC/BIC. 
 
