@@ -566,77 +566,77 @@ Thus,
 $$p(\lambda) = \frac{1}{\Gamma(r)(\frac{p}{1-p})^r} \lambda^{r-1} e^{-\lambda(\frac{1-p}{p})}.
 $$
 
-## Solution
+<!-- ## Solution -->
 
-The marginal distribution of \( Y \) is found by integrating out \( \lambda \) from the joint distribution of \( Y \) and \( \lambda \). That is:
+<!-- The marginal distribution of \( Y \) is found by integrating out \( \lambda \) from the joint distribution of \( Y \) and \( \lambda \). That is: -->
 
-\begin{align}
-P(Y = y) &= \int_0^\infty P(Y = y, \lambda) d\lambda \\
-P(Y = y) &= \int_0^\infty P(Y=y \mid \lambda) f(\lambda) d\lambda.
-\end{align}
+<!-- \begin{align} -->
+<!-- P(Y = y) &= \int_0^\infty P(Y = y, \lambda) d\lambda \\ -->
+<!-- P(Y = y) &= \int_0^\infty P(Y=y \mid \lambda) f(\lambda) d\lambda. -->
+<!-- \end{align} -->
 
-This follows from the fact that
+<!-- This follows from the fact that -->
 
-$$P(A, B) = P(A \mid B) P(B).$$
+<!-- $$P(A, B) = P(A \mid B) P(B).$$ -->
 
-## Solution
+<!-- ## Solution -->
 
-It follows that
-\begin{align}
-p(y) &= \int_0^\infty P(Y=y \mid \lambda) f(\lambda) d\lambda \\
-&= \int_0^\infty \frac{\lambda^y e^{-\lambda}}{y!} \times
-\frac{1}{\Gamma(r)(\frac{p}{1-p})^r} \lambda^{r-1} e^{-\lambda(\frac{1-p}{p})} d\lambda \\
-&= \frac{p(1-p)^{-r}}{\Gamma(r) y!}
-\int_0^\infty
-\lambda^{y + r - 1}
-e^{-\lambda(\frac{1}{p})} d\lambda.
-\end{align}
+<!-- It follows that -->
+<!-- \begin{align} -->
+<!-- p(y) &= \int_0^\infty P(Y=y \mid \lambda) f(\lambda) d\lambda \\ -->
+<!-- &= \int_0^\infty \frac{\lambda^y e^{-\lambda}}{y!} \times -->
+<!-- \frac{1}{\Gamma(r)(\frac{p}{1-p})^r} \lambda^{r-1} e^{-\lambda(\frac{1-p}{p})} d\lambda \\ -->
+<!-- &= \frac{p(1-p)^{-r}}{\Gamma(r) y!} -->
+<!-- \int_0^\infty -->
+<!-- \lambda^{y + r - 1} -->
+<!-- e^{-\lambda(\frac{1}{p})} d\lambda. -->
+<!-- \end{align} -->
 
-## Solution
+<!-- ## Solution -->
 
-Observe that
-$$\int_0^\infty
-\lambda^{y + r - 1}
-e^{-\lambda(\frac{1}{p})} d\lambda
-$$
+<!-- Observe that -->
+<!-- $$\int_0^\infty -->
+<!-- \lambda^{y + r - 1} -->
+<!-- e^{-\lambda(\frac{1}{p})} d\lambda -->
+<!-- $$ -->
 
-is the kernel (part without the normalizing constants) of a Gamma distribution with parameters $a = 1/p$ and $b=y+r.$
+<!-- is the kernel (part without the normalizing constants) of a Gamma distribution with parameters $a = 1/p$ and $b=y+r.$ -->
 
-This implies that
+<!-- This implies that -->
 
-$$\int_0^\infty
-\lambda^{y + r - 1}
-e^{-\lambda(\frac{1}{p})} d\lambda
-= \frac{\Gamma(y+r)}{(1/p)^{y+r}}
-= \Gamma(y+r) p^{y+r}.
-$$
+<!-- $$\int_0^\infty -->
+<!-- \lambda^{y + r - 1} -->
+<!-- e^{-\lambda(\frac{1}{p})} d\lambda -->
+<!-- = \frac{\Gamma(y+r)}{(1/p)^{y+r}} -->
+<!-- = \Gamma(y+r) p^{y+r}. -->
+<!-- $$ -->
 
 
-## Solution
+<!-- ## Solution -->
 
-Fact: $\Gamma(c) = (c-1)!$ when $c$ is an integer.
+<!-- Fact: $\Gamma(c) = (c-1)!$ when $c$ is an integer. -->
 
-Using the Gamma kernel fact, it follows that
-\begin{align}
-p(y) &= \frac{p(1-p)^{-r}}{\Gamma(r) y!}
-\int_0^\infty
-\lambda^{y + r - 1}
-e^{-\lambda(\frac{1}{p})} d\lambda \\
-&= \frac{p(1-p)^{-r}}{\Gamma(r) y!}
-\times \Gamma(y+r) p ^{y+r} \\
-&=
-\frac{\Gamma(y+r)}{\Gamma(r) y!} p^y (1-p)^r \\
-&= \frac{(r + y - 1)!}{(r-1)! y!} p^y (1-p)^r,
-\end{align}
+<!-- Using the Gamma kernel fact, it follows that -->
+<!-- \begin{align} -->
+<!-- p(y) &= \frac{p(1-p)^{-r}}{\Gamma(r) y!} -->
+<!-- \int_0^\infty -->
+<!-- \lambda^{y + r - 1} -->
+<!-- e^{-\lambda(\frac{1}{p})} d\lambda \\ -->
+<!-- &= \frac{p(1-p)^{-r}}{\Gamma(r) y!} -->
+<!-- \times \Gamma(y+r) p ^{y+r} \\ -->
+<!-- &= -->
+<!-- \frac{\Gamma(y+r)}{\Gamma(r) y!} p^y (1-p)^r \\ -->
+<!-- &= \frac{(r + y - 1)!}{(r-1)! y!} p^y (1-p)^r, -->
+<!-- \end{align} -->
 
-which is a Negative Binomial distribution(r, p), where $r$ is the number of successes until the experiment is stopped and $p$ is the success probability.
+<!-- which is a Negative Binomial distribution(r, p), where $r$ is the number of successes until the experiment is stopped and $p$ is the success probability. -->
 
-## Additional resources
+<!-- ## Additional resources -->
 
-You may find this post helpful, which outlines different parameterizations of the Gamma distribution.
+<!-- You may find this post helpful, which outlines different parameterizations of the Gamma distribution. -->
 
-https://timothy-barry.github.io/posts/2020-06-16-gamma-poisson-nb/
+<!-- https://timothy-barry.github.io/posts/2020-06-16-gamma-poisson-nb/ -->
 
-If you have taken STA 360 (or will take it), this derivation is known as calculating the marginal distribution.
+<!-- If you have taken STA 360 (or will take it), this derivation is known as calculating the marginal distribution. -->
 
 ## References
