@@ -568,7 +568,7 @@ $$
 
 ## Exercise
 
-1. What is the marginal distribution of $p(y).$
+1. What is the marginal distribution of $p(y)?$
 
 $$p(y) = \int_{\lambda} p(y, \lambda) \; d \lambda = \int_{\lambda} p(y \mid \lambda) p(\lambda)\; d \lambda. $$
 
@@ -577,8 +577,13 @@ $$p(y) = \int_{\lambda} p(y, \lambda) \; d \lambda = \int_{\lambda} p(y \mid \la
 \begin{align}
 p(\lambda \mid y) &= \frac{p(\lambda \mid y)}{p(y)} \\
 &= \frac{p(y \mid \lambda) p(\lambda)}{p(y)} \\
-& \propto p(y \mid \lambda) p(\lambda)
+& \propto p(y \mid \lambda) p(\lambda),
 \end{align}
+where
+
+- $p(y \mid \lambda)$ is the likelihood,
+- $p(y)$ is the marginal, and 
+- $p(\lambda)$ is called the prior distribution.
 
 <!-- ## Solution -->
 
@@ -657,12 +662,10 @@ p(\lambda \mid y) &= \frac{p(\lambda \mid y)}{p(y)} \\
 
 Verify empirically that a Poisson-Gamma mixture is in fact a Negative-Binomial distribution. 
 
-We will simulate:
+1. Draw $\lambda$ from a Gamma distribution (a=3,b=1/2), corresponding to the shape and the rate parameters with $n=10,000$ samples.  
+2. Assuming step 1, simulate draws from a Poisson with $\lambda$ corresponding to step 1 (and the same number of sample in step 1). 
 
-1. A Poisson distribution where the rate $\lambda.$
-2. Assuming step 1, draw $\lambda$ from a Gamma distribution.
-
-3. Then we will simulation a Negative Binomial distribution.
+3. Now simulate from a Negative Binomial distribution, where the size is a and the probability is $1/(1+1/b).$
 
 
 4. Finally, we will compare the distributions (histograms) and summary statistics to verify that they match empirically. 
