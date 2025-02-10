@@ -641,115 +641,74 @@ $$
 
 <!-- If you have taken STA 360 (or will take it), this derivation is known as calculating the marginal distribution. -->
 
-<!-- ## Exercise -->
+## Exercise 
 
-<!-- The goal of this exercise is to use simulation to understand the equivalency between a gamma-Poisson mixture and a negative binomial distribution empirically. -->
+Verify empirically that a Poisson-Gamma mixture is in fact a Negative-Binomial distribution. 
 
-<!-- Remember to set a seed so your simulations are reproducible! -->
+We will simulate:
 
-<!-- ## Exercise -->
+1. A Poisson distribution where the rate $\lambda.$
+2. Assuming step 1, draw $\lambda$ from a Gamma distribution.
 
-<!-- <!--BMLR Sec 3.7.2, Ex 2--> -->
+3. Then we will simulation a Negative Binomial distribution.
 
-<!-- a.  -->
 
-<!-- Use the R function rpois() to generate 10,000 $x_i$ from a regular Poisson distribution,  -->
-<!-- $$X \sim \textrm{Poisson}(\lambda=1.5)$$.  -->
+4. Finally, we will compare the distributions (histograms) and summary statistics to verify that they match empirically. 
 
-<!-- Plot a histogram of this distribution and note its mean and variance.  -->
-
-<!-- Next, let $Y \sim \textrm{Gamma}(\text{shape} = 3, \text{rate} = 2)$ and use rgamma() to generate 10,000 random $y_i$ from this distribution. -->
-
-<!-- Now, consider 10,000 different Poisson distributions where $\lambda_i = y_i$. Randomly generate one $z_i$ from each Poisson distribution. Plot a histogram of these $z_i$ and compare it to your original histogram of $X$ (where $X \sim \textrm{Poisson}(1.5)$). How do the means and variances compare? -->
+Do you need to set a seed? Does the number of samples you choose matter? 
 
 <!-- ## Solution -->
 
 <!-- ```{r} -->
-<!-- library(knitr) -->
-<!-- set.seed(101) -->
-<!-- n <- 10000 # sample size  -->
-<!-- x <-  rpois(n, lambda = 1.5) # draw poisson data -->
-<!-- y <- rgamma(n, shape = 3, rate = 2) # draw gamma data -->
+<!-- set.seed(1234) -->
+<!-- # Set parameters for the Gamma distribution (alpha, beta) -->
+<!-- alpha <- 3 -->
+<!-- beta <- 2 -->
 
-<!-- z <- rep(0, n) -->
-<!-- for(i in 1:n) -->
-<!--   z[i] = rpois(1, lambda = y[i]) # what distribution does this generate? -->
+<!-- # Number of samples -->
+<!-- n_samples <- 100000 -->
+
+<!-- # Simulate the Poisson-Gamma mixture: -->
+<!-- # Step 1: Draw random lambda values from a Gamma distribution -->
+<!-- lambda_samples <- rgamma(n_samples, shape = alpha, rate = 1 / beta) -->
+
+<!-- # Step 2: For each lambda, draw random samples from a Poisson distribution -->
+<!-- poisson_samples <- rpois(n_samples, lambda = lambda_samples) -->
+
+<!-- # Simulate the Negative Binomial distribution (size = alpha, prob = 1 / (1 + beta)) -->
+<!-- nb_samples <- rnbinom(n_samples, size = alpha, prob = 1 / (1 + beta)) -->
+<!-- ``` -->
+
+<!-- ## Solution -->
+
+<!-- ```{r, echo = FALSE} -->
+<!-- # Plot histograms for both distributions -->
+<!-- hist(poisson_samples, probability = TRUE, col = rgb(1, 0, 0, 0.5),  -->
+<!--      main = "Comparison of Poisson-Gamma Mixture and Negative Binomial",  -->
+<!--      xlab = "Count", ylab = "Density", xlim = c(0, max(c(poisson_samples, nb_samples)))) -->
+<!-- hist(nb_samples, probability = TRUE, col = rgb(0, 0, 1, 0.5),  -->
+<!--      add = TRUE) -->
+
+<!-- # Add legend -->
+<!-- legend("topright", legend = c("Poisson-Gamma Mixture", "Negative Binomial"),  -->
+<!--        fill = c(rgb(1, 0, 0, 0.5), rgb(0, 0, 1, 0.5))) -->
 <!-- ``` -->
 
 <!-- ## Solution -->
 
 <!-- ```{r} -->
-<!-- par(mfrow=c(1,2)) -->
-<!-- hist(x, breaks=30, main = "Histogram of x", freq=F)  -->
-<!-- hist(z, breaks=30, main = "Histogram of z", freq=F) -->
+<!-- poisson_gamma_mean <- mean(poisson_samples) -->
+<!-- poisson_gamma_variance <- var(poisson_samples) -->
+<!-- nb_mean <- mean(nb_samples) -->
+<!-- nb_variance <- var(nb_samples) -->
+
+<!-- poisson_gamma_mean -->
+<!-- poisson_gamma_variance -->
+<!-- nb_mean -->
+<!-- nb_variance -->
 <!-- ``` -->
 
-<!-- ## Solution -->
 
-<!-- ```{r} -->
-<!-- print(paste0("mean of x ", signif(mean(x), 5))) -->
-<!-- print(paste0("var of x ", var(x) %>% signif(5))) -->
-<!-- print(paste0("mean of z ", signif(mean(z), 5))) -->
-<!-- print(paste0("var of z ", var(z) %>% signif(5))) -->
-<!-- ``` -->
-
-<!-- The means are the same (after rounding); the variance of $z$ is larger than $x$. It would be prudent to theoretically understand the relationship between the mean and variance for a more precise conclusion.  -->
-
-
-
-<!-- ## Exercise -->
-
-<!-- b. A negative binomial distribution can actually be expressed as a gamma-Poisson mixture. In Part a, you looked at a gamma-Poisson mixture $Z \sim \textrm{Poisson}(\lambda)$ where $\lambda \sim \textrm{Gamma}(r = 3, \lambda = 2)$. -->
-
-<!-- Find the parameters of a negative binomial distribution $X \sim \textrm{NegBinom}(r, p)$ such that $X$ is equivalent to $Z$. As a hint, the means of both distributions must be the same, so $\frac{r(1-p)}{p} = \frac{3}{2}$. -->
-
-<!-- Show through histograms and summary statistics that your negative binomial distribution is equivalent to the gamma-Poisson mixture. You can use rnbinom() in R. -->
-
-<!-- ## Solution -->
-
-
-
-<!-- Note that $\lambda$ is a rate parameter so that  -->
-
-<!-- $$E[Y] = r/\lambda$$ for $$Y\sim \text{Gamma}(\text{shape} = r = 3, \text{rate} = \lambda = p/(1-p)).$$  -->
-
-<!-- Observe that  -->
-<!--     \begin{align} -->
-<!--     Z_i &\mid Y_i \sim \text{Poisson}(\lambda = Y_i)\\ -->
-<!--     Y_i &\sim \text{Gamma}\left(r = 3, \lambda = (2/3)/(1-2/3)\right)\\ -->
-<!--     Z_i &\sim \text{Negbin}(r=3, p=2/3) -->
-<!--     \end{align} -->
-
-<!-- and $E[Z_i] = r(1-p)/p = 1.5 = E[X_i]$, $V[Z_i]= r(1-p)/p^2 = 9/4 = E[X_i]/p$, so the mean is the same and the variance is inflated by $1/p$. -->
-
-<!-- Let $u_i\sim Negbin(r=3, p=2/3)$. We can see that they have the same distribution. -->
-
-<!-- ## Solution -->
-
-<!-- ```{r} -->
-<!-- u = rnbinom(n, size = 3, prob=2/3) -->
-<!-- par(mfrow=c(1,2)) -->
-<!-- hist(z, breaks=30, main = "Histogram of z", freq=F) -->
-<!-- hist(u, breaks=30, main = "Histogram of u", freq=F) -->
-<!-- par(mfrow=c(1,1)) -->
-<!-- ``` -->
-
-<!-- ```{r} -->
-<!-- print(paste0("mean of z ", signif(mean(z), 5))) -->
-<!-- print(paste0("var of z ", var(z) %>% signif(5))) -->
-<!-- print(paste0("mean of u ", signif(mean(u), 5))) -->
-<!-- print(paste0("var of u ", var(u) %>% signif(5))) -->
-<!-- print("summary of z") -->
-<!-- summary(z) -->
-<!-- print("summary of u") -->
-<!-- summary(u) -->
-<!-- ``` -->
-
-<!-- ## Exercise  -->
-
-<!-- c. Make an argument that if you want a $\textrm{NegBinom}(r, p)$ random variable, you can instead sample from a Poisson distribution, where the $\lambda$ values are themselves sampled from a gamma distribution with parameters $r$ and $\lambda' = \frac{p}{1-p}$. -->
-
-<!-- ## Solution -->
 
 
 
