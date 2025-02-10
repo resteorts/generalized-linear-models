@@ -566,7 +566,19 @@ Thus,
 $$p(\lambda) = \frac{1}{\Gamma(r)(\frac{p}{1-p})^r} \lambda^{r-1} e^{-\lambda(\frac{1-p}{p})}.
 $$
 
+## Exercise
 
+1. What is the marginal distribution of $p(y).$
+
+$$p(y) = \int_{\lambda} p(y, \lambda) \; d \lambda = \int_{\lambda} p(y \mid \lambda) p(\lambda)\; d \lambda. $$
+
+2. Suppose we wished to find $p(\lambda \mid y).$ How can we derive this? 
+
+\begin{align}
+p(\lambda \mid y) &= \frac{p(\lambda \mid y)}{p(y)} \\
+&= \frac{p(y \mid \lambda) p(\lambda)}{p(y)} \\
+& \propto p(y \mid \lambda) p(\lambda)
+\end{align}
 
 <!-- ## Solution -->
 
