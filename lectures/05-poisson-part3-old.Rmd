@@ -437,19 +437,10 @@ tidy(drinks_zip, type = "count") |> kable(digits = 3)
 -   Interpret the coefficients `off_campus` and `sexm.`
 
 For those that drink, the average number of drinks for males is 
-$$\exp(1.0209)= 2.76$$ times the number for females given that we are comparing to students living 
-in comparable settings. 
-
-## Solution: Interpreting the model coefficients
-
-```{r echo = F}
-tidy(drinks_zip, type = "count") |> kable(digits = 3)
-```
-
--   Interpret the coefficients `off_campus` and `sexm.`
+$$\exp(1.0209)= 2.76$$ times the number for females given we are comparing to students that live in similar settings. 
 
 For those that drink, the mean number of drinks for students living off campus is 
-$$\exp(0.4159) = 1.52$$ times that of students living on campus given that we are comparing to the same sex. 
+$$\exp(0.4159) = 1.52$$ times that of students living on capus for those of the same sex. 
 
 ## Zero-inflated model coefficients
 
@@ -457,10 +448,6 @@ We now consider the "zero-inflated model coefficients", which refer to seperatin
 
 There is a first_year indicator, which is a binary indicator (0/1). 
 
-Specifically, recall that this part of the model is 
-
-$$\log(\frac{\alpha}{1-\alpha}) = -0.6036 + 1.1364 \times \text{firstYear},$$
-where $\alpha$ is the proportion of non-drinkers.
 
 ## Tidy output
 
@@ -505,7 +492,7 @@ tidy(drinks_zip, type = "zero") |> kable(digits = 3)
 
 -   What is the probability a upperclass student (sophomore, junior, senior) is a non-drinker?
 
-The estimated probability that an upperclass student does not drink is $$\exp(-0.6036)/(1+\exp(-0.6036)) =0.354.$$
+The estimated probability that an upperclass student does not drink is 0.354. 
 
 # Likelihoods for ZIP model
 
