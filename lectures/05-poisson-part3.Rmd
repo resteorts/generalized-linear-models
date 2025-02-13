@@ -216,7 +216,11 @@ tidy(airbnb_model) |>
 
 ## Solution
 
+Mean number of reviews per day changes by a factor of $\exp(-0.0005) = 0.9995$ or decreases by $1-0.9995 = 0.0005.$
+
 - The mean number of **reviews per day** is predicted to decrease by $0.05\%$ for each additional dollar in price. 
+
+Mean number of reviews per day changes by a factor of $\exp(-0.0994) = 0.9053$ or decreases by $1 - 0.9053 = 0.0947.$
 
 - The mean number of **reviews per day** is predicted to decrease by $9.94\%$ for each additional private room. 
 
