@@ -1,0 +1,105 @@
+---
+title: "Unifying Theory of GLMs"
+author: "Rebecca C. Steorts"
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+bibliography: references.bib
+---
+
+## Exponential Families 
+
+Consider the following:
+
+$$p(y \mid \eta) = h(y) \exp\{
+\eta^T t(y) - a(\eta)
+\},
+$$
+
+where
+
+- $\eta$ is the natural parameter
+- $h(y)$ is the underlying measure
+- $a(\eta)$ is the log normalizer (ensuring the distribution integrates to one). 
+
+It follows that
+$$a(\eta) = log \int  h(y) \exp\{
+\eta^T t(y) - a(\eta)
+\} \; dy.$$
+
+
+## Exponential Families 
+
+We can alternatively write the exponential family as follows:
+
+$$p(y \mid \eta) = \frac{1}{Z(\eta)} h(y) \exp\{
+\eta^T u(y) 
+\},
+$$
+where
+
+- $\eta$ are the natural parameters
+- $u(y)$ are the sufficient statistics
+- $Z(\eta)$ is a partition function that ensures the density is normalized. 
+
+$$Z(\eta) = \int h(y) \exp\{
+\eta^T u(y) 
+\} \; dy.$$
+
+
+## Bernouli
+
+$$p(y \mid \eta) = \frac{1}{Z(\eta)} h(y) \exp\{
+\eta^T u(y) 
+\}
+$$
+
+Consider 
+
+\begin{align}
+\text{Bern}(y \mid \mu) 
+&= \mu^y (1-\mu)^{1-y} \\
+&= (1-\mu) (\frac{\mu}{1-\mu})^y \\
+&= (1 - \mu) \times 1 \times \exp\{
+\log(\frac{\mu}{1-\mu}) \times y
+\}
+\end{align}
+
+- $Z(\eta) = \frac{1}{1-\mu}$
+- $h(y)=1$
+- $\eta = \log(\frac{\mu}{1-\mu})$
+- $u(y) = y$
+
+## Normal ($\mu$)
+
+$$p(y \mid \eta) = \frac{1}{Z(\eta)} h(y) \exp\{
+\eta^T u(y) 
+\}
+$$
+
+\begin{align}
+p(y \mid \mu, \sigma^2)
+&= \frac{1}{(2 \pi \sigma^2)^{1/2}}
+\exp\{
+\frac{-1}{2\sigma^2}
+(y- \mu)^2
+\} \\
+&= \frac{1}{(2 \pi \sigma^2)^{1/2}}
+\exp\{
+\frac{-1}{2\sigma^2} y^2 + \frac{\mu}{\sigma^2} y 
+- \frac{\mu^2}{2\sigma^2}
+\} \\
+&= 
+\underbrace{\frac{1}{(2 \pi \sigma^2)^{1/2}}
+\exp\{
+\frac{-1}{2\sigma^2} y^2 \}}_{h(y)}
+\underbrace{\exp\{
+- \frac{\mu^2}{2\sigma^2}
+\}}_{\frac{1}{Z(\eta)}}
+\exp\{ \underbrace
+{\frac{\mu}{\sigma^2}}_{\eta^T} 
+\underbrace{y}_{u(y)} 
+\}
+\end{align}
