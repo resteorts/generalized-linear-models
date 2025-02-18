@@ -1,0 +1,31 @@
+---
+title: "Unifying Theory of GLMs (Part II)"
+author: "Rebecca C. Steorts"
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+bibliography: references.bib
+---
+
+## Exponential dispersion family
+
+It is often convenient to write the exponential family as an **exponential dispersion model (EDM) family** to provide connections to applied analysis that we have covered. 
+
+## Definition of the EDM family
+
+Distributions in the EDM family have a probability function 
+
+\begin{align}
+P(y; \theta, \phi) &= a(y,\phi) \exp\{
+\frac{(y \theta - k(\theta))}{\phi}
+\}
+\end{align}
+
+
+
+
+
+
+
