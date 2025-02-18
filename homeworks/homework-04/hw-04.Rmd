@@ -100,9 +100,9 @@ c. Make an argument that if you want a $\textrm{NegBinom}(r, p)$ random variable
 
 See @roback2021beyond for the full list of variables.
 
-We will use a hurdle model to analyze the data. A hurdle model is similar to a zero-inflated Poisson model, but instead of assuming that "zeros" are comprised of two distinct groups—those who would always be 0 and those who happen to be 0 on this occasion—the hurdle model assumes that "zeros" are a single entity. Therefore, in a hurdle model, cases are classified as either "zeros" or "non-zeros", where "non-zeros" hurdle the 0 threshold—they must always have counts of 1 or above.
+We will use a **hurdle model** to analyze the data. A hurdle model is similar to a zero-inflated Poisson model, but instead of assuming that "zeros" are comprised of two distinct groups---those who would always be 0 and those who happen to be 0 on this occasion---the hurdle model assumes that "zeros" are a single entity. Therefore, in a hurdle model, cases are classified as either "zeros" or "non-zeros", where "non-zeros" *hurdle* the 0 threshold---they must always have counts of 1 or above.
 
-We will use the pscl package and the hurdle function in it to analyze a hurdle model. Note that coefficients in the "zero hurdle model" section of the output relate predictors to the log-odds of being a non-zero (i.e., having at least one issue statement), which is opposite of the ZIP model.
+We will use the `pscl` package and the `hurdle` function in it to analyze a hurdle model. Note that coefficients in the "zero hurdle model" section of the output relate predictors to the log-odds of being a *non-zero* (i.e., having at least one issue statement), which is opposite of the ZIP model.
 
 a. Visualize the distribution of the response variable totalIssuePages. Why might we consider using a hurdle model compared to a Poisson model? Why is a zero-inflated Poisson model not appropriate in this scenario?
 
