@@ -9,6 +9,12 @@ font-size: 8px
 bibliography: references.bib
 ---
 
+## Reading
+
+These slides provide some background that will be helpful in tying together generalized linear models completely. 
+
+https://statmath.wu.ac.at/courses/heather_turner/glmCourse_001.pdf
+
 ## Agenda
 
 - Introduce alternative parameterization of exponential family that is widely used.
@@ -568,6 +574,9 @@ $$\nabla_{\eta_1} \log Z(\eta_1, \eta_2) = - \frac{\mu}{2\sigma^2}(-2\sigma^2) =
 and 
 
 $$\nabla_{\eta_1}^2 \log Z(\eta_1, \eta_2) = -\frac{1}{2\eta_2} = \sigma^2.$$
+
+Think about why this derivation gives the mean and the variance of $y.$
+
 <!-- ## Other Resources -->
 
 <!-- https://www.cs.cmu.edu/~epxing/Class/10708-14/scribe_notes/scribe_note_lecture6.pdf -->
