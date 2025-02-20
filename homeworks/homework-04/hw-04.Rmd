@@ -125,4 +125,22 @@ d. Repeat (d), but include an interaction in both parts. Interpret the interacti
 
 The "Workflow & formatting" grade is to based on the organization of the assignment write up along with the reproducible workflow. This includes having an organized write up with neat and readable headers, code, and narrative, including properly rendered mathematical notation. It also includes having a reproducible .Rmd document that can be rendered to reproduce the submitted PDF.
 
+## Extra resources and hints for Exercise 5 (Hurdle Problem)
+
+1. There is an article on hurdle models that has helped some students that can be found here: 
+
+https://jsdajournal.springeropen.com/articles/10.1186/s40488-021-00121-4
+
+2. There are two parts to the hurdle model, the count part and the binary part of the model and how to run it can be found in the R documentation. 
+
+3. You are not required to account for overdispersion (or check for it), however, if you do, this is great and just please make sure to think through how to do this properly as it involves integrating multiple parts of the Poisson lectures. 
+
+4. How do we handle the data in 5b? Do we bin it? 
+
+Yes, you should bin it or group it using the function cut_interval. 
+
+For example, something like this might help: 
+
+ideologybin = cut_interval(ideology, n=5)), where the number of bins of 5 was chosen empirically by playing around with the data. 
+
 ## References 
