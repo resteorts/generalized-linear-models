@@ -406,6 +406,21 @@ $$E(Y \mid X) = g^{-1}(X \beta).$$
 \end{frame}
 
 \begin{frame}
+\frametitle{Dispersion Parameters}
+
+We often incorporate a dispersion parameter into exponential families
+
+$$f(x \mid \theta) = h(x)\exp\Bigl(\eta(\theta)^T T(x) - \psi(\theta)\Bigr).$$
+
+The dispersion parameter often gets at the notion of variance, and we essentially have a two-parameter exponential family, where $\theta$ corresponds to some notion of the mean and $\phi$ for the variance such that 
+
+$$f(x \mid \theta, \phi) = h(x, \phi )\exp\Bigl(\frac{\eta(\theta)^T T(x) - \psi(\theta)}{c(\phi)}\Bigr).$$
+
+This is called an exponential dispersion family, where our prior formulation is a special case of it.\footnote{For more details about this, see Dunn and Smith (2018), Chapter 5).}
+
+\end{frame}
+
+\begin{frame}
 \frametitle{Generalized Linear Models}
 
 For an exponential family that is in the canonical form has many convenient properties, as we have already demonstrated. 
@@ -480,6 +495,40 @@ g \Big( E(Y \mid X) \Big) &= X \beta \\
 \log \frac{E(Y \mid X)}{1 - E(Y \mid X)} &= X\beta \\
  \text{logit} \Big( E(Y \mid X) \Big) &= X \beta
 \end{align}
+
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Why a non-canonical link?}
+
+Why would we perhaps choose a non-canonical link over a canonical link? 
+
+\vspace*{1em}
+
+Choosing a non-canonical link can sometimes improve the fit of the model to the data, especially when the underlying theoretical relationship is better captured by that transformation. This should always be done with care and understanding of the data and application at hand. 
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Why a non-canonical link?}
+
+While the canonical link for a Poisson distribution is the log link, sometimes a logit-link might be used if the data shows over-dispersion (variance greater than the mean).
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Why a non-canonical link?}
+
+
+\begin{itemize}
+\item The probit link function is the inverse of the cumulative distribution function (CDF) of the standard normal distribution, meaning it converts a probability value into a "standard normal deviate" (z-score). 
+\item When analyzing binary outcomes (like yes/no) where you believe the underlying latent variable (the "true" continuous variable that determines the binary outcome) follows a normal distribution, using the probit link can be more theoretically appropriate than the canonical logit link. 
+\end{itemize}
+
+
+%It is important to not that different link functions give rise to different interpretations of the parameter estimates. We will not delve into this too much in this lecture (beyond what I have covered here), however, it's good to be aware that there are both canonical and non-canonical links as we are moving forward in the class. 
+
 
 \end{frame}
 

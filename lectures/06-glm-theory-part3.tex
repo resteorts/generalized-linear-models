@@ -1,0 +1,449 @@
+\documentclass{beamer}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\setbeamertemplate{footline}[frame number]
+
+\title{Generalized Linear Models (Part III)}
+\author{Rebecca C. Steorts (adaptation from notes of Yue Jiang)}
+%\date{March 28, 2023}
+
+
+\begin{document}
+
+% Slide 1: Title Page
+\begin{frame}
+  \titlepage
+\end{frame}
+
+% Slide 2: Bike crashes
+\begin{frame}
+\frametitle{Poisson Data}
+%\begin{itemize}
+%  \item We have data representing the number of bike crashes per year for each North Carolina county. Examples:
+%  \begin{itemize}
+%    \item Alexander: 1
+%    \item Alleghany: 1
+%    \item Anson: 7
+%    \item Ashe: 4
+%    \item \dots
+%  \end{itemize}
+ Suppose we model our data as coming from a Poisson distribution with parameter $\lambda$:
+  \[
+  f_Y(y) = \frac{\lambda^y e^{-\lambda}}{y!}.
+  \]
+ \textbf{Question:} How might you estimate $\lambda$ given our observed data?
+%\end{itemize}
+\end{frame}
+
+% Slide 3: Review: Maximum Likelihood Estimation
+\begin{frame}
+\frametitle{Review: Maximum Likelihood Estimation}
+Assuming the observations $Y_1, Y_2, \dots, Y_n$ are i.i.d., the likelihood is
+\[
+L(\lambda \mid Y) = \prod_{i=1}^n f(Y_i \mid \lambda).
+\]
+Recall that the likelihood is the probability of the observed data given $\lambda$. (Do not confuse $f(Y_i|\lambda)$ with $f(\lambda|Y_i)$.)\\[1em]
+\textbf{Question:} If $Y_i \sim \operatorname{Pois}(\lambda)$ (iid), what is the MLE for $\lambda$?
+\end{frame}
+
+% Slide 4: MLE Derivation for Poisson
+\begin{frame}
+\frametitle{MLE for the Poisson Distribution}
+The likelihood function is:
+\[
+L(\lambda \mid Y) = \prod_{i=1}^n \frac{\lambda^{y_i} e^{-\lambda}}{y_i!}.
+\]
+Taking logs,
+\begin{align}
+\log L(\lambda \mid Y) 
+&= \sum_{i=1}^n \Bigl( y_i \log \lambda - \lambda - \log (y_i!) \Bigr) \\
+&= \Bigl(\log \lambda \sum_{i=1}^n y_i\Bigr) - n\lambda - \sum_{i=1}^n \log(y_i!).
+\end{align}
+\end{frame}
+
+\begin{frame}
+\frametitle{MLE for the Poisson Distribution}
+Setting the derivative (score function) to zero:
+\[
+\frac{\partial}{\partial \lambda} \log L(\lambda \mid Y)
+= \frac{1}{\lambda} \sum_{i=1}^n y_i - n = 0,
+\]
+which gives
+\[
+\hat{\lambda} = \frac{1}{n} \sum_{i=1}^n y_i.
+\]
+\end{frame}
+
+% Slide 5: Verification of Maximum
+\begin{frame}
+\frametitle{Verification of Maximum}
+Check the second derivative:
+\[
+\frac{\partial^2}{\partial \lambda^2} \log L(\lambda \mid Y)
+= -\frac{1}{\lambda^2} \sum_{i=1}^n y_i - n < 0.
+\]
+Thus, $\hat{\lambda}$ is indeed a maximum.
+\end{frame}
+
+
+% Slide 7: Poisson Regression
+\begin{frame}
+\frametitle{Poisson Regression}
+We extend the Poisson model to incorporate covariates using a generalized linear model:
+\[
+\log\bigl(\underbrace{E(Y \mid X)}_{\lambda}\bigr) = X^T \beta,
+\]
+where we assume the outcome is Poisson and the canonical link is the logarithm.\\[1em]
+\textbf{Question:} Can we differentiate the log-likelihood, set it equal to zero, and solve for the MLEs of $\beta = (\beta_0, \beta_1, \dots, \beta_p)$ as before?
+\end{frame}
+
+% Slide 8: Poisson Regression Log-Likelihood
+\begin{frame}
+\frametitle{Poisson Regression Log-Likelihood}
+The log-likelihood is:
+\begin{align}
+\log L &=  \sum_{i=1}^n \Bigl( y_i \log \lambda - \lambda - \log (y_i!) \Bigr) \\
+&= \sum_{i=1}^n \Bigl( y_i X_i^T \beta - e^{X_i^T \beta} - \log (y_i!) \Bigr).
+\end{align}
+In general, setting the score equations
+\[
+\frac{\partial \log L}{\partial \beta_j} = 0,
+\]
+leads to what we call ``transcendental equations," that typically have no closed-form solution.
+\end{frame}
+
+
+% Slide 11: Newton-Raphson Algorithm
+\begin{frame}
+\frametitle{Newton-Raphson Algorithm (1D)}
+Newton-Raphson for root finding is based on a second-order Taylor approximation:
+\begin{enumerate}
+  \item Start with an initial guess $\theta^{(0)}$.
+  \item Iterate:
+  \[
+  \theta^{(t+1)} = \theta^{(t)} - \frac{f'(\theta^{(t)})}{f''(\theta^{(t)})}.
+  \]
+  \item Stop when a convergence criterion is satisfied.
+\end{enumerate}
+
+There are some necessary conditions for convergence, however, this is beyond the scope of this class. Many likelihood functions you are
+likely to encounter (e.g., GLMs with canonical link) will in fact
+converge from any starting value.
+\end{frame}
+
+% Slide 12: Newton-Raphson in Higher Dimensions
+\begin{frame}
+\frametitle{Newton-Raphson in Higher Dimensions}
+ Define the score vector and Hessian for $log L(\theta \mid X)$ with parameter vector $\theta = (\theta_1,\dots,\theta_p)$ as follows:
+\[
+\nabla \log L =
+\begin{pmatrix}
+\frac{\partial \log L}{\partial \theta_1}\\[1mm]
+\vdots\\[1mm]
+\frac{\partial \log L}{\partial \theta_p}
+\end{pmatrix},\quad
+\nabla^2 \log L =
+\begin{pmatrix}
+\frac{\partial^2 \log L}{\partial \theta_1^2} & \cdots & \frac{\partial^2 \log L}{\partial \theta_1\theta_p}\\[1mm]
+\vdots & \ddots & \vdots\\[1mm]
+\frac{\partial^2 \log L}{\partial \theta_p\theta_1} & \cdots & \frac{\partial^2 \log L}{\partial \theta_p^2}
+\end{pmatrix}.
+\]
+Then the update is:
+\[
+\theta^{(t+1)} = \theta^{(t)} - \Bigl[\nabla^2 \log L(\theta^{(t)} \mid X)\Bigr]^{-1} \nabla \log L(\theta^{(t)} \mid X).
+\]
+\end{frame}
+
+\begin{frame}
+\frametitle{Newton-Raphson in Higher Dimensions}
+
+
+We can modify the Newton-Raphson algorithms for higher dimensions as follows:
+
+\begin{enumerate}
+\item Start with an initial guess $\theta^{(0)}$.
+\item Iterate \[
+\theta^{(t+1)} = \theta^{(t)} - \Bigl[\nabla^2 \log L(\theta^{(t)} \mid X)\Bigr]^{-1} \nabla \log L(\theta^{(t)} \mid X).
+\]
+\item Stop when convergence criterion is satisfied. 
+\end{enumerate}
+\end{frame}
+
+\begin{frame}
+\frametitle{Newton-Raphson for Poisson Regression}
+
+For Poisson regression:
+\[
+\log L = \sum_{i=1}^n \Bigl( y_i X_i \beta - e^{X_i \beta} - \log (y_i!) \Bigr),
+\]
+
+What are the score vector and Hessian corresponding to the log-likelihood? What would the Newton-Raphson steps be?
+
+\end{frame}
+
+% Slide 13: Newton-Raphson for Poisson Regression
+\begin{frame}
+\frametitle{Newton-Raphson for Poisson Regression}
+For Poisson regression:
+\[
+\log L = \sum_{i=1}^n \Bigl( y_i X_i \beta - e^{X_i \beta} - \log (y_i!) \Bigr),
+\]
+the score vector is:
+\[
+\nabla \log L = \sum_{i=1}^n \Bigl( y_i - e^{X_i \beta} \Bigr) X_i^T,
+\]
+and the Hessian is:
+\[
+\nabla^2 \log L = - \sum_{i=1}^n e^{X_i \beta} X_i X_i^T.
+\]
+Thus, the Newton-Raphson update becomes:
+\[
+\beta^{(t+1)} = \beta^{(t)} - \Bigl[-\sum_{i=1}^n e^{X_i^T \beta} X_i X_i^T\Bigr]^{-1} \sum_{i=1}^n \Bigl( y_i - e^{X_i^T \beta} \Bigr) X_i^T.
+\]
+\end{frame}
+
+%% Slide 14: R Code Example (Part 1)
+%\begin{frame}[fragile]
+%\frametitle{Some R Code: Part 1}
+%\begin{verbatim}
+%d1func <- function(beta, X, y){
+%  d1 <- rep(0, length(beta))
+%  for(i in 1:length(y)){
+%    d1 <- d1 + (y[i] - exp(X[i,] %*% beta)) %*% X[i,]
+%  }
+%  return(colSums(d1))
+%}
+%\end{verbatim}
+%\end{frame}
+%
+%% Slide 15: R Code Example (Part 2)
+%\begin{frame}[fragile]
+%\frametitle{Some R Code: Part 2}
+%\begin{verbatim}
+%d2func <- function(beta, X, y){
+%  d2 <- matrix(0, nrow = length(beta), ncol = length(beta))
+%  for(i in 1:length(y)){
+%    d2 <- d2 - t((exp(X[i,] %*% beta)) %*% X[i,]) %*%
+%          (X[i,])
+%  }
+%  return(d2)
+%}
+%\end{verbatim}
+%\end{frame}
+%
+%% Slide 16: R Code Example (Part 3)
+%\begin{frame}[fragile]
+%\frametitle{Some R Code: Part 3}
+%\begin{verbatim}
+%beta <- c(mean(log(y)), 0, 0)
+%X <- cbind(1, x_1, x_2)
+%y <- y
+%iter <- 1
+%delta <- 1
+%temp <- matrix(0, nrow = 500, ncol = 3)
+%\end{verbatim}
+%\end{frame}
+%
+%% Slide 17: R Code Example (Part 4)
+%\begin{frame}[fragile]
+%\frametitle{Some R Code: Part 4}
+%\begin{verbatim}
+%while(delta > 0.000001 & iter < 500){
+%  old <- beta
+%  beta <- old - solve(d2func(beta = beta, X = X, y = y)) %*%
+%          d1func(beta = beta, X = X, y = y)
+%  temp[iter,] <- beta
+%  delta <- sqrt(sum((beta - old)^2))
+%  iter <- iter + 1
+%}
+%\end{verbatim}
+%\end{frame}
+%
+%% Slide 18: Homework (Part 1)
+%\begin{frame}
+%\frametitle{Homework (Due April 18) -- Part 1 of 2}
+%\begin{enumerate}
+%  \item Derive the score and Hessian functions of the log-likelihood for a logistic regression model (i.e., binary regression under canonical link).
+%  \item The file \texttt{bikecrash\_agg.csv} on Sakai/Resources contains yearly fatal bike crash data for each of North Carolina's 100 counties in 2017. Implement a Poisson regression model ``by hand'' (i.e., without using \texttt{glm()}) that predicts the number of fatal bike crashes based on \texttt{pop} (population) and \texttt{traffic\_vol} (traffic volume). Include an intercept term. Verify that your estimates match those obtained via \texttt{glm()}.
+%\end{enumerate}
+%\end{frame}
+%
+%% Slide 19: Homework (Part 2)
+%\begin{frame}
+%\frametitle{Homework (Due April 18) -- Part 2 of 2}
+%\begin{enumerate}
+%  \setcounter{enumi}{2}
+%  \item Implement a logistic regression model ``by hand'' (i.e., without using \texttt{glm()}) that predicts whether there are more than 50 fatal bike crashes per 100,000 residents based on \texttt{pop} and \texttt{traffic\_vol}, including an intercept term. Note that 45 counties satisfy this criterion. Verify that your estimates match those obtained via \texttt{glm()}.
+%\end{enumerate}
+%\textbf{Note:} Exercises 1 and 2 are worth 13 of 15 total points; Exercise 3 is worth 2 points.
+%\end{frame}
+%
+%% Slide 20: End of Lecture
+%\begin{frame}
+%\frametitle{End of Lecture}
+%\begin{center}
+%\Large{Questions?}
+%\end{center}
+%\end{frame}
+
+\begin{frame}
+\frametitle{Exercise 1}
+
+Consider the linear regression model under the normality assumption (and constant variance). Is this a GLM? If so, identify the three components needed. If not, explain why not.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercise 2}
+
+Suppose we’re trying to model the number of cancer cases per month $Y$ in a city, conditionally on various demographic and exposure factors. Consider the log-linear regression model $\log (E[Y \mid X]) = X\beta,$ where $Y$ takes on a Poisson distribution with parameter  $\lambda.$ Is this a GLM? If so, identify the three components needed (including specifics regarding the exponential family) and specifically identify whether the link function is canonical. If not, explain why not.
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercise 3}
+
+Suppose we’re trying to model the waiting time until the next bus arrives $Y$, conditionally on weather conditions and traffic. Consider the log-linear regression model $\log (E[Y \mid X]) = X\beta$, where $Y$ takes on an Exponential distribution with parameter $\lambda$. Is this a GLM? If so, identify the three components needed (including specifics regarding the exponential family) and specifically identify whether the link function is canonical. If not, explain why not.
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Exercise 4}
+
+Derive the score and Hessian functions of the log-likelihood for a logistic regression model (i.e., binary regression under canonical link).
+
+\end{frame}
+
+%\begin{frame}
+%\frametitle{Solution Exercise 4}
+%
+%The log-likelihood function for logistic regression is
+%\[
+%\begin{aligned}
+%\mathcal{L}(p) &= \prod_{i=1}^n f(y_i) \\
+%&= \prod_{i=1}^n p^{\,y_i}(1-p)^{\,1-y_i}, \\
+%\log\mathcal{L}(p) &= \sum_{i=1}^n \Bigl[ y_i\log(p) + \log(1-p) - y_i\log(1-p) \Bigr] \\
+%&= \sum_{i=1}^n \Bigl[ y_i\,\log\!\left(\frac{p}{1-p}\right) + \log(1-p) \Bigr].
+%\end{aligned}
+%\]
+%
+%\end{frame}
+
+%\begin{frame}
+%\frametitle{Solution: Exercise 1}
+%
+%Consider the linear regression model under the normality assumption (and constant variance). Is this a GLM? If so, identify the three components needed. If not, explain why not.
+%
+%\vspace*{1em}
+%
+%Solution: Yes. Under the normality and constant variance assumptions, the distribution of $Y \mid X$ is $N(X\beta, \sigma^2).$ The conditional expectation $E(Y \mid X)$ is linked through the linear predictor $X\beta$ through the identity function. 
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Solution: Exercise 2}
+%
+%Suppose we’re trying to model the number of cancer cases per month $Y$ in a city, conditionally on various demographic and exposure factors. Consider the log-linear regression model $\log (E[Y \mid X]) = X\beta,$ where $Y$ takes on a Poisson distribution with parameter  $\lambda.$ Is this a GLM? If so, identify the three components needed (including specifics regarding the exponential family) and specifically identify whether the link function is canonical. If not, explain why not.
+%
+%\vspace*{1em}
+%
+%Yes, the distribution of $Y \mid X \sim Pois(\lambda)$. The conditional expectation $\lambda = E(Y \mid X)$ is linked through the linear predictor $X\beta$ through the log function. This is the canonical link. The relevant functions for the Poisson distribution in canonical form are as follows
+%
+%
+%
+%\end{frame}
+%
+%
+%
+%\begin{frame}
+%\frametitle{Solution: Exercise 2}
+%
+%$$h(y) = \frac{1}{y!} I(y \in \{0, 1, 2, \cdots \}).$$
+%$$\eta(\lambda) = \log(\lambda) \implies \lambda = e^{\lambda}.$$
+%$$T(y) = y $$
+%$$A(\eta) = \lambda $$
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Solution: Exercise 3}
+%
+%Suppose we’re trying to model the waiting time until the next bus arrives $Y$, conditionally on weather conditions and traffic. Consider the log-linear regression model $\log (E[Y \mid X]) = X\beta$, where $Y$ takes on an Exponential distribution with parameter $\lambda$. Is this a GLM? If so, identify the three components needed (including specifics regarding the exponential family) and specifically identify whether the link function is canonical. If not, explain why not.
+%
+%\vspace*{1em}
+%
+%Yes, the distribution of $Y$ is $Exp(\lambda)$. The conditional expectation $\lambda = E(Y \mid X)$ is linked to the linear predictor $X \beta$ through the log function. However, this is not the canonical link, since the relevant parameters can be shown to be as follows:
+%
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Solution: Exercise 3}
+%
+%
+%
+%$$h(y) = I(y > 0)$$
+%$$ - \lambda = \eta \implies \lambda = -\eta $$
+%$$T(y) = y $$
+%$$A(\eta) = - \log(-\eta) $$
+%
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Solution: Exercise 3}
+%
+%Suppose we’re trying to model the waiting time until the next bus arrives $Y$, conditionally on weather conditions and traffic. Consider the log-linear regression model $\log (E[Y \mid X]) = X\beta$, where $Y$ takes on an Exponential distribution with parameter $\lambda$. Is this a GLM? If so, identify the three components needed (including specifics regarding the exponential family) and specifically identify whether the link function is canonical. If not, explain why not.
+%
+%
+%
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Exercise 4}
+%
+%Derive the score and Hessian functions of the log-likelihood for a logistic regression model (i.e., binary regression under canonical link).
+%
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Solution Exercise 4}
+%
+%The log-likelihood function for logistic regression is
+%\[
+%\begin{aligned}
+%\mathcal{L}(p) &= \prod_{i=1}^n f(y_i) \\
+%&= \prod_{i=1}^n p^{\,y_i}(1-p)^{\,1-y_i}, \\
+%\log\mathcal{L}(p) &= \sum_{i=1}^n \Bigl[ y_i\log(p) + \log(1-p) - y_i\log(1-p) \Bigr] \\
+%&= \sum_{i=1}^n \Bigl[ y_i\,\log\!\left(\frac{p}{1-p}\right) + \log(1-p) \Bigr].
+%\end{aligned}
+%\]
+%
+%\end{frame}
+%
+%\begin{frame}
+%\frametitle{Solution Exercise 4}
+%In logistic regression we have
+%\[
+%\log\!\left(\frac{p}{1-p}\right) = \mathbf{X}\boldsymbol\beta,
+%\]
+%so the log-likelihood becomes
+%\[
+%\log\mathcal{L}(p) = \sum_{i=1}^n \Bigl[ y_i\,\mathbf{X}_i\boldsymbol\beta - \log\!\left(1+\exp\bigl(\mathbf{X}_i\boldsymbol\beta\bigr)\right) \Bigr].
+%\]
+%
+%
+%
+%
+%Differentiating with respect to \(\boldsymbol\beta\) gives the score function:
+%\[
+%\nabla_{\boldsymbol\beta} \log\mathcal{L}(p) = \sum_{i=1}^n \left[ y_i\,\mathbf{X}_i - \frac{\exp(\mathbf{X}_i^T\boldsymbol\beta)}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)}\,\mathbf{X}_i \right],
+%\]
+%and the Hessian is
+%\[
+%\nabla^2_{\boldsymbol\beta} \log\mathcal{L}(p) = -\sum_{i=1}^n \left[ \frac{1}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)} \cdot \frac{\exp(\mathbf{X}_i^T\boldsymbol\beta)}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)}\,\mathbf{X}_i\,\mathbf{X}_i^T \right].
+%\]
+%
+%
+%\end{frame}
+%
+
+
+\end{document}
