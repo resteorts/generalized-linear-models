@@ -26,6 +26,15 @@
 %\end{itemize}
 %\end{frame}
 
+%\begin{frame}
+%\frametitle{Announcements}
+%
+%\begin{itemize}
+%\item Exercises are posted for the exponential family and GLM material (that will be not be graded). The expectation is that you do have a full understanding and knowledge of this for your quizzes though. Please go to office hours, class, lab if you need additional help. Most of these problems are worked in class individually or in groups. 
+%\item Quiz 2 will be released later this week and be due next week on the material through Chapter 4 in the notes and book. It will not cover exponential families or the theory of generalized linear models. The main focus will be on the Poisson regression Chapter, material from the book/class and your homework assignment, which will be returned by Friday. 
+%\end{itemize}
+%
+%\end{frame}
 
 
 \begin{frame}
@@ -528,6 +537,80 @@ While the canonical link for a Poisson distribution is the log link, sometimes a
 
 
 %It is important to not that different link functions give rise to different interpretations of the parameter estimates. We will not delve into this too much in this lecture (beyond what I have covered here), however, it's good to be aware that there are both canonical and non-canonical links as we are moving forward in the class. 
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Probit regression}
+
+
+
+\begin{itemize}
+\item The outcome $Y$ follows a Bernoulli distribution and is a special case of the Binomial distribution with $n=1,$ which we showed is in the exponential family.
+\item We assume the function form of the predictors is a linear combination. 
+\item We will use a non-canonical link function, $\Phi^{-1}$ (the inverse of the normal CDF) to link the conditional mean of $Y$ with $X\beta.$
+\end{itemize}
+
+\begin{align}
+g \Big( E(Y \mid X) \Big) &= X \beta \\
+\Phi^{-1}\frac{E(Y \mid X)}{1 - E(Y \mid X)} &= X\beta \\
+% \text{logit} \Big( E(Y \mid X) \Big) &= X \beta
+\end{align}
+This is called probit regression and $\Phi$ is the probit link.
+
+%It is important to not that different link functions give rise to different interpretations of the parameter estimates. We will not delve into this too much in this lecture (beyond what I have covered here), however, it's good to be aware that there are both canonical and non-canonical links as we are moving forward in the class. 
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Probit regression}
+
+The use of the probit regression model
+dates back to Bliss (1934). 
+
+\vspace*{1em}
+
+Bliss was interested
+in finding an effective pesticide to control
+insects that fed on grape leaves (Greenberg,
+1980). 
+
+\vspace*{1em}
+
+
+He applied the probit transformation to transform
+the shape of the dose-response curve to a
+linear relationship. 
+
+\vspace*{1em}
+
+His ideas were later
+generalized in a book by Finney (1985) where
+the applications of probit analysis in
+toxicological experiments were explored.
+
+\vspace*{1em}
+
+According to some sources, probit analysis
+remains the preferred method in understanding
+dose-response relationships. 
+
+
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Summary}
+
+\begin{itemize}
+\item We have introduced the exponential family of distributions.
+\item We have provided the connection with exponential families to GLMs through the link function. 
+\item We have introduced some convenient properties under GLMs that belong the the exponential family with the canonical link.
+\item Next, we will seek to understand how we derive the parameter estimates ($\beta$) for generalized linear models.
+\end{itemize}
+
 
 
 \end{frame}

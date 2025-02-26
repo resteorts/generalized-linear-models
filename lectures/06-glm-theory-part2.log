@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.24)  26 FEB 2025 09:29
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.10.24)  26 FEB 2025 10:26
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -870,20 +870,20 @@ Dictionary: translator-theorem-dictionary, Language: English
 {/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2
 
 ]
-LaTeX Font Info:    Trying to load font information for U+msa on input line 63.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 72.
 
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 63.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 72.
 
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for OT1+mathkerncmss on inp
-ut line 63.
+ut line 72.
 
 (/usr/local/texlive/2024/texmf-dist/tex/latex/sansmathaccent/ot1mathkerncmss.fd
 File: ot1mathkerncmss.fd 2020/01/31 Fontinst v1.933 font definitions for OT1/ma
@@ -897,7 +897,7 @@ thkerncmss.
 ] [6
 
 ]
-Overfull \hbox (6.05882pt too wide) detected at line 127
+Overfull \hbox (6.05882pt too wide) detected at line 136
 []
  []
 
@@ -928,7 +928,7 @@ Overfull \hbox (6.05882pt too wide) detected at line 127
 ] [19
 
 ]
-Overfull \hbox (0.18349pt too wide) detected at line 308
+Overfull \hbox (0.18349pt too wide) detected at line 317
 \OML/cmm/m/it/10.95 ^^Q \OT1/cmss/m/n/10.95 = [] []\OML/cmm/m/it/10.95 ;  \OT1/
 mathkerncmss/m/sl/10.95 T\OT1/cmss/m/n/10.95 (\OT1/mathkerncmss/m/sl/10.95 x\OT
 1/cmss/m/n/10.95 ) = \OT1/mathkerncmss/m/sl/10.95 x\OML/cmm/m/it/10.95 ;  \OT1/
@@ -980,6 +980,12 @@ athkerncmss/m/sl/10.95 e[][]\OML/cmm/m/it/10.95 ;  \OT1/mathkerncmss/m/sl/10.95
 
 ] [39
 
+] [40
+
+] [41
+
+] [42
+
 ]
 \tf@nav=\write6
 \openout6 = `06-glm-theory-part2.nav'.
@@ -999,10 +1005,10 @@ Package rerunfilecheck Info: File `06-glm-theory-part2.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 21506 strings out of 474116
- 413394 string characters out of 5743681
+ 21518 strings out of 474116
+ 413499 string characters out of 5743681
  1939187 words of memory out of 5000000
- 43348 multiletter control sequences out of 15000+600000
+ 43354 multiletter control sequences out of 15000+600000
  568406 words of font info for 73 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  128i,14n,123p,423b,561s stack positions out of 10000i,1000n,20000p,200000b,200000s
@@ -1021,10 +1027,10 @@ l/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
 /texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/t
 exlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/loc
 al/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on 06-glm-theory-part2.pdf (39 pages, 222276 bytes).
+Output written on 06-glm-theory-part2.pdf (42 pages, 227849 bytes).
 PDF statistics:
- 1104 PDF objects out of 1200 (max. 8388607)
- 1016 compressed objects within 11 object streams
- 79 named destinations out of 1000 (max. 500000)
+ 1180 PDF objects out of 1200 (max. 8388607)
+ 1089 compressed objects within 11 object streams
+ 85 named destinations out of 1000 (max. 500000)
  43 words of extra memory for PDF output out of 10000 (max. 10000000)
 
