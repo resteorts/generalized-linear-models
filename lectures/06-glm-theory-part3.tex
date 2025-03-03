@@ -330,120 +330,113 @@ Derive the score and Hessian functions of the log-likelihood for a logistic regr
 %
 %\end{frame}
 
-%\begin{frame}
-%\frametitle{Solution: Exercise 1}
-%
-%Consider the linear regression model under the normality assumption (and constant variance). Is this a GLM? If so, identify the three components needed. If not, explain why not.
-%
-%\vspace*{1em}
-%
-%Solution: Yes. Under the normality and constant variance assumptions, the distribution of $Y \mid X$ is $N(X\beta, \sigma^2).$ The conditional expectation $E(Y \mid X)$ is linked through the linear predictor $X\beta$ through the identity function. 
-%\end{frame}
-%
-%\begin{frame}
-%\frametitle{Solution: Exercise 2}
-%
-%Suppose we’re trying to model the number of cancer cases per month $Y$ in a city, conditionally on various demographic and exposure factors. Consider the log-linear regression model $\log (E[Y \mid X]) = X\beta,$ where $Y$ takes on a Poisson distribution with parameter  $\lambda.$ Is this a GLM? If so, identify the three components needed (including specifics regarding the exponential family) and specifically identify whether the link function is canonical. If not, explain why not.
-%
-%\vspace*{1em}
-%
-%Yes, the distribution of $Y \mid X \sim Pois(\lambda)$. The conditional expectation $\lambda = E(Y \mid X)$ is linked through the linear predictor $X\beta$ through the log function. This is the canonical link. The relevant functions for the Poisson distribution in canonical form are as follows
-%
-%
-%
-%\end{frame}
-%
-%
-%
-%\begin{frame}
-%\frametitle{Solution: Exercise 2}
-%
-%$$h(y) = \frac{1}{y!} I(y \in \{0, 1, 2, \cdots \}).$$
-%$$\eta(\lambda) = \log(\lambda) \implies \lambda = e^{\lambda}.$$
-%$$T(y) = y $$
-%$$A(\eta) = \lambda $$
-%\end{frame}
-%
-%\begin{frame}
-%\frametitle{Solution: Exercise 3}
-%
-%Suppose we’re trying to model the waiting time until the next bus arrives $Y$, conditionally on weather conditions and traffic. Consider the log-linear regression model $\log (E[Y \mid X]) = X\beta$, where $Y$ takes on an Exponential distribution with parameter $\lambda$. Is this a GLM? If so, identify the three components needed (including specifics regarding the exponential family) and specifically identify whether the link function is canonical. If not, explain why not.
-%
-%\vspace*{1em}
-%
-%Yes, the distribution of $Y$ is $Exp(\lambda)$. The conditional expectation $\lambda = E(Y \mid X)$ is linked to the linear predictor $X \beta$ through the log function. However, this is not the canonical link, since the relevant parameters can be shown to be as follows:
-%
-%\end{frame}
-%
-%\begin{frame}
-%\frametitle{Solution: Exercise 3}
-%
-%
-%
-%$$h(y) = I(y > 0)$$
-%$$ - \lambda = \eta \implies \lambda = -\eta $$
-%$$T(y) = y $$
-%$$A(\eta) = - \log(-\eta) $$
-%
-%\end{frame}
-%
-%\begin{frame}
-%\frametitle{Solution: Exercise 3}
-%
-%Suppose we’re trying to model the waiting time until the next bus arrives $Y$, conditionally on weather conditions and traffic. Consider the log-linear regression model $\log (E[Y \mid X]) = X\beta$, where $Y$ takes on an Exponential distribution with parameter $\lambda$. Is this a GLM? If so, identify the three components needed (including specifics regarding the exponential family) and specifically identify whether the link function is canonical. If not, explain why not.
-%
-%
-%
-%\end{frame}
-%
-%\begin{frame}
-%\frametitle{Exercise 4}
-%
-%Derive the score and Hessian functions of the log-likelihood for a logistic regression model (i.e., binary regression under canonical link).
-%
-%\end{frame}
-%
-%\begin{frame}
-%\frametitle{Solution Exercise 4}
-%
-%The log-likelihood function for logistic regression is
-%\[
-%\begin{aligned}
-%\mathcal{L}(p) &= \prod_{i=1}^n f(y_i) \\
-%&= \prod_{i=1}^n p^{\,y_i}(1-p)^{\,1-y_i}, \\
-%\log\mathcal{L}(p) &= \sum_{i=1}^n \Bigl[ y_i\log(p) + \log(1-p) - y_i\log(1-p) \Bigr] \\
-%&= \sum_{i=1}^n \Bigl[ y_i\,\log\!\left(\frac{p}{1-p}\right) + \log(1-p) \Bigr].
-%\end{aligned}
-%\]
-%
-%\end{frame}
-%
-%\begin{frame}
-%\frametitle{Solution Exercise 4}
-%In logistic regression we have
-%\[
-%\log\!\left(\frac{p}{1-p}\right) = \mathbf{X}\boldsymbol\beta,
-%\]
-%so the log-likelihood becomes
-%\[
-%\log\mathcal{L}(p) = \sum_{i=1}^n \Bigl[ y_i\,\mathbf{X}_i\boldsymbol\beta - \log\!\left(1+\exp\bigl(\mathbf{X}_i\boldsymbol\beta\bigr)\right) \Bigr].
-%\]
-%
-%
-%
-%
-%Differentiating with respect to \(\boldsymbol\beta\) gives the score function:
-%\[
-%\nabla_{\boldsymbol\beta} \log\mathcal{L}(p) = \sum_{i=1}^n \left[ y_i\,\mathbf{X}_i - \frac{\exp(\mathbf{X}_i^T\boldsymbol\beta)}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)}\,\mathbf{X}_i \right],
-%\]
-%and the Hessian is
-%\[
-%\nabla^2_{\boldsymbol\beta} \log\mathcal{L}(p) = -\sum_{i=1}^n \left[ \frac{1}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)} \cdot \frac{\exp(\mathbf{X}_i^T\boldsymbol\beta)}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)}\,\mathbf{X}_i\,\mathbf{X}_i^T \right].
-%\]
-%
-%
-%\end{frame}
-%
+\begin{frame}
+\frametitle{Solution: Exercise 1}
+
+Consider the linear regression model under the normality assumption (and constant variance). Is this a GLM? If so, identify the three components needed. If not, explain why not.
+
+\vspace*{1em}
+
+Solution: Yes. Under the normality and constant variance assumptions, the distribution of $Y \mid X$ is $N(X\beta, \sigma^2).$ The conditional expectation $E(Y \mid X)$ is linked through the linear predictor $X\beta$ through the identity function. 
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution: Exercise 2}
+
+Suppose we’re trying to model the number of cancer cases per month $Y$ in a city, conditionally on various demographic and exposure factors. Consider the log-linear regression model $\log (E[Y \mid X]) = X\beta,$ where $Y$ takes on a Poisson distribution with parameter  $\lambda.$ Is this a GLM? If so, identify the three components needed (including specifics regarding the exponential family) and specifically identify whether the link function is canonical. If not, explain why not.
+
+\vspace*{1em}
+
+Yes, the distribution of $Y \mid X \sim Pois(\lambda)$. The conditional expectation $\lambda = E(Y \mid X)$ is linked through the linear predictor $X\beta$ through the log function. This is the canonical link. The relevant functions for the Poisson distribution in canonical form are as follows
+
+
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Solution: Exercise 2}
+
+$$h(y) = \frac{1}{y!} I(y \in \{0, 1, 2, \cdots \}).$$
+$$\eta(\lambda) = \log(\lambda) \implies \lambda = e^{\lambda}.$$
+$$T(y) = y $$
+$$A(\eta) = \lambda $$
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution: Exercise 3}
+
+Suppose we’re trying to model the waiting time until the next bus arrives $Y$, conditionally on weather conditions and traffic. Consider the log-linear regression model $\log (E[Y \mid X]) = X\beta$, where $Y$ takes on an Exponential distribution with parameter $\lambda$. Is this a GLM? If so, identify the three components needed (including specifics regarding the exponential family) and specifically identify whether the link function is canonical. If not, explain why not.
+
+\vspace*{1em}
+
+Yes, the distribution of $Y$ is $Exp(\lambda)$. The conditional expectation $\lambda = E(Y \mid X)$ is linked to the linear predictor $X \beta$ through the log function. However, this is not the canonical link, since the relevant parameters can be shown to be as follows:
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution: Exercise 3}
+
+
+
+$$h(y) = I(y > 0)$$
+$$ - \lambda = \eta \implies \lambda = -\eta $$
+$$T(y) = y $$
+$$A(\eta) = - \log(-\eta) $$
+
+\end{frame}
+
+
+
+\begin{frame}
+\frametitle{Exercise 4}
+
+Derive the score and Hessian functions of the log-likelihood for a logistic regression model (i.e., binary regression under canonical link).
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution Exercise 4}
+
+The log-likelihood function for logistic regression is
+\[
+\begin{aligned}
+\mathcal{L}(p) &= \prod_{i=1}^n f(y_i) \\
+&= \prod_{i=1}^n p^{\,y_i}(1-p)^{\,1-y_i}, \\
+\log\mathcal{L}(p) &= \sum_{i=1}^n \Bigl[ y_i\log(p) + \log(1-p) - y_i\log(1-p) \Bigr] \\
+&= \sum_{i=1}^n \Bigl[ y_i\,\log\!\left(\frac{p}{1-p}\right) + \log(1-p) \Bigr].
+\end{aligned}
+\]
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution Exercise 4}
+In logistic regression we have
+\[
+\log\!\left(\frac{p}{1-p}\right) = \mathbf{X}\boldsymbol\beta,
+\]
+so the log-likelihood becomes
+\[
+\log\mathcal{L}(p) = \sum_{i=1}^n \Bigl[ y_i\,\mathbf{X}_i\boldsymbol\beta - \log\!\left(1+\exp\bigl(\mathbf{X}_i\boldsymbol\beta\bigr)\right) \Bigr].
+\]
+
+
+
+
+Differentiating with respect to \(\boldsymbol\beta\) gives the score function:
+\[
+\nabla_{\boldsymbol\beta} \log\mathcal{L}(p) = \sum_{i=1}^n \left[ y_i\,\mathbf{X}_i - \frac{\exp(\mathbf{X}_i^T\boldsymbol\beta)}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)}\,\mathbf{X}_i \right],
+\]
+and the Hessian is
+\[
+\nabla^2_{\boldsymbol\beta} \log\mathcal{L}(p) = -\sum_{i=1}^n \left[ \frac{1}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)} \cdot \frac{\exp(\mathbf{X}_i^T\boldsymbol\beta)}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)}\,\mathbf{X}_i\,\mathbf{X}_i^T \right].
+\]
+
+
+\end{frame}
+
 
 
 \end{document}
