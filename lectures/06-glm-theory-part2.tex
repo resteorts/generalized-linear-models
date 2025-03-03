@@ -10,10 +10,41 @@
 
 \begin{document}
 
+
+
 % Slide 1: Title
 \begin{frame}
   \titlepage
 \end{frame}
+
+\frame{
+\frametitle{Feedback on Homework 4}
+
+Issues with 1c (interpretation of $\lambda$). \\
+
+\vspace*{1em}
+
+Assuming poisson likelihood for the response, $\lambda$ is the expected number of fish caught during one-week. In our data, the sample estimate of $\lambda$ would be the sample mean, which is 21.5.  \\
+
+\vspace*{1em}
+
+The parameter $\lambda$ represents the mean rate for the number of fish caught per week, which is 21.5. 
+
+}
+
+
+
+
+\frame{
+\frametitle{Feedback on Homework 4}
+
+In Question 3c, some students used deviance residuals when calculating the dispersion parameter. \\
+
+\vspace*{1em}
+
+In Question 5d, some students interpreted the interaction for one of the two parties only.
+
+}
 
 %% Slide 2: Disclaimer
 %\begin{frame}
@@ -674,102 +705,178 @@ f(x|\lambda) = \lambda\, x^{-1-\lambda} \quad \text{for } \lambda>0,\; x>1.
 
 
 
+\begin{frame}
+\frametitle{Solution: Exercise 1}
+Consider a uniform distribution on \((0, \theta)\), that is,
+\[
+f_X(x) = \frac{1}{\theta} \, I(0 < x < \theta).
+\]
+
+No, this is not a member of the exponential family. There is no way to disentangle \(x\) from \(\theta\) in the term \(I(0 < x < \theta)\); there is no possible function \(h(x)\) that can be free of \(\theta\) as required by the exponential family form.
+\end{frame}
+
+
+%% Solution Exercise 2 
+\begin{frame}
+\frametitle{Solution: Exercise 2}
+The density is given by:
+\[
+\begin{aligned}
+f_X(x) &= \frac{1}{\sqrt{2\pi\mu}} \exp\left(-\frac{(x - \mu)^2}{2\mu} \right) I(x \in \mathbb{R})\\[1mm]
+&= I(x \in \mathbb{R}) \frac{\exp(x)}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2\mu} - \frac{\mu}{2} - \frac{1}{2}\log \mu \right).
+\end{aligned}
+\]
+
+Yes, this is a member of the one-parameter exponential family. The components in canonical form are:
+\[
+\begin{aligned}
+h(x) &= I(x \in \mathbb{R})\frac{\exp(x)}{\sqrt{2\pi}},\\[1mm]
+\eta(\mu) &= -\frac{1}{2\mu},\\[1mm]
+T(x) &= x^2,\\[1mm]
+\psi(\mu) &= \frac{1}{2}\left(\mu + \log \mu\right).
+\end{aligned}
+\]
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution: Exercise 2 (Continued)}
+In canonical form, if we let \(\eta = -\frac{1}{2\mu}\), then \(\mu = -\frac{1}{2\eta}\) and the log-partition function (or cumulant function) is given by:
+\[
+A(\eta) = \frac{1}{2}\left(-\frac{1}{2\eta} + \log\left(-\frac{1}{2\eta}\right)\right).
+\]
+
+Note that 
+
+$$
+\nabla_{\eta} A(\eta) = \frac{1}{4 \eta^2} - \frac{1}{2 \eta}.
+$$
+
+Recall \(\eta = -\frac{1}{2\mu}\) and plug this in the expression above to find
+
+$$\mu^2 + \mu = \frac{1}{n} \sum_i x_i^2.$$
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution: Exercise 2 (Continued)}
+
+We have a quadratic form in terms of $\mu$ as follows:
+$$\mu^2 + \mu = \frac{1}{n} \sum_i x_i^2$$
+
+The general solution for a quadratic equation is:
+
+\[
+\mu = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+\]
+
+This is a quadratic equation:
+\[
+a\mu^2 + b\mu + c = 0
+\]
+
+where:
+\begin{itemize}
+    \item \( a = 1 \)
+    \item \( b = 1 \)
+    \item \( c = -\frac{1}{n} \sum_{i=1}^{n} x_i^2 \)
+\end{itemize}
+
+
+
+\[
+\mu = \frac{-1 + \sqrt{1^2 - 4 \left(1\right) \left(-\frac{1}{n} \sum_{i=1}^{n} x_i^2\right)}}{2}
+\]
+
+\end{frame}
+
+\begin{frame}
+\frametitle{Solution: Exercise 3 (Continued)}
+
+We can rewrite the density as:
+\[
+\begin{aligned}
+f_X(x) &= \lambda \, x^{-\lambda - 1} I(x > 1)\\[1mm]
+&= \exp\Bigl( -(\lambda+1)\log(x) + \log(\lambda) \Bigr) I(x > 1).
+\end{aligned}
+\]
+
+Yes, this is a member of the one-parameter exponential family with components:
+\[
+\begin{aligned}
+h(x) &= I(x > 1),\\[1mm]
+\eta(\lambda) &= -(\lambda + 1),\\[1mm]
+T(x) &= \log(x),\\[1mm]
+\psi(\lambda) &= -\log(\lambda).
+\end{aligned}
+\]
+
+\end{frame}
+
 %\begin{frame}
-%\frametitle{Solution: Exercise 1}
-%Consider a uniform distribution on \((0, \theta)\), that is,
-%\[
-%f_X(x) = \frac{1}{\theta} \, I(0 < x < \theta).
-%\]
 %
-%No, this is not a member of the exponential family. There is no way to disentangle \(x\) from \(\theta\) in the term \(I(0 < x < \theta)\); there is no possible function \(h(x)\) that can be free of \(\theta\) as required by the exponential family form.
-%\end{frame}
+%\begin{verbatim}
+%# Set seed for reproducibility
+%set.seed(42)
 %
+%# Parameters
+%n <- 100
+%mu_true <- 2.5
 %
-%%% Solution Exercise 2 
-%\begin{frame}
-%\frametitle{Solution: Exercise 2}
-%The density is given by:
-%\[
-%\begin{aligned}
-%f_X(x) &= \frac{1}{\sqrt{2\pi\mu}} \exp\left(-\frac{(x - \mu)^2}{2\mu} \right) I(x \in \mathbb{R})\\[1mm]
-%&= I(x \in \mathbb{R}) \frac{\exp(x)}{\sqrt{2\pi}} \exp\left(-\frac{x^2}{2\mu} - \frac{\mu}{2} - \frac{1}{2}\log \mu \right).
-%\end{aligned}
-%\]
+%# Generate data
+%data <- rnorm(n, mean = mu_true, sd = sqrt(mu_true))
 %
-%Yes, this is a member of the one-parameter exponential family. The components in canonical form are:
-%\[
-%\begin{aligned}
-%h(x) &= I(x \in \mathbb{R})\frac{\exp(x)}{\sqrt{2\pi}},\\[1mm]
-%\eta(\mu) &= -\frac{1}{2\mu},\\[1mm]
-%T(x) &= x^2,\\[1mm]
-%\psi(\mu) &= \frac{1}{2}\left(\mu + \log \mu\right).
-%\end{aligned}
-%\]
+%# Calculate empirical second moment
+%second_moment <- mean(data^2)
 %
-%\end{frame}
+%# Define the equation to solve
+%equation <- function(mu) {
+%  return(mu^2 + mu - second_moment)
+%}
 %
-%\begin{frame}
-%\frametitle{Solution: Exercise 2 (Continued)}
-%In canonical form, if we let \(\eta = -\frac{1}{2\mu}\), then \(\mu = -\frac{1}{2\eta}\) and the log-partition function (or cumulant function) is given by:
-%\[
-%A(\eta) = \frac{1}{2}\left(-\frac{1}{2\eta} + \log\left(-\frac{1}{2\eta}\right)\right).
-%\]
+%# Solve numerically using uniroot
+%mu_initial_guess <- mean(data)
+%mu_mle <- uniroot(equation, lower = 0.01, upper = 10)$root
+%
+%# Analytical MLE from quadratic solution
+%analytical_mle <- (-1 + sqrt(1 + 4 * second_moment)) / 2
+%
+%# Output results
+%cat("Numerical MLE using uniroot: ", mu_mle, "\n")
+%cat("Analytical MLE using quadratic formula: ", analytical_mle, "\n")
+%cat("Empirical second moment: ", second_moment, "\n")
+%\end{verbatim}
 %
 %\end{frame}
-%
-%
-%
-%\begin{frame}
-%\frametitle{Solution: Exercise 3 (Continued)}
-%
-%We can rewrite the density as:
-%\[
-%\begin{aligned}
-%f_X(x) &= \lambda \, x^{-\lambda - 1} I(x > 1)\\[1mm]
-%&= \exp\Bigl( -(\lambda+1)\log(x) + \log(\lambda) \Bigr) I(x > 1).
-%\end{aligned}
-%\]
-%
-%Yes, this is a member of the one-parameter exponential family with components:
-%\[
-%\begin{aligned}
-%h(x) &= I(x > 1),\\[1mm]
-%\eta(\lambda) &= -(\lambda + 1),\\[1mm]
-%T(x) &= \log(x),\\[1mm]
-%\psi(\lambda) &= -\log(\lambda).
-%\end{aligned}
-%\]
-%
-%\end{frame}
-%
-%\begin{frame}
-%\frametitle{Solution: Exercise 3 (Continued)}
-%
-%In canonical form, let \(\eta = -(\lambda+1)\). Then, solving for \(\lambda\),
-%\[
-%\lambda = -\eta - 1.
-%\]
-%
-%The log-partition function is:
-%\[
-%A(\eta) = -\log(-\eta - 1).
-%\]
-%
-%To find the MLE for \(\lambda\), note that the derivative of \(A(\eta)\) with respect to \(\eta\) is:
-%\[
-%\nabla_\eta A(\eta) = \frac{1}{-\eta - 1} = \frac{1}{\lambda}.
-%\]
-%
-%Thus, equating the sample average of the sufficient statistic to the derivative of the log-partition function, we have:
-%\[
-%\frac{1}{n}\sum_{i = 1}^n T(x_i) = \frac{1}{n}\sum_{i = 1}^n \log(x_i) = \frac{1}{\lambda}.
-%\]
-%
-%Therefore, the MLE for \(\lambda\) is:
-%\[
-%\widehat{\lambda} = \frac{n}{\sum_{i=1}^n \log(x_i)}.
-%\]
-%\end{frame}
+
+\begin{frame}
+\frametitle{Solution: Exercise 3 (Continued)}
+
+In canonical form, let \(\eta = -(\lambda+1)\). Then, solving for \(\lambda\),
+\[
+\lambda = -\eta - 1.
+\]
+
+The log-partition function is:
+\[
+A(\eta) = -\log(-\eta - 1).
+\]
+
+To find the MLE for \(\lambda\), note that the derivative of \(A(\eta)\) with respect to \(\eta\) is:
+\[
+\nabla_\eta A(\eta) = \frac{1}{-\eta - 1} = \frac{1}{\lambda}.
+\]
+
+Thus, equating the sample average of the sufficient statistic to the derivative of the log-partition function, we have:
+\[
+\frac{1}{n}\sum_{i = 1}^n T(x_i) = \frac{1}{n}\sum_{i = 1}^n \log(x_i) = \frac{1}{\lambda}.
+\]
+
+Therefore, the MLE for \(\lambda\) is:
+\[
+\widehat{\lambda} = \frac{n}{\sum_{i=1}^n \log(x_i)}.
+\]
+\end{frame}
 
 
 
