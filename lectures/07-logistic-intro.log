@@ -1,15 +1,15 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2025.1.8)  13 JAN 2025 21:55
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.11)  11 MAR 2025 13:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **07-logistic-intro.tex
 (./07-logistic-intro.tex
-LaTeX2e <2024-11-01> patch level 1
-L3 programming layer <2024-12-25>
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/beamer/beamer.cls
-Document Class: beamer 2024/01/06 v3.71 A class for typesetting presentations
+Document Class: beamer 2025/02/04 v3.72 A class for typesetting presentations
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/beamer/beamerbasemodes.sty (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
-Package: etoolbox 2020/10/05 v2.5k e-TeX tools for LaTeX (JAW)
+Package: etoolbox 2025/02/11 v2.5l e-TeX tools for LaTeX (JAW)
 \etb@tempcnta=\count196
 )
 \beamer@tempbox=\box52
@@ -593,30 +593,30 @@ LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/upquote/upquote.sty
 Package: upquote 2012/04/19 v1.3 upright-quote and grave-accent glyphs in verbatim
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype.sty
-Package: microtype 2024/12/12 v3.2 Micro-typographical refinements (RS)
+Package: microtype 2025/02/11 v3.2a Micro-typographical refinements (RS)
 \MT@toks=\toks48
 \MT@tempbox=\box78
 \MT@count=\count354
-LaTeX Info: Redefining \noprotrusionifhmode on input line 1075.
-LaTeX Info: Redefining \leftprotrusion on input line 1076.
+LaTeX Info: Redefining \noprotrusionifhmode on input line 1087.
+LaTeX Info: Redefining \leftprotrusion on input line 1088.
 \MT@prot@toks=\toks49
-LaTeX Info: Redefining \rightprotrusion on input line 1095.
-LaTeX Info: Redefining \textls on input line 1437.
+LaTeX Info: Redefining \rightprotrusion on input line 1107.
+LaTeX Info: Redefining \textls on input line 1449.
 \MT@outer@kern=\dimen299
-LaTeX Info: Redefining \microtypecontext on input line 2041.
-LaTeX Info: Redefining \textmicrotypecontext on input line 2058.
+LaTeX Info: Redefining \microtypecontext on input line 2053.
+LaTeX Info: Redefining \textmicrotypecontext on input line 2070.
 \MT@listname@count=\count355
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype-pdftex.def
-File: microtype-pdftex.def 2024/12/12 v3.2 Definitions specific to pdftex (RS)
+File: microtype-pdftex.def 2025/02/11 v3.2a Definitions specific to pdftex (RS)
 LaTeX Info: Redefining \lsstyle on input line 944.
 LaTeX Info: Redefining \lslig on input line 944.
 \MT@outer@space=\skip69
 )
 Package microtype Info: Loading configuration file microtype.cfg.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/microtype/microtype.cfg
-File: microtype.cfg 2024/12/12 v3.2 microtype main configuration file (RS)
+File: microtype.cfg 2025/02/11 v3.2a microtype main configuration file (RS)
 )
-LaTeX Info: Redefining \microtypesetup on input line 3053.
+LaTeX Info: Redefining \microtypesetup on input line 3065.
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/parskip/parskip.sty
 Package: parskip 2021-03-14 v2.0h non-zero parskip adjustments
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
@@ -707,7 +707,6 @@ Package: ltcaption 2021/01/08 v1.4c longtable captions (AR)
 ))
 \cslhangindent=\skip77
 \csllabelwidth=\skip78
-\cslentryspacingunit=\skip79
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/bbm-macros/bbm.sty
 Package: bbm 1999/03/15 V 1.2 provides fonts for set symbols - TH
 LaTeX Font Info:    Overwriting math alphabet `\mathbbm' in version `bold'
@@ -737,9 +736,9 @@ LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 149.
 Package: dsfont 1995/08/01 v0.1 Double stroke roman fonts
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/multirow/multirow.sty
 Package: multirow 2024/11/12 v2.9 Span multiple rows of a table
-\multirow@colwidth=\skip80
+\multirow@colwidth=\skip79
 \multirow@cntb=\count370
-\multirow@dima=\skip81
+\multirow@dima=\skip80
 \bigstrutjot=\dimen328
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/wrapfig/wrapfig.sty
 \wrapoverhang=\dimen329
@@ -758,7 +757,7 @@ Package: float 2001/11/08 v1.3d Float enhancements (AL)
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/colortbl/colortbl.sty
 Package: colortbl 2024/07/06 v1.0i Color table columns (DPC)
 \everycr=\toks55
-\minrowclearance=\skip82
+\minrowclearance=\skip81
 \rownum=\count373
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/pdflscape/pdflscape.sty
 Package: pdflscape 2022-10-27 v0.13 Display of landscape pages in PDF
@@ -798,7 +797,7 @@ Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
 \tabu@arstrutbox=\box92
 \tabu@hleads=\box93
 \tabu@vleads=\box94
-\tabu@cellskip=\skip83
+\tabu@cellskip=\skip82
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/threeparttable/threeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
 \@tempboxb=\box95
@@ -809,11 +808,11 @@ Package: environ 2014/05/04 v0.3 A new way to define environments
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/trimspaces/trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 ))
-\TPTL@width=\skip84
+\TPTL@width=\skip83
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/generic/ulem/ulem.sty
 \UL@box=\box96
 \UL@hyphenbox=\box97
-\UL@skip=\skip85
+\UL@skip=\skip84
 \UL@hook=\toks58
 \UL@height=\dimen342
 \UL@pe=\count381
@@ -832,7 +831,7 @@ Package: bookmark 2023-12-10 v1.31 PDF bookmarks (HO)
 File: bkm-pdftex.def 2023-12-10 v1.31 bookmark driver for pdfTeX and luaTeX (HO)
 \BKM@id=\count383
 ))
-LaTeX Font Info:    Trying to load font information for T1+lmss on input line 368.
+LaTeX Font Info:    Trying to load font information for T1+lmss on input line 372.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmss.fd
 File: t1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
@@ -842,24 +841,24 @@ File: l3backend-pdftex.def 2024-05-08 L3 backend support: PDF output (pdfTeX)
 ) (./07-logistic-intro.aux)
 \openout1 = `07-logistic-intro.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 368.
-LaTeX Font Info:    ... okay on input line 368.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 368.
-LaTeX Font Info:    ... okay on input line 368.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 368.
-LaTeX Font Info:    ... okay on input line 368.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 368.
-LaTeX Font Info:    ... okay on input line 368.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 368.
-LaTeX Font Info:    ... okay on input line 368.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 368.
-LaTeX Font Info:    ... okay on input line 368.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 368.
-LaTeX Font Info:    ... okay on input line 368.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 368.
-LaTeX Font Info:    ... okay on input line 368.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 368.
-LaTeX Font Info:    ... okay on input line 368.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 372.
+LaTeX Font Info:    ... okay on input line 372.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 372.
+LaTeX Font Info:    ... okay on input line 372.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 372.
+LaTeX Font Info:    ... okay on input line 372.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 372.
+LaTeX Font Info:    ... okay on input line 372.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 372.
+LaTeX Font Info:    ... okay on input line 372.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 372.
+LaTeX Font Info:    ... okay on input line 372.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 372.
+LaTeX Font Info:    ... okay on input line 372.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 372.
+LaTeX Font Info:    ... okay on input line 372.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 372.
+LaTeX Font Info:    ... okay on input line 372.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -900,49 +899,49 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-Package hyperref Info: Link coloring OFF on input line 368.
+Package hyperref Info: Link coloring OFF on input line 372.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 368.
+(Font)                  OT1/lmr/m/n --> OT1/cmss/m/n on input line 372.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 368.
+(Font)                  OT1/lmr/bx/n --> OT1/cmss/b/n on input line 372.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
-(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 368.
+(Font)                  OT1/cmss/m/n --> OT1/lmss/m/n on input line 372.
 LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
-(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 368.
+(Font)                  OT1/cmss/b/n --> OT1/lmss/b/n on input line 372.
 \symnumbers=\mathgroup12
 \sympureletters=\mathgroup13
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 368.
-LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 368.
-LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 368.
+(Font)                  OT1/lmss/m/n --> T1/lmr/m/n on input line 372.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 372.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 372.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
-(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 368.
+(Font)                  OT1/lmss/m/n --> T1/lmss/m/n on input line 372.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 368.
-LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 368.
+(Font)                  OT1/lmss/bx/n --> T1/lmss/m/n on input line 372.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 372.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
-(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 368.
+(Font)                  OT1/lmr/m/it --> T1/lmss/m/it on input line 372.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 368.
-LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 368.
+(Font)                  OT1/lmr/bx/it --> T1/lmss/m/it on input line 372.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 372.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 368.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 372.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 368.
+(Font)                  OT1/lmtt/m/n --> T1/lmtt/m/n on input line 372.
 LaTeX Font Info:    Overwriting symbol font `numbers' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 368.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 372.
 LaTeX Font Info:    Overwriting symbol font `pureletters' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 368.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 372.
 LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
-(Font)                  OT1/lmss/b/n --> T1/lmr/b/n on input line 368.
+(Font)                  OT1/lmss/b/n --> T1/lmr/b/n on input line 372.
 LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
-(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 368.
+(Font)                  T1/lmss/b/n --> T1/lmss/b/n on input line 372.
 LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
-(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 368.
+(Font)                  T1/lmss/m/n --> T1/lmss/b/n on input line 372.
 LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
-(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 368.
+(Font)                  T1/lmss/m/it --> T1/lmss/b/it on input line 372.
 LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
-(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 368.
+(Font)                  T1/lmtt/m/n --> T1/lmtt/b/n on input line 372.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/translator/translator-basic-dictionary-English.dict
 Dictionary: translator-basic-dictionary, Language: English 
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/translator/translator-bibliography-dictionary-English.dict
@@ -959,20 +958,20 @@ Dictionary: translator-theorem-dictionary, Language: English
 Package microtype Info: Patching varwidth to enable character protrusion.
 \MT@vwid@leftmargin=\dimen346
 \MT@vwid@rightmargin=\dimen347
-LaTeX Info: Redefining \microtypecontext on input line 368.
-Package microtype Info: Applying patch `item' on input line 368.
-Package microtype Info: Applying patch `toc' on input line 368.
-Package microtype Info: Applying patch `eqnum' on input line 368.
-Package microtype Info: Applying patch `footnote' on input line 368.
-Package microtype Info: Applying patch `verbatim' on input line 368.
-LaTeX Info: Redefining \microtypesetup on input line 368.
+LaTeX Info: Redefining \microtypecontext on input line 372.
+Package microtype Info: Applying patch `item' on input line 372.
+Package microtype Info: Applying patch `toc' on input line 372.
+Package microtype Info: Applying patch `eqnum' on input line 372.
+Package microtype Info: Applying patch `footnote' on input line 372.
+Package microtype Info: Applying patch `verbatim' on input line 372.
+LaTeX Info: Redefining \microtypesetup on input line 372.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 368.
+LaTeX Info: Redefining \showhyphens on input line 372.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -1000,7 +999,7 @@ File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 5.
 )
-Overfull \vbox (10.16454pt too high) detected at line 395
+Overfull \vbox (10.16454pt too high) detected at line 399
  []
 
 
@@ -1008,7 +1007,7 @@ Overfull \vbox (10.16454pt too high) detected at line 395
 [2
 
 ]
-LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 410.
+LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 414.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -1016,60 +1015,60 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 410.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 414.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 410.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 414.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 410.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 414.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 410.
+(Font)              <10.95> on input line 414.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 410.
+(Font)              <8> on input line 414.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 410.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 410.
+(Font)              <6> on input line 414.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 414.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 410.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 414.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 410.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 414.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 410.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 414.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 410.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 414.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 410.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 414.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 410.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 414.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 410.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 414.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 410.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 414.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 410.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 414.
 
 
 [3
@@ -1082,7 +1081,7 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
 
 Package amsmath Warning: Foreign command \atopwithdelims;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 441.
+(amsmath)                 on input line 444.
 
 
 
@@ -1096,7 +1095,7 @@ Package amsmath Warning: Foreign command \atopwithdelims;
 <07-logistic-intro_files/figure-beamer/OLSlogistic-1.pdf, id=66, 550.055pt x 339.2675pt>
 File: 07-logistic-intro_files/figure-beamer/OLSlogistic-1.pdf Graphic file (type pdf)
 <use 07-logistic-intro_files/figure-beamer/OLSlogistic-1.pdf>
-Package pdftex.def Info: 07-logistic-intro_files/figure-beamer/OLSlogistic-1.pdf  used on input line 472.
+Package pdftex.def Info: 07-logistic-intro_files/figure-beamer/OLSlogistic-1.pdf  used on input line 475.
 (pdftex.def)             Requested size: 245.83282pt x 151.62842pt.
 
 
@@ -1107,11 +1106,6 @@ Package pdftex.def Info: 07-logistic-intro_files/figure-beamer/OLSlogistic-1.pdf
 [8
 
 ]
-pdfTeX warning (ext4): destination with the same identifier (name{logit-link}) has been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.491 \end{frame}
-                 
 
 [9
 
@@ -1154,7 +1148,7 @@ Overfull \hbox (1187.38084pt too wide) in paragraph at lines 15--15
 <07-logistic-intro_files/figure-beamer/unnamed-chunk-3-1.pdf, id=132, 564.1075pt x 317.185pt>
 File: 07-logistic-intro_files/figure-beamer/unnamed-chunk-3-1.pdf Graphic file (type pdf)
 <use 07-logistic-intro_files/figure-beamer/unnamed-chunk-3-1.pdf>
-Package pdftex.def Info: 07-logistic-intro_files/figure-beamer/unnamed-chunk-3-1.pdf  used on input line 609.
+Package pdftex.def Info: 07-logistic-intro_files/figure-beamer/unnamed-chunk-3-1.pdf  used on input line 612.
 (pdftex.def)             Requested size: 276.559pt x 155.50427pt.
 
 
@@ -1252,96 +1246,96 @@ Package pdftex.def Info: 07-logistic-intro_files/figure-beamer/unnamed-chunk-3-1
 \openout4 = `07-logistic-intro.vrb'.
 
 (./07-logistic-intro.vrb
-LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 22.
+LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 20.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-Overfull \hbox (31.8854pt too wide) in paragraph at lines 28--28
+Overfull \hbox (31.8854pt too wide) in paragraph at lines 26--26
 []\T1/lmtt/m/n/10.95 ## The following objects are masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:faraway\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (8.89047pt too wide) in paragraph at lines 34--34
+Overfull \hbox (8.89047pt too wide) in paragraph at lines 32--32
 []\T1/lmtt/m/n/10.95 ## The following object is masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:dplyr\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (8.89047pt too wide) in paragraph at lines 40--40
+Overfull \hbox (8.89047pt too wide) in paragraph at lines 38--38
 []\T1/lmtt/m/n/10.95 ## The following object is masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:purrr\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (31.8854pt too wide) in paragraph at lines 60--60
+Overfull \hbox (31.8854pt too wide) in paragraph at lines 58--58
 []\T1/lmtt/m/n/10.95 ## The following objects are masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:faraway\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (164.10628pt too wide) in paragraph at lines 78--78
+Overfull \hbox (164.10628pt too wide) in paragraph at lines 76--76
 []\T1/lmtt/m/n/10.95 ## The \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 mosaic\TS1/lmtt/m/n/10.95 ' \T1/lmtt/m/n/10.95 package masks several functions from core packages in order to add[] 
  []
 
 
-Overfull \hbox (250.33728pt too wide) in paragraph at lines 78--78
+Overfull \hbox (250.33728pt too wide) in paragraph at lines 76--76
 []\T1/lmtt/m/n/10.95 ## additional features.  The original behavior of these functions should not be affected by this.[] 
  []
 
 
-Overfull \hbox (14.6392pt too wide) in paragraph at lines 89--89
+Overfull \hbox (14.6392pt too wide) in paragraph at lines 87--87
 []\T1/lmtt/m/n/10.95 ## The following object is masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:Matrix\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (8.89047pt too wide) in paragraph at lines 95--95
+Overfull \hbox (8.89047pt too wide) in paragraph at lines 93--93
 []\T1/lmtt/m/n/10.95 ## The following objects are masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:car\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (31.8854pt too wide) in paragraph at lines 101--101
+Overfull \hbox (31.8854pt too wide) in paragraph at lines 99--99
 []\T1/lmtt/m/n/10.95 ## The following objects are masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:faraway\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (20.38794pt too wide) in paragraph at lines 107--107
+Overfull \hbox (20.38794pt too wide) in paragraph at lines 105--105
 []\T1/lmtt/m/n/10.95 ## The following objects are masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:infer\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (14.6392pt too wide) in paragraph at lines 113--113
+Overfull \hbox (14.6392pt too wide) in paragraph at lines 111--111
 []\T1/lmtt/m/n/10.95 ## The following object is masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:scales\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (20.38794pt too wide) in paragraph at lines 119--119
+Overfull \hbox (20.38794pt too wide) in paragraph at lines 117--117
 []\T1/lmtt/m/n/10.95 ## The following objects are masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:dplyr\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (8.89047pt too wide) in paragraph at lines 125--125
+Overfull \hbox (8.89047pt too wide) in paragraph at lines 123--123
 []\T1/lmtt/m/n/10.95 ## The following object is masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:purrr\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (20.38794pt too wide) in paragraph at lines 131--131
+Overfull \hbox (20.38794pt too wide) in paragraph at lines 129--129
 []\T1/lmtt/m/n/10.95 ## The following object is masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:ggplot2\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (20.38794pt too wide) in paragraph at lines 138--138
+Overfull \hbox (20.38794pt too wide) in paragraph at lines 136--136
 []\T1/lmtt/m/n/10.95 ## The following objects are masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:stats\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 
-Overfull \hbox (100.87021pt too wide) in paragraph at lines 138--138
+Overfull \hbox (100.87021pt too wide) in paragraph at lines 136--136
 []\T1/lmtt/m/n/10.95 ##     binom.test, cor, cor.test, cov, fivenum, IQR, median, prop.test,[] 
  []
 
 
-Overfull \hbox (14.6392pt too wide) in paragraph at lines 144--144
+Overfull \hbox (14.6392pt too wide) in paragraph at lines 142--142
 []\T1/lmtt/m/n/10.95 ## The following objects are masked from \TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 package:base\TS1/lmtt/m/n/10.95 '\T1/lmtt/m/n/10.95 :[] 
  []
 
 )
-Overfull \vbox (832.51576pt too high) detected at line 1070
+Overfull \vbox (812.11575pt too high) detected at line 1071
  []
 
 
@@ -1371,7 +1365,7 @@ Overfull \vbox (832.51576pt too high) detected at line 1070
 <07-logistic-intro_files/figure-beamer/unnamed-chunk-6-1.pdf, id=319, 545.03625pt x 317.185pt>
 File: 07-logistic-intro_files/figure-beamer/unnamed-chunk-6-1.pdf Graphic file (type pdf)
 <use 07-logistic-intro_files/figure-beamer/unnamed-chunk-6-1.pdf>
-Package pdftex.def Info: 07-logistic-intro_files/figure-beamer/unnamed-chunk-6-1.pdf  used on input line 1148.
+Package pdftex.def Info: 07-logistic-intro_files/figure-beamer/unnamed-chunk-6-1.pdf  used on input line 1149.
 (pdftex.def)             Requested size: 276.559pt x 160.94426pt.
 
 
@@ -1470,17 +1464,27 @@ LaTeX Font Info:    Undo math alphabet allocation in version normal on input lin
 [46
 
 ]
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1270.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1270.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1270.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1270.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1270.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1270.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1270.
-LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1270.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1271.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1271.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1271.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1271.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1271.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1271.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1271.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 1271.
 
 
 [47
+
+]
+\openout4 = `07-logistic-intro.vrb'.
+
+(./07-logistic-intro.vrb
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 11.
+LaTeX Font Info:    No math alphabet change to frozen version normal on input line 20.
+)
+
+[48
 
 ]
 \openout4 = `07-logistic-intro.vrb'.
@@ -1490,11 +1494,11 @@ LaTeX Font Info:    No math alphabet change to frozen version normal on input li
 LaTeX Font Info:    No math alphabet change to frozen version normal on input line 5.
 )
 
-[48
+[49
 
 ]
 
-[49
+[50
 
 ]
 \tf@nav=\write6
@@ -1508,23 +1512,23 @@ LaTeX Font Info:    No math alphabet change to frozen version normal on input li
 
 (./07-logistic-intro.aux)
  ***********
-LaTeX2e <2024-11-01> patch level 1
-L3 programming layer <2024-12-25>
+LaTeX2e <2024-11-01> patch level 2
+L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 28471 strings out of 475149
- 543108 string characters out of 5763165
- 941586 words of memory out of 5000000
- 50475 multiletter control sequences out of 15000+600000
- 669854 words of font info for 212 fonts, out of 8000000 for 9000
+ 28554 strings out of 475110
+ 545219 string characters out of 5762262
+ 946456 words of memory out of 5000000
+ 50591 multiletter control sequences out of 15000+600000
+ 670622 words of font info for 212 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 101i,14n,107p,1014b,576s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 101i,14n,107p,1014b,569s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss12.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy7.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt12.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on 07-logistic-intro.pdf (49 pages, 355101 bytes).
+Output written on 07-logistic-intro.pdf (50 pages, 354627 bytes).
 PDF statistics:
- 505 PDF objects out of 1000 (max. 8388607)
- 394 compressed objects within 4 object streams
- 152 named destinations out of 1000 (max. 500000)
+ 511 PDF objects out of 1000 (max. 8388607)
+ 399 compressed objects within 4 object streams
+ 155 named destinations out of 1000 (max. 500000)
  63554 words of extra memory for PDF output out of 74296 (max. 10000000)
 

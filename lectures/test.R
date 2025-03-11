@@ -1,0 +1,41 @@
+library(tidyverse) 
+library(tidymodels) 
+library(knitr) 
+library(patchwork) 
+library(viridis) 
+airbnb <- read_csv("data/NYCairbnb-sample.csv")
+d1ofs <- function(beta, X, y, offset){
+  d1 <- rep(0, length(beta))
+  for(i in 1:length(y)){
+    d1 <- d1 + (y[i] -  offset[i] *exp(X[i,] %*% beta)) %*% X[i,]
+  }
+  return(colSums(d1))
+}
+
+d2ofs <- function(beta, X, y, offset){
+  d2 <- matrix(0, nrow = length(beta), ncol = length(beta))
+  for(i in 1:length(y)){
+    d2 <- d2 - offset[i] * t((exp(X[i,] %*% beta)) %*% X[i,]) %*% (X[i,])
+  }
+  return(d2)
+}
+
+beta <- c(mean(log(airbnb$number_of_reviews +0.01)), 0, 0)
+X <- cbind(1, airbnb$price, airbnb$room_type)
+y <- airbnb$number_of_reviews 
+offset <- airbnb$days
+iter <- 1
+delta <- 1
+
+temp <- matrix(0, nrow = 500, ncol = 3)
+
+while(delta > 0.000001 & iter < 500){
+  old <- beta
+  beta <- old - solve(d2ofs(beta = beta, X = X, y = y, offset = offset)) %*% 
+                d1ofs(beta = beta, X = X, y = y, offset = offset)
+  temp[iter,] <- beta
+  delta <- sqrt(sum((beta - old)^2))
+  iter <- iter + 1
+}
+
+round(beta, 6)

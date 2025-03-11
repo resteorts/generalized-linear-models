@@ -476,7 +476,6 @@ Note: This is the logistic GLM that we saw earlier. To perform logistic regressi
 
 ## Challenger Data Exploration
 
-\textcolor{red}{Todo: look at the data set and show case logistic regression.}
 
 ```{r}
 library(alr4)
@@ -582,6 +581,24 @@ shows that the odds of the o-rings failing for a given launch decreases by a fac
 
 - From the reverse perspective, every 1 degree decrease in temperature increases the odds of a failed o-ring by a factor of $e^{0.232} = 1.26.$
 
+## Illustration 
+
+For a temperature of 31 degrees, what would the predictor probability of at least one o-ring failure be? 
+
+Mathematically, this is 
+
+$$
+P(Y_i = 1 \mid x_i) =
+\frac{\exp(15.043 -0.232 \times 31)}{ 1+ \exp(15.043 -0.232 \times 31)}
+$$
+
+```{r}
+pred <- predict(chall.glm, 
+                data.frame(temp=31), type='response')
+```
+
+This shows that $\hat{\pi_i} \approx `r round(pred,5)`$. 
+
 ## Interpretation of coefficient estimates
 
 The Challenger shuttle was launched at a temperature of 31 degrees. By waiting until 53 degrees, the odds of failure would have been decreased by a factor of $e^{-0.232(53-31)} = 0.006$, which is a $99.4\%$ reduction in the odds of an o-ring failure!
@@ -592,5 +609,7 @@ The Challenger shuttle was launched at a temperature of 31 degrees. By waiting u
 ```
 
 This illustrates that an o-ring failure was very likely to happen at such a cold temperature. 
+
+
 
 ## References
