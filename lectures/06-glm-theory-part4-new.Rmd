@@ -114,9 +114,41 @@ For Poisson regression:
 \log L = \sum_{i=1}^n \Bigl( y_i X_i \beta - e^{X_i \beta} - \log (y_i!) \Bigr),
 \]
 
-1. What are the score vector and Hessian corresponding to the log-likelihood? 
+\begin{itemize}
+    \item \( Y \) is an \( n \times 1 \) column vector of observed count responses.
+    \item \( X \) is an \( n \times p \) design matrix containing the independent variables.
+    \item \( \beta \) is a \( p \times 1 \) column vector of regression coefficients.
+    \item \( e^{X \beta} \) represents element-wise exponentiation.
+    \item \( \mathbf{1} \) is an \( n \times 1 \) column vector of ones.
+\end{itemize}
 
-2. What would the Newton-Raphson steps be?
+\begin{equation}
+\log L(\beta) = Y^T X \beta - \mathbf{1}^T e^{X \beta} - \sum_{i=1}^{n} \log (y_i!)
+\end{equation}
+
+
+## Newton Raphson for Poisson Regression
+
+1. What are the score vector and Hessian corresponding to the log-likelihood?
+
+2. What is the corresponding Newton-Raphson algorithm?
+
+## Newton Raphson for Poisson Regression
+
+\begin{align}
+\log L(\beta) &= Y^T X \beta - \mathbf{1}^T e^{X \beta} - \sum_{i=1}^{n} \log (y_i!) \\
+&= \beta^T X^T Y - \mathbf{1}^T e^{X \beta} - \sum_{i=1}^{n} \log (y_i!) 
+\end{align}
+
+The score vector is:
+\[
+\nabla \log L = X^T Y - X^T e^{X \beta} 
+\]
+
+The Hessian is:
+\[
+\nabla^2 \log L = - \sum_{i=1}^n e^{X_i \beta} X_i X_i^T.
+\]
 
 ## Newton Raphson for Poisson Regression
 
@@ -124,21 +156,11 @@ For Poisson regression:
 \[
 \log L = \sum_{i=1}^n \Bigl( y_i X_i \beta - e^{X_i \beta} - \log (y_i!) \Bigr),
 \]
-
-The score vector is:
-\begin{align}
-\nabla \log L &= \sum_{i=1}^n \Bigl( y_i X_i - e^{X_i \beta} X_i \Bigr)\\
-&= \sum_{i=1}^n X_i \Bigl( y_i - e^{X_i \beta} \Bigr)\\
-&= \sum_{i=1}^n \Bigl( y_i - e^{X_i \beta} \Bigr) X_i^{T}
-\end{align}
-
-## Newton Raphson for Poisson Regression
-
-Recall the score function is 
-
-$$\nabla \log L = \sum_{i=1}^n \Bigl( y_i - e^{X_i \beta} \Bigr) X_i^{T}.$$
-
-The Hessian is:
+the score vector is:
+\[
+\nabla \log L = \sum_{i=1}^n \Bigl( y_i - e^{X_i \beta} \Bigr) X_i^T,
+\]
+and the Hessian is:
 \[
 \nabla^2 \log L = - \sum_{i=1}^n e^{X_i \beta} X_i X_i^T.
 \]
@@ -158,7 +180,7 @@ Let $W = e^{X\beta}$, which is an $n \times n$ matrix with $e^{x_i^T \beta}$ on 
 
 
 \[
-\beta^{(t+1)} = \beta^{(t)} + (X^T W_{(t)} X)^{-1} X^T (y - \exp(X \beta^{(t)}))
+\beta^{(t+1)} = \beta^{(t)} + X^T W_{(t)} X^T (y - \exp(X \beta^{(t)}))
 \]
 
 
@@ -211,25 +233,26 @@ Let $W = e^{X\beta}$, which is an $n \times n$ matrix with $e^{x_i^T \beta}$ on 
 
 
 \[
-\beta^{(t+1)} = \beta^{(t)} + (X^T W_{(t)} X)^{-1} X^T (y - \exp(X \beta^{(t)}))
+\beta^{(t+1)} = \beta^{(t)} + X^T W_{(t)} X^T (y - \exp(X \beta^{(t)}))
 \]
 
 ## Iteratively Re-weighted Least Squares
 
-Let 
-
-\[
-\beta^{(t+1)} = \beta^{(t)} + (X^T W_{(t)} X)^{-1} X^T (y - \exp(X \beta^{(t)}))
+Let \[
+\beta^{(t+1)} = \beta^{(t)} + X^T W_{(t)} X^T (y - \exp(X \beta^{(t)}))
 \]
 
-and let $p = \exp(X \beta^{(t)}).$ Let $z = W^{-1}(y - p) \implies (y-p) = Wz.$
+and let $p = \exp(X \beta^{(t)}).$
 
-Then it follows that
+Consider the following
 
 \begin{align}
-\beta^{(t+1)} &= \beta^{(t)} + (X^T W_{(t)} X^T)^{-1} X^T (y - p) \\
-&= \beta^{(t)} + (X^T W_{(t)} X^T)^{-1} X^T Wz
+\beta^{(t+1)} &= \beta^{(t)} + X^T W_{(t)} X^T (y - p) \\
+&= (X^T W X)^{-1} X^T W \big( X\beta^{(t)} + W^{-1} (y - p)\big) \\
+&= (X^T W X)^{-1} X^T W z.
 \end{align}
+
+Let $z = X\beta^{(t)} + W^{-1} (y - p).$
 
 ## Iteratively Re-weighted Least Squares
 
