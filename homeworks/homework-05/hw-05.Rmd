@@ -1,0 +1,61 @@
+---
+title: 'Generalized Linear Models'
+author: "STA 310: Homework 5"
+output: pdf_document
+---
+
+1. The probability density function (PDF) of the Pareto Type I distribution is given by:
+
+\[
+f(x) = \frac{\alpha x_m^\alpha}{x^{\alpha+1}} \mathbf{1}_{\{x \geq x_m\}}
+\]
+
+where:
+\begin{itemize}
+    \item \( \mathbf{1}_{\{x \geq x_m\}} \) is the indicator function, which is 1 if \( x \geq x_m \) and 0 otherwise.
+    \item \( \alpha > 0 \) is the shape parameter.
+    \item \( x_m > 0 \) is the scale parameter (minimum possible value) of the data.
+\end{itemize}
+
+Is this a member of the exponential family (in canonical form)? If so, identify the components in canonical form. If not, explain why not. 
+
+\newpage
+
+2. Assume a logistic regression model (i.e., binary regression under canonical link). Assume that $y_i$ is binary with success probability $p$ and $i=1, \ldots, n.$
+
+a. Provide the log-likelihood function as a function of the regression parameters. 
+
+b. Derive the score functions of the log-likelihood with respect to the regression parameters. 
+
+c. Derive the Hessian function of the log-likelihood with respect to the regression parameters. 
+
+d. Using the previous steps to write out the Newton-Raphson Algorithm. 
+
+e. A researcher is interested in how variables, such as GRE (Graduate Record Exam scores), GPA (grade point average) and prestige of the undergraduate institution, effect admission into graduate school. The response variable, admit/don’t admit, is a binary variable, which can be read in using the command below. 
+
+Consider running a logistic regression using the glm() function in R below. Write your own function to implement the Newton Raphson algorithm to output the regression coefficients, and verify that the coefficients match those from the glm() function. 
+
+```{r}
+df <- read.csv('https://stats.idre.ucla.edu/stat/data/binary.csv')
+mylogit <- glm(admit ~ gre + gpa + rank, data = df, family = "binomial"(link = "logit"))
+summary(mylogit)
+```
+
+```{r}
+y<-df[,1]
+# add column of 1's for the intercept
+x<-as.matrix(cbind(rep(1,400),df[,c(2,3,4)])) 
+
+IRLS_logistic <- function(x, y, b.init, tol=1e-8) {
+# use the same type of structure for your code
+# as we did for the poisson
+}
+```
+
+\newpage
+
+3. Propose a homework exercise that you believe would help reinforce the class content to students in this class. You may not repeat any exercise explicitly that was used in class and this exercise should be done individually. 
+
+Write and propose the question(s), include a rubric, and include a solution. 
+
+You may utilize online resource, but please do cite them if you use them and provide details. 
