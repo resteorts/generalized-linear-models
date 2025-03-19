@@ -21,7 +21,11 @@ Is this a member of the exponential family (in canonical form)? If so, identify 
 
 \newpage
 
-2. Assume a logistic regression model (i.e., binary regression under canonical link). Assume that $y_i$ is binary with success probability $p$ and $i=1, \ldots, n.$
+2. Assume a logistic regression model (i.e., binary regression under canonical link). Assume that $y_i$ is binary with success probability $p$ and $i=1, \ldots, n.$ Specifically, 
+
+\begin{equation}
+    y_i \sim \text{Bernoulli}(p_i), \quad \text{where} \quad p_i = \frac{e^{\mathbf{x}_i^T \boldsymbol{\beta}}}{1 + e^{\mathbf{x}_i^T \boldsymbol{\beta}}}.
+\end{equation}
 
 a. Provide the log-likelihood function as a function of the regression parameters. 
 
