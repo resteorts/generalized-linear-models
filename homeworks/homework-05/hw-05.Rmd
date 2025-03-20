@@ -21,19 +21,67 @@ Is this a member of the exponential family (in canonical form)? If so, identify 
 
 \newpage
 
-2. Assume a logistic regression model (i.e., binary regression under canonical link). Assume that $y_i$ is binary with success probability $p$ and $i=1, \ldots, n.$ Specifically, 
+2. Assume a logistic regression model (i.e., binary regression under canonical link). Assume that $y_i$ is binary with success probability $p$ and $i=1, \ldots, n.$ Specifically, in (simplified) logistic regression, we have that 
 
-\begin{equation}
-    y_i \sim \text{Bernoulli}(p_i), \quad \text{where} \quad p_i = \frac{e^{\mathbf{x}_i^T \boldsymbol{\beta}}}{1 + e^{\mathbf{x}_i^T \boldsymbol{\beta}}}.
-\end{equation}
+$$
+\log\!\left(\frac{p}{1-p}\right) = X_{n \times p} \boldsymbol\beta_{p \times 1},
+$$
+Note that $X_i$ is a row vector where it's dimension is $1 \times p.$
+a. Provide the log-likelihood function as a function of the regression parameters. That is, show that
 
-a. Provide the log-likelihood function as a function of the regression parameters. 
+The log-likelihood function for logistic regression is
+\[
+\begin{aligned}
+\mathcal{L}(p) &= \prod_{i=1}^n f(y_i) \\
+&= \prod_{i=1}^n p^{\,y_i}(1-p)^{\,1-y_i}, \\
+\log\mathcal{L}(p) &= \sum_{i=1}^n \Bigl[ y_i\log(p) + \log(1-p) - y_i\log(1-p) \Bigr] \\
+&= \sum_{i=1}^n \Bigl[ y_i\,\log\!\left(\frac{p}{1-p}\right) + \log(1-p) \Bigr].
+\end{aligned}
+\]
 
-b. Derive the score functions of the log-likelihood with respect to the regression parameters. 
+Recall that 
+\[
+\log\!\left(\frac{p}{1-p}\right) = \mathbf{X}\boldsymbol\beta,
+\]
+so the log-likelihood becomes
 
-c. Derive the Hessian function of the log-likelihood with respect to the regression parameters. 
+\[
+\log\mathcal{L}(p) = \sum_{i=1}^n \Bigl[ y_i\,\mathbf{X}_i\boldsymbol\beta - \log\!\left(1+\exp\bigl(\mathbf{X}_i\boldsymbol\beta\bigr)\right) \Bigr].
+\]
 
-d. Using the previous steps to write out the Newton-Raphson Algorithm. 
+In matrix notation, we can write the expression as
+
+
+\[
+\log\mathcal{L}(\beta) = \boldsymbol{y}^T X \boldsymbol\beta - 
+\boldsymbol{1}^T \log(\boldsymbol{1} + \exp(X \boldsymbol\beta))
+\]
+
+b. Show (derive) the score functions of the log-likelihood with respect to the regression parameters is as follows:
+
+\[
+\nabla_{\boldsymbol\beta} \log\mathcal{L}(p) = \sum_{i=1}^n \left[ y_i\,\mathbf{X}_i - \frac{\exp(\mathbf{X}_i^T\boldsymbol\beta)}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)}\,\mathbf{X}_i \right].
+\]
+
+You may also write the expression in matrix notation as follows:
+
+Define $\pi_i = \frac{\exp(\mathbf{X}_i^T\boldsymbol\beta)}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)}$. Then, 
+
+\[
+\nabla_{\boldsymbol\beta} \log\mathcal{L}(p) = X^T(\boldsymbol{y} - \boldsymbol\pi)
+\]
+
+c. Show (derive) the Hessian function of the log-likelihood with respect to the regression parameters is as follows:
+
+\[
+\nabla^2_{\boldsymbol\beta} \log\mathcal{L}(p) = -\sum_{i=1}^n \left[ \frac{1}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)} \cdot \frac{\exp(\mathbf{X}_i^T\boldsymbol\beta)}{1+\exp(\mathbf{X}_i^T\boldsymbol\beta)}\,\mathbf{X}_i\,\mathbf{X}_i^T \right].
+\]
+
+You may also write the expression in matrix notation as follows:
+
+Let $W = diag \{ \pi_1(1- \pi_1), \ldots, \pi_n (1- \pi_n) \}.$ It follows that the Hessian can be written as $-X^T W X.$
+
+d. Using the previous steps to write out the Newton-Raphson Algorithm in matrix form. 
 
 e. A researcher is interested in how variables, such as GRE (Graduate Record Exam scores), GPA (grade point average) and prestige of the undergraduate institution, effect admission into graduate school. The response variable, admit/don’t admit, is a binary variable, which can be read in using the command below. 
 
@@ -50,7 +98,7 @@ y<-df[,1]
 # add column of 1's for the intercept
 x<-as.matrix(cbind(rep(1,400),df[,c(2,3,4)])) 
 
-IRLS_logistic <- function(x, y, b.init, tol=1e-8) {
+Newton_Raphson_logistic <- function(x, y, b.init, tol=1e-8) {
 # use the same type of structure for your code
 # as we did for the poisson
 }
