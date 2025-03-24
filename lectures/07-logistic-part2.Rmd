@@ -363,15 +363,36 @@ We find that there is significant evidence that supports for the railroad refere
 
 ## Confidence Intervals for Model Coefficients
 
-We can use the  **profile likelihood method**, \index{profile likelihood} to find confidence intervals for our model coefficients. 
+We can use the  **profile likelihood method**, \index{profile likelihood} to find confidence intervals for our model coefficients. (Similar to Section 4.4).
 
 ```{r, comment=NA, message=FALSE}
 exp(confint(model.HaleBD))
 ```
 
-In the model with `distance` and `pctBlack`, the profile likelihood 95\% confidence interval for $e^{\beta_2}$ is (.979, .994).  
+In the model with `distance` and `pctBlack`, the profile likelihood 95\% confidence interval for $e^{\beta_2}$ is (0.979, 0.994).  
 
-We can also confirm the statistically significant association between percent Black residents and odds of voting Yes (after controlling for distance), because 1 is not a plausible value of $e^{\beta_2}$ (where an odds ratio of 1 would imply that the odds of voting Yes do not change with percent Black residents).
+Thus, we can be 95 percent confident that a 1 percent increase in the proportion of black residents is associated with a 0.6 percent to 2.1 percent decrease in the odds of a yes vote for the railroad, after controlling for distance. 
+
+<!-- We can also confirm the statistically significant association between percent Black residents and odds of voting Yes (after controlling for distance), because 1 is not a plausible value of $e^{\beta_2}$ (where an odds ratio of 1 would imply that the odds of voting Yes do not change with percent Black residents). -->
+
+## Confidence Intervals for Model Coefficients
+
+We can alternatively calculate the confidence interval using the Wald statistic.
+
+The 95$\%$ CI for $\beta_2$ is 
+\begin{align}
+\hat{\beta_2} &\pm 1.96 \times \text{SE}(\hat{\beta_2}) \\
+& = -0.0132 \pm 1.96 \times 0.0039 \\
+& = (-0.0208, -0.0056)
+\end{align}
+
+The 95$\%$ CI for $e^{\beta_2}$ is 
+\begin{align}
+& = (e^{-0.0208}, e^{-0.0056})\\
+& = (0.979, 0.994),
+\end{align}
+
+matching the results for the profile likelihood. 
 
 ## Testing Goodness of Fit
 
@@ -432,8 +453,14 @@ We have statistically significant evidence (Drop-in-deviance test: $\chi^2=32.98
 
 
 ## Interaction Model
+
+
   
-Because our interaction model still exhibits lack-of-fit (residual deviance of 274.23 on just 7 df), and because we have used the covariates at our disposal, we will assess this model for potential outliers and overdispersion by examining the model's residuals.
+Our interaction model still exhibits lack-of-fit (residual deviance of 274.23 on just 7 df).
+
+A residual deviance of 274.23 is extremely large for a chi-squared distribution with 7 df. This corresponds to a p-value that is essentially zero — meaning the probability of observing such a large deviance by chance, if the model were correct, is virtually 0.
+
+We will now assess the model potential outliers and overdispersion by examining the model's residuals.
 
 ## Residuals for Binomial Regression
 

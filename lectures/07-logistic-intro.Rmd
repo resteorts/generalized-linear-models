@@ -546,7 +546,7 @@ legend("right", bty="n", legend=c("Previous Launches"), pch=16, col="black", cex
 ```{r}
 chall.glm <- glm(fail>0 ~ temp, 
                  data=Challeng, family=binomial)
-tidy(chall.glm, conf.int = T) |>
+tidy(chall.glm, conf.int = T, conf.level = 0.95) |>
   kable(digits = 3)
 ```
 
@@ -557,24 +557,18 @@ tidy(chall.glm, conf.int = T) |>
 
 
 
-3. $P(|Z| > |-2.145|) = 0.032 > 0.05$.
+3. $P(|Z| > |-2.145|) = 0.032 < 0.05$.
 
 4. Yes, it is statistically significant. 
 
 ## What are plausible values for the coefficient of `temp`? 
 
-\small
-```{r echo = F}
-tidy(chall.glm, conf.int = T) |>
-  kable(digits = 3)
-```
 
 **95% confidence interval for the coefficient of `temp`**
 
-$$\hat{\beta}_1 \pm z^{*}\times SE(\hat{\beta}_1)$$
+From the table, the 95 percent confidence interval for the coefficient of temp is (-0.515, -0.061). 
 
-where $z^* \sim N(0, 1)$ 
-$$-0.232 \pm 1.96 \times 0.108 = \mathbf{(-0.444, -0.020)}$$
+To consider the odds ratio, we calculate the following: $$(exp(-0.444), exp(-0.029)) = (0.956, 0.971).$$
 
 ## Interpretation of coefficient estimates
 
