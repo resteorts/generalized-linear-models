@@ -17,7 +17,7 @@ where:
     \item \( x_m > 0 \) is the scale parameter (minimum possible value) of the data.
 \end{itemize}
 
-Is this a member of the exponential family (in canonical form)? If so, identify the components in canonical form. If not, explain why not. 
+Is this a member of the exponential family (in canonical form), where both parameters are unknown? If so, identify the components in canonical form. If not, explain why not. 
 
 \newpage
 
@@ -26,7 +26,7 @@ Is this a member of the exponential family (in canonical form)? If so, identify 
 $$
 \log\!\left(\frac{p}{1-p}\right) = X_{n \times p} \boldsymbol\beta_{p \times 1},
 $$
-Note that $X_i$ is a row vector where it's dimension is $1 \times p.$
+Note that $X_i^T$ is a row vector where it's dimension is $1 \times p.$
 a. Provide the log-likelihood function as a function of the regression parameters. That is, show that
 
 The log-likelihood function for logistic regression is
@@ -46,7 +46,7 @@ Recall that
 so the log-likelihood becomes
 
 \[
-\log\mathcal{L}(p) = \sum_{i=1}^n \Bigl[ y_i\,\mathbf{X}_i\boldsymbol\beta - \log\!\left(1+\exp\bigl(\mathbf{X}_i\boldsymbol\beta\bigr)\right) \Bigr].
+\log\mathcal{L}(p) = \sum_{i=1}^n \Bigl[ y_i\,\mathbf{X}_i^T\boldsymbol\beta - \log\!\left(1+\exp\bigl(\mathbf{X}_i^T\boldsymbol\beta\bigr)\right) \Bigr].
 \]
 
 In matrix notation, we can write the expression as

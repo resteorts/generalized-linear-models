@@ -9,6 +9,12 @@ font-size: 8px
 bibliography: references.bib
 ---
 
+## Announcements
+
+1. Quiz 2 returned. Excellent job by the class. 
+2. Homework 5 released last week. Due Thursday at 5 PM. 
+3. Quiz 3 released next week on GLM theory material. Class on Wednesday will be permitted to use for the quiz. 
+
 ## Computing set up
 
 ```{r setup, echo = TRUE, message = FALSE, warning= FALSE}
