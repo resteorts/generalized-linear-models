@@ -21,11 +21,15 @@ Is this a member of the exponential family (in canonical form), where both param
 
 \newpage
 
-2. Assume a logistic regression model (i.e., binary regression under canonical link). Assume that $y_i$ is binary with success probability $p$ and $i=1, \ldots, n.$ Specifically, in (simplified) logistic regression, we have that 
+2. Assume a logistic regression model (i.e., binary regression under canonical link). Assume that $y_i$ is binary with success probability $p$\footnote{This technically should be $p_i$, but for simplicity of the derivation, I am supressing this notation.} and $i=1, \ldots, n.$ Specifically, in (simplified) logistic regression, we have that 
 
 $$
-\log\!\left(\frac{p}{1-p}\right) = X_{n \times p} \boldsymbol\beta_{p \times 1},
+\log\!\left(\frac{p}{1-p}\right) = X_i^T \boldsymbol\beta_{p \times 1},
 $$
+
+<!-- $$ -->
+<!-- \log\!\left(\frac{p}{1-p}\right) = X_{n \times p} \boldsymbol\beta_{p \times 1}, -->
+<!-- $$ -->
 Note that $X_i^T$ is a row vector where it's dimension is $1 \times p.$
 a. Provide the log-likelihood function as a function of the regression parameters. That is, show that
 
@@ -39,10 +43,7 @@ The log-likelihood function for logistic regression is
 \end{aligned}
 \]
 
-Recall that 
-\[
-\log\!\left(\frac{p}{1-p}\right) = \mathbf{X}\boldsymbol\beta,
-\]
+Recall that $X_i^T \boldsymbol\beta_{p \times 1}$
 so the log-likelihood becomes
 
 \[
