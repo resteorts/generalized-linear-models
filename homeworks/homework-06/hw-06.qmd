@@ -1,0 +1,126 @@
+---
+title: "HW 06: Logistic regression"
+subtitle: "Binomial responses and overdispersion"
+format: 
+  pdf:
+    fig-height: 4
+    fig-width: 6
+---
+
+```{r}
+#| label: load-packages
+
+library(tidyverse)
+library(broom)
+library(knitr)
+
+# add other packages as needed
+```
+
+## Data: Supporting railroads in the 1870s {.midi}
+
+The data set [`RR_Data_Hale.csv`](data/RR_Data_Hale.csv) contains information on support for referendums related to railroad subsidies for 11 communities in Hale County, Alabama in the 1870s. The data were originally collected from the US Census by historian Michael Fitzgerald and analyzed as part of a thesis project by a student at St. Olaf College. The variables in the data are
+
+-   `pctBlack`: percentage of Black residents in the county
+-   `distance`: distance the proposed railroad is from the community (in miles)
+-   `YesVotes`: number of "yes" votes in favor of the proposed railroad line
+-   `NumVotes`: number of votes cast in the election
+
+```{r}
+#| label: load-data
+
+rr <- read_csv("../data/RR_Data_Hale.csv")
+
+rr <- rr |>
+  mutate(pctYes = YesVotes/NumVotes, 
+         emp_logit = log(pctYes / (1 - pctYes)), 
+         inFavor = if_else(pctYes > 0.5, "Yes", "No"))
+```
+
+# Part 1
+
+```{r}
+#| label: fit-model
+
+rr_model <- glm(cbind(YesVotes, NumVotes - YesVotes) ~ distance + pctBlack, 
+                data = rr, family = binomial)
+
+tidy(rr_model, conf.int = TRUE) |>
+  kable(digits = 3)
+```
+
+**Alternate model syntax**
+
+```{r}
+#| label: fit-model-alt-syntax
+
+rr_model_alt <- glm(pctYes ~ distance + pctBlack, data = rr, 
+                    family = binomial, weight = NumVotes)
+
+tidy(rr_model_alt, conf.int = TRUE) |>
+  kable(digits = 3)
+```
+
+::: callout-note
+## Exercise 1
+
+Interpret the coefficient of distance in the context of the data.
+:::
+
+::: callout-note
+## Exercise 2
+
+Use a likelihood ratio test or drop-in-deviance test to determine if the interaction between `distance` and `pctBlack` should be added to the model.
+:::
+
+```{r}
+# code to test interaction
+
+```
+
+::: callout-note
+## Exercise 3
+
+Use the model selected in the previous exercise. Interpret the effect of the demographics for a community that is...
+
+-   Right on the proposed railroad (distance = 0)
+
+-   15 miles away from the proposed railroad (distance = 15)
+:::
+
+::: callout-note
+## Exercise 4
+
+Conduct the appropriate test to assess if the model selected in Exercise 2 is good fit for the data.
+:::
+
+```{r}
+
+# code for goodness-of-fit test
+```
+
+# Part 2
+
+::: callout-note
+## Exercise 5
+
+Fit the quasibinomial model. How did the coefficients change from the original model? How did the standard errors change?
+:::
+
+```{r}
+
+# code to fit quasibinomial model
+
+```
+
+::: callout-note
+## Exercise 6
+
+Based on the results from Exercise 5, what might be your next step in the analysis? If possible, conduct that step below.
+:::
+
+```{r}
+
+# code for next step
+
+```
