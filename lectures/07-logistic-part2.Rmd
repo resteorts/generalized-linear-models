@@ -33,6 +33,13 @@ ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
 colors <- tibble::tibble(green = "#B5BA72")
 ```
 
+## Announcements
+
+1. Homework 5 due Thursday at 5 PM.
+2. Quiz 3 released next week. 
+3. Homework 6 just posted to github (corresponds with logistic regression on this module). 
+
+
 ## Topics
 
 - Case Study of Reconstruction of Alabama

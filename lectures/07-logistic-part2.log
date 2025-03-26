@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.19)  24 MAR 2025 19:14
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.19)  26 MAR 2025 11:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -978,7 +978,11 @@ Overfull \vbox (23.76454pt too high) detected at line 393
 [2
 
 ]
-LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 405.
+
+[3
+
+]
+LaTeX Font Info:    Trying to load font information for OT1+lmss on input line 419.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmss.fd
 File: ot1lmss.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
@@ -986,97 +990,93 @@ Package microtype Info: Loading generic protrusion settings for font family
 (microtype)             `lmss' (encoding: OT1).
 (microtype)             For optimal results, create family-specific settings.
 (microtype)             See the microtype manual for details.
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 405.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 419.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 405.
+LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 419.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 405.
+LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 419.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10.95> on input line 405.
+(Font)              <10.95> on input line 419.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 405.
+(Font)              <8> on input line 419.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 405.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 405.
+(Font)              <6> on input line 419.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 419.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 405.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 419.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+lasy on input line 405.
+LaTeX Font Info:    Trying to load font information for U+lasy on input line 419.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
-LaTeX Font Info:    Trying to load font information for U+rsfs on input line 405.
+LaTeX Font Info:    Trying to load font information for U+rsfs on input line 419.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 )
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 405.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 419.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/microtype/mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <8> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 405.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 419.
 LaTeX Font Info:    Font shape `U/lasy/b/n' in size <6> not available
-(Font)              Font shape `U/lasy/m/n' tried instead on input line 405.
+(Font)              Font shape `U/lasy/m/n' tried instead on input line 419.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <10.95> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 405.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 419.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <8> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 405.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 419.
 LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <6> not available
-(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 405.
+(Font)              Font shape `T1/lmss/m/sl' tried instead on input line 419.
 
-
-[3
-
-]
 
 [4
 
 ]
 
-Package amsmath Warning: Foreign command \atopwithdelims;
-(amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 435.
-
-
-
 [5
 
-{/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
+]
+
+Package amsmath Warning: Foreign command \atopwithdelims;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 449.
+
+
 
 [6
 
-]
-<07-logistic-part2_files/figure-beamer/OLSlogistic-1.pdf, id=66, 550.055pt x 339.2675pt>
-File: 07-logistic-part2_files/figure-beamer/OLSlogistic-1.pdf Graphic file (type pdf)
-<use 07-logistic-part2_files/figure-beamer/OLSlogistic-1.pdf>
-Package pdftex.def Info: 07-logistic-part2_files/figure-beamer/OLSlogistic-1.pdf  used on input line 466.
-(pdftex.def)             Requested size: 245.83282pt x 151.62842pt.
-
+{/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}]
 
 [7
 
- <./07-logistic-part2_files/figure-beamer/OLSlogistic-1.pdf>]
+]
+<07-logistic-part2_files/figure-beamer/OLSlogistic-1.pdf, id=73, 550.055pt x 339.2675pt>
+File: 07-logistic-part2_files/figure-beamer/OLSlogistic-1.pdf Graphic file (type pdf)
+<use 07-logistic-part2_files/figure-beamer/OLSlogistic-1.pdf>
+Package pdftex.def Info: 07-logistic-part2_files/figure-beamer/OLSlogistic-1.pdf  used on input line 480.
+(pdftex.def)             Requested size: 245.83282pt x 151.62842pt.
+
 
 [8
 
-]
+ <./07-logistic-part2_files/figure-beamer/OLSlogistic-1.pdf>]
 
 [9
 
@@ -1093,42 +1093,46 @@ Package pdftex.def Info: 07-logistic-part2_files/figure-beamer/OLSlogistic-1.pdf
 [12
 
 ]
-\openout4 = `07-logistic-part2.vrb'.
-
-(./07-logistic-part2.vrb)
 
 [13
 
 ]
+\openout4 = `07-logistic-part2.vrb'.
+
+(./07-logistic-part2.vrb)
 
 [14
+
+]
+
+[15
 
 ]
 \openout4 = `07-logistic-part2.vrb'.
 
 (./07-logistic-part2.vrb)
 
-[15
+[16
 
 ]
-<07-logistic-part2_files/figure-beamer/coded-1.pdf, id=133, 555.07375pt x 343.2825pt>
+<07-logistic-part2_files/figure-beamer/coded-1.pdf, id=139, 555.07375pt x 343.2825pt>
 File: 07-logistic-part2_files/figure-beamer/coded-1.pdf Graphic file (type pdf)
 <use 07-logistic-part2_files/figure-beamer/coded-1.pdf>
-Package pdftex.def Info: 07-logistic-part2_files/figure-beamer/coded-1.pdf  used on input line 592.
+Package pdftex.def Info: 07-logistic-part2_files/figure-beamer/coded-1.pdf  used on input line 606.
 (pdftex.def)             Requested size: 184.3758pt x 114.02737pt.
 
 
-[16
+[17
 
  <./07-logistic-part2_files/figure-beamer/coded-1.pdf>]
-<07-logistic-part2_files/figure-beamer/emplogits-1.pdf, id=148, 564.1075pt x 343.2825pt>
+<07-logistic-part2_files/figure-beamer/emplogits-1.pdf, id=154, 564.1075pt x 343.2825pt>
 File: 07-logistic-part2_files/figure-beamer/emplogits-1.pdf Graphic file (type pdf)
 <use 07-logistic-part2_files/figure-beamer/emplogits-1.pdf>
-Package pdftex.def Info: 07-logistic-part2_files/figure-beamer/emplogits-1.pdf  used on input line 607.
+Package pdftex.def Info: 07-logistic-part2_files/figure-beamer/emplogits-1.pdf  used on input line 621.
 (pdftex.def)             Requested size: 184.3758pt x 112.19928pt.
 
 
-[17
+[18
 
  <./07-logistic-part2_files/figure-beamer/emplogits-1.pdf>]
 \openout4 = `07-logistic-part2.vrb'.
@@ -1138,24 +1142,20 @@ LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <9> not available
 (Font)              Font shape `T1/lmtt/b/n' tried instead on input line 10.
 )
 
-[18
+[19
 
 ]
-LaTeX Font Info:    Trying to load font information for T1+lmr on input line 651.
+LaTeX Font Info:    Trying to load font information for T1+lmr on input line 665.
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 
-[19
+[20
 
 ]
 \openout4 = `07-logistic-part2.vrb'.
 
 (./07-logistic-part2.vrb)
-
-[20
-
-]
 
 [21
 
@@ -1168,9 +1168,6 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 [23
 
 ]
-\openout4 = `07-logistic-part2.vrb'.
-
-(./07-logistic-part2.vrb)
 
 [24
 
@@ -1182,19 +1179,26 @@ File: t1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 [25
 
 ]
+\openout4 = `07-logistic-part2.vrb'.
+
+(./07-logistic-part2.vrb)
 
 [26
+
+]
+
+[27
 
 ]
 \openout4 = `07-logistic-part2.vrb'.
 
 (./07-logistic-part2.vrb)
 
-[27
+[28
 
 ]
 
-[28
+[29
 
 ]
 \openout4 = `07-logistic-part2.vrb'.
@@ -1226,16 +1230,12 @@ Overfull \hbox (23.45949pt too wide) in paragraph at lines 19--19
 
 )
 
-[29
+[30
 
 ]
 \openout4 = `07-logistic-part2.vrb'.
 
 (./07-logistic-part2.vrb)
-
-[30
-
-]
 
 [31
 
@@ -1248,15 +1248,15 @@ Overfull \hbox (23.45949pt too wide) in paragraph at lines 19--19
 [33
 
 ]
-Overfull \hbox (15.1458pt too wide) detected at line 923
-[][] \OT1/lmss/m/n/10.95 = [] = []\OML/lmm/m/it/10.95 :
- []
-
-
 
 [34
 
 ]
+Overfull \hbox (15.1458pt too wide) detected at line 937
+[][] \OT1/lmss/m/n/10.95 = [] = []\OML/lmm/m/it/10.95 :
+ []
+
+
 
 [35
 
@@ -1265,30 +1265,30 @@ Overfull \hbox (15.1458pt too wide) detected at line 923
 [36
 
 ]
-<07-logistic-part2_files/figure-beamer/resid-1.pdf, id=285, 565.11125pt x 339.2675pt>
-File: 07-logistic-part2_files/figure-beamer/resid-1.pdf Graphic file (type pdf)
-<use 07-logistic-part2_files/figure-beamer/resid-1.pdf>
-Package pdftex.def Info: 07-logistic-part2_files/figure-beamer/resid-1.pdf  used on input line 978.
-(pdftex.def)             Requested size: 184.3758pt x 110.69029pt.
-
 
 [37
 
- <./07-logistic-part2_files/figure-beamer/resid-1.pdf>]
-<07-logistic-part2_files/figure-beamer/resid-duplicated-1.pdf, id=301, 565.11125pt x 339.2675pt>
-File: 07-logistic-part2_files/figure-beamer/resid-duplicated-1.pdf Graphic file (type pdf)
-<use 07-logistic-part2_files/figure-beamer/resid-duplicated-1.pdf>
-Package pdftex.def Info: 07-logistic-part2_files/figure-beamer/resid-duplicated-1.pdf  used on input line 998.
+]
+<07-logistic-part2_files/figure-beamer/resid-1.pdf, id=292, 565.11125pt x 339.2675pt>
+File: 07-logistic-part2_files/figure-beamer/resid-1.pdf Graphic file (type pdf)
+<use 07-logistic-part2_files/figure-beamer/resid-1.pdf>
+Package pdftex.def Info: 07-logistic-part2_files/figure-beamer/resid-1.pdf  used on input line 992.
 (pdftex.def)             Requested size: 184.3758pt x 110.69029pt.
 
 
 [38
 
- <./07-logistic-part2_files/figure-beamer/resid-duplicated-1.pdf>]
+ <./07-logistic-part2_files/figure-beamer/resid-1.pdf>]
+<07-logistic-part2_files/figure-beamer/resid-duplicated-1.pdf, id=307, 565.11125pt x 339.2675pt>
+File: 07-logistic-part2_files/figure-beamer/resid-duplicated-1.pdf Graphic file (type pdf)
+<use 07-logistic-part2_files/figure-beamer/resid-duplicated-1.pdf>
+Package pdftex.def Info: 07-logistic-part2_files/figure-beamer/resid-duplicated-1.pdf  used on input line 1012.
+(pdftex.def)             Requested size: 184.3758pt x 110.69029pt.
+
 
 [39
 
-]
+ <./07-logistic-part2_files/figure-beamer/resid-duplicated-1.pdf>]
 
 [40
 
@@ -1297,11 +1297,15 @@ Package pdftex.def Info: 07-logistic-part2_files/figure-beamer/resid-duplicated-
 [41
 
 ]
+
+[42
+
+]
 \openout4 = `07-logistic-part2.vrb'.
 
 (./07-logistic-part2.vrb)
 
-[42
+[43
 
 ]
 \openout4 = `07-logistic-part2.vrb'.
@@ -1345,13 +1349,6 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 (Font)              Font shape `T1/lmss/m/sl' tried instead on input line 19.
 )
 
-[43
-
-]
-\openout4 = `07-logistic-part2.vrb'.
-
-(./07-logistic-part2.vrb)
-
 [44
 
 ]
@@ -1362,17 +1359,20 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 [45
 
 ]
+\openout4 = `07-logistic-part2.vrb'.
+
+(./07-logistic-part2.vrb)
 
 [46
+
+]
+
+[47
 
 ]
 \openout4 = `07-logistic-part2.vrb'.
 
 (./07-logistic-part2.vrb)
-
-[47
-
-]
 
 [48
 
@@ -1383,6 +1383,10 @@ LaTeX Font Info:    Font shape `T1/lmss/m/it' in size <5> not available
 ]
 
 [50
+
+]
+
+[51
 
 ]
 \tf@nav=\write6
@@ -1401,18 +1405,18 @@ L3 programming layer <2025-01-18>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 27152 strings out of 475110
- 518302 string characters out of 5762262
- 902277 words of memory out of 5000000
- 49212 multiletter control sequences out of 15000+600000
+ 27158 strings out of 475110
+ 518367 string characters out of 5762262
+ 902305 words of memory out of 5000000
+ 49215 multiletter control sequences out of 15000+600000
  655636 words of font info for 183 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  101i,12n,107p,1014b,457s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi9.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss12.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss9.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on 07-logistic-part2.pdf (50 pages, 407728 bytes).
+Output written on 07-logistic-part2.pdf (51 pages, 408484 bytes).
 PDF statistics:
- 531 PDF objects out of 1000 (max. 8388607)
- 410 compressed objects within 5 object streams
- 158 named destinations out of 1000 (max. 500000)
+ 537 PDF objects out of 1000 (max. 8388607)
+ 415 compressed objects within 5 object streams
+ 161 named destinations out of 1000 (max. 500000)
  55372 words of extra memory for PDF output out of 61914 (max. 10000000)
 

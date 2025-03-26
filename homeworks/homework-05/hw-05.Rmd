@@ -94,45 +94,17 @@ mylogit <- glm(admit ~ gre + gpa + rank, data = df, family = "binomial"(link = "
 summary(mylogit)
 ```
 
-# ```{r}
-# y<-df[,1]
-# # add column of 1's for the intercept
-# x<-as.matrix(cbind(rep(1,400),df[,c(2,3,4)])) 
-# 
-# Newton_Raphson_logistic <- function(x, y, b.init, tol=1e-8) {
-# # use the same type of structure for your code
-# # as we did for the poisson
-# }
-# ```
-
 ```{r}
 y<-df[,1]
 # add column of 1's for the intercept
-x<-as.matrix(cbind(rep(1,400), df[,c(2,3,4)])) 
-
-logistic_Newton_Raphson <- function(x, y, b.init, tol = 1e-8) {
-  change <- Inf
-  b.init <- c(1,1,1)
-  b.old <- b.init
-  
-  while (change > tol) {
-    eta <- x %*% b.old                       # Linear predictor
-    mu <- as.vector(1 / (1 + exp(-eta)))     # Logistic mean
-    w <- diag(mu * (1 - mu))                 # Weight matrix
-    z <- eta + (y - mu) / (mu * (1 - mu))    # Adjusted response (optional, for IRLS)
-    
-    # Newton-Raphson update
-    b.new <- b.old + solve(t(x) %*% w %*% x) %*% t(x) %*% (y - mu)
-    
-    change <- sqrt(sum((b.new - b.old)^2))
-    b.old <- b.new
-  }
-  
-  return(b.new)
+x<-as.matrix(cbind(rep(1,400),df[,c(2,3,4)])) 
+ 
+Newton_Raphson_logistic <- function(x, y, b.init, tol=1e-8) {
+# use the same type of structure for your code# # as we did for the poisson
 }
-
-logistic_Newton_Raphson(x, y, b.init = c(1,1,1))
 ```
+
+
 
 
 
