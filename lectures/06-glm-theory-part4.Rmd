@@ -191,7 +191,7 @@ poisson_Newton_Raphson<-function(x, y, b.init, tol=1e-8){
   }
   b.new
 }
-poisson_Newton_Raphson(x,y,b.init = c(2,4))
+poisson_Newton_Raphson(x,y, b.init = c(2,4))
 ```
 
 ## Iteratively Re-weighted Least Squares
