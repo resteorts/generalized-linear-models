@@ -56,6 +56,7 @@ Notes based on Chapters 6 and 7 of @mcnulty2021handbook unless stated otherwise.
 Article: https://www.sciencedirect.com/science/article/abs/pii/S0735675721001698?via%3Dihub
 :::
 
+
 ## Predicting ED wait and treatment times {.midi}
 
 **Response variables:**
@@ -200,27 +201,41 @@ Suppose you have an ordinal outcome variable, ``Satisfaction'', with categories:
 \]
 
 \begin{itemize}
-    \item The coefficient for \textbf{Income} is \( 0.2 \). This means that for each one-unit increase in Income, the log-odds of being in a higher satisfaction category (compared to being in a lower category) increase by 0.2.
-    \item In terms of odds, \( e^{0.2} \approx 1.22 \), which means that for each additional unit increase in Income, the odds of being in a higher category of Satisfaction (Medium or High vs. Low) increase by a factor of 1.22.
+    \item The coefficient for \textbf{Income} is \( 0.2 \). This means that for each one-unit increase in Income, the log-odds of being in a lower satisfaction category (compared to being in a higher category) increase by 0.2.
+    \item In terms of odds, \( e^{0.2} \approx 1.22 \), which means that for each additional unit increase in Income, the odds of being in a lower category of Satisfaction (Low or Medium versus High) increase by a factor of 1.22.
 \end{itemize}
+
+## Emergency Department Study 
+
+Paper: https://www.sciencedirect.com/science/article/pii/S0735675721001698?via=ihub
+
+- Retrospective data on 37,711 patients arriving at the ED of a large urban hospital were examined. 
+- Ordinal logistic regression models were proposed to identify factors causing increased waiting and treatment times and classify patients with longer waiting and treatment times.
+
 
 ## Effect of arrival mode on waiting time
 
 ![Waiting time model output from @ataman2021predicting](images/09/oridinal-logistic-output.png){fig-align="center"}
 
-The variable `arrival mode` has two possible values: ambulance and walk-in. Describe the effect of arrival mode on waiting time. Note: The baseline category is walk-in.
+
 
 ## Solution
+
+The variable `arrival mode` has two possible values: ambulance and walk-in. Describe the effect of arrival mode on waiting time. Note: The baseline category is walk-in.
 
 - Arrival mode has two possible values: "ambulance" and "walk-in".
 
 - Baseline category is "walk-in". This means that the model's intercept is associated with "walk-in", and the coefficient for "ambulance" describes how the log-odds change relative to the "walk-in" category.
+
+## Solution
 
 - The coefficient for "arrival mode" (for ambulance) is -3.398.
 
 - For individuals arriving by ambulance (compared to those who walk in), the log odds of waiting time decrease by 3.398.
 
 - A negative coefficient suggests that arriving by ambulance is associated with a lower log-odds of waiting time compared to walking in.
+
+- If the patient arrived via an ambulance, the odds of being at or below a higher wait time category are expected to be $exp(-3.398) = 0.033$ (33 percent) times the odds for walk-in patients, holding the other factors constant.
 
 ## Effect of triage level
 
@@ -233,17 +248,28 @@ Triage levels have three possible values: "trauma", "red," and "yellow."
 Use the results from both models to describe the effect of triage level on waiting and treatment times. Note: The baseline category is green.
 :::
 
+## Solution 
+
+- Triage Levels: "trauma", "red", and "yellow" (with green as the baseline category).
+
+- The coefficient on wait time is 0.016. Thus, consider $exp(0.016) = 1.016. (1.6 percent).$ Because the coefficient is positive, it increases the log odds of being in a higher (i.e., longer) wait time category.
+
+- Patients triaged as green have 1.6% higher odds of experiencing a longer wait time category compared to those in trauma/red/yellow groups, holding the other factors constant. 
+
 ## Solution
 
 - Triage Levels: "trauma", "red", and "yellow" (with green as the baseline category).
 
-- The baseline category is green, so the interpretation of the coefficient applies to the comparison between the triage levels "trauma", "red", and "yellow" relative to "green".
+- The coefficient on treatment time is -0.950. Thus, consider $exp(-0.950) = 1.016. (38 percent).$ Because the coefficient is negative, it decreases the log odds of being in a higher (i.e., longer) wait time category.
 
-- The coefficient for triage level is 0.016 (for waiting time); the coefficient for triage level is -0.950 for treatment time. 
+- Patients triaged as green have 38% lower odds of experiencing a longer treatment time category compared to those in trauma/red/yellow groups, holding the other factors constant. 
 
-- The coefficient of 0.016 implies that patients with higher triage levels (compared to the "green" baseline) have a slightly higher likelihood of experiencing longer waiting time. 
 
-- The coefficient of -0.950 implies that patients with higher triage levels (compared to the "green" baseline) have a lower likelihood of experiencing a longer treatment time. 
+<!-- - The coefficient for triage level is -0.950 for treatment time.  -->
+
+<!-- - The coefficient of 0.016 implies that patients with higher triage levels (compared to the "green" baseline) have a slightly higher likelihood of experiencing longer waiting time.  -->
+
+<!-- - The coefficient of -0.950 implies that patients with higher triage levels (compared to the "green" baseline) have a lower likelihood of experiencing a longer treatment time.  -->
 
 ## Fitting proportional odds models in R
 

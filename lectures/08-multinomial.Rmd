@@ -207,6 +207,8 @@ P(\bf{x}) =
 \left(1 - \sum_{i=1}^{k-1} p_i \right)^{n - \sum_{i=1}^{k-1} x_i}
 \]
 
+
+
 ## Exponential Family
 
 We rewrite the product terms as exponentials:
@@ -301,9 +303,9 @@ Specifically, one category is chosen as the baseline (often the first category).
 
 The logits for the remaining categories are defined as follows:
 
-$$\text{logit}(p_j) = \log(\frac{p_j}{p_1}) = x_{j}{^T} \beta_j \quad j = 2, \ldots K$$.
+$$\text{logit}(p_j) = \log(\frac{p_j}{p_k}) = x_{j}{^T} \beta_j \quad j = 1, \ldots k-1$$.
 
-The $(K-1)$ logit equations are used to simultaneousl estimate the $\beta_j$ parameters. 
+The $(K-1)$ logit equations are used to simultaneously estimate the $\beta_j$ parameters. 
 
 ## Connections to GLMs
 
@@ -389,3 +391,23 @@ Using the log-partition function, give the covariance matrix of the Multinomial 
 <!-- This matrix captures both the variance within each category and the negative correlation between categories due to the constraint \( \sum X_i = n \). -->
 
 
+## Supplement
+
+What is the Categorical distribution and how is it related to the Multinomial distribution?
+
+## Categorical Distribution
+
+The categorical distribution is a generalization of the Bernoulli distribution for categorical random variables. 
+
+For a single trial (e.g., a single die roll), the categorical distribution is equivalent to the multinomial distribution.
+
+## Categorical Distribution
+
+Let $\bf{X} \sim Cat(\bf{p}),$ with $\sum_{i=1}^k p_i = 1.$
+
+Then the pmf is defined as follows:
+
+$$
+p(\bf{x} \mid {p}) = \prod_{i=1}^k p_i^{\{x = i\}}
+$$
+where $\{x = i\}$ is 1 if $x = i$ and 0 otherwise. 
