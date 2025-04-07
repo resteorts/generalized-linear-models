@@ -1,0 +1,158 @@
+---
+title: "Homework 6"
+format: 
+  pdf:
+    fig-height: 4
+    fig-width: 6
+---
+
+```{r, echo = FALSE, warning = FALSE}
+#| label: load-packages
+
+library(tidyverse)
+library(broom)
+library(knitr)
+
+# add other packages as needed
+```
+
+## Data: Association Between Bird-Keeping and Risk of Lung Cancer {.midi}
+
+A 1972-1981 health survey in The Hague, Netherlands, discovered an association between keeping pet birds and increased risk of lung cancer. To investigate birdkeeping as a risk factor, researchers conducted a case-control study of patients in 1985 at four hospitals in The Hague. They identified 49 cases of lung cancer among patients who were registered with a general practice, who were age 65 or younger, and who had resided in the city since 1965. Each patient (case) with cancer was matched with two control subjects (without cancer) by age and sex. Further details can be found in Holst, Kromhout, and Brand (1988).
+
+Age, sex, and smoking history are all known to be associated with lung cancer incidence. Thus, researchers wished to determine after age, sex, socioeconomic status, and smoking have been controlled for, is an additional risk associated with birdkeeping? The data (Ramsey and Schafer 2002) is found in [`birdkeeping.csv`(data/birdkeeping.csv)].\footnote{This problem is adapted from Section 6.8.1, Ex 4.}
+
+The paper that this exercise is based upon can be found here and please read it before completing the assignment. (https://www.bmj.com/content/bmj/297/6659/1319.full.pdf)
+
+
+
+
+
+# Exercise 1
+
+
+
+::: callout-note
+## Part a
+
+Create a segmented bar chart and appropriate table of proportions showing the relationship between birdkeeping and cancer diagnosis. Summarize the relationship in 1 - 2 sentences.
+:::
+
+::: callout-note
+## Part b
+
+Calculate the unadjusted odds ratio of a lung cancer diagnosis comparing birdkeepers to non-birdkeepers. Interpret this odds ratio in context. (Note: an unadjusted odds ratio is found by not controlling for any other variables.)
+:::
+
+::: callout-note
+## Part c
+Does there appear to be an interaction between number of years smoked and whether the subject keeps a bird? Demonstrate with an appropriate plot and briefly explain your response.
+:::
+
+
+Before answering the next questions, fit logistic regression models in R with cancer as the response and the following sets of explanatory variables:
+
+- model1 = age, yrsmoke, cigsday, female, highstatus, bird
+- model2 = yrsmoke, cigsday, highstatus, bird
+- model3 = yrsmoke, bird
+- model4 = yrsmoke, bird, yrsmoke:bird
+
+
+::: callout-note
+## Part d
+Is there evidence that we can remove age and female from our model? Perform an appropriate test comparing model1 to model2; give a test statistic and p-value, and state a conclusion in context.
+:::
+
+::: callout-note
+## Part e
+Carefully interpret each of the four model coefficients (including the intercept) in model4 in context.
+:::
+
+::: callout-note
+## Part f
+If you replaced yrsmoke everywhere it appears in model4 with a mean-centered version of yrsmoke, tell what would change among these elements: the 4 coefficients, the 4 p-values for coefficients, and the residual deviance.
+:::
+
+::: callout-note
+## Part g
+Observe that model3 is a potential final model based on this set of predictor variables. How does the adjusted odds ratio for birdkeeping from model3 compare with the unadjusted odds ratio you found in (b)? Is birdkeeping associated with a significant increase in the odds of developing lung cancer, even after adjusting for other factors?
+:::
+
+::: callout-note
+## Part h
+Discuss the scope of inference in this study. Can we generalize our findings beyond the subjects in this study? Can we conclude that birdkeeping causes increased odds of developing lung cancer? Do you have other concerns with this study design or the analysis you carried out?
+:::
+
+# Exercise 2
+
+(Ataman and Sarıyer 2021) use ordinal logistic regression to predict patient wait and treatment times in an emergency department (ED). The goal is to identify relevant factors that can be used to inform recommendations for reducing wait and treatment times, thus improving the quality of care in the ED.
+
+The data include daily records for ED arrivals in August 2018 at a public hospital in Izmir, Turkey. The response variable is Wait time, a categorical variable with three levels:
+
+- Patients who wait less than 10 minutes
+- Patients whose waiting time is in the range of 10-60 minutes
+- Patients who wait more than 60 minutes
+
+::: callout-note
+## Part a
+Compare and contrast the proportional odds model with the multinomial logistic regression model. Write your response using 3 - 5 sentences. You can find a brief review of the proportional odds model here: https://library.virginia.edu/data/articles/fitting-and-interpreting-a-proportional-odds-model and 
+https://online.stat.psu.edu/stat504/lesson/8/8.4 
+:::
+
+::: callout-note
+## Part b
+Table 5 in the paper contains the output for the wait time and treatment time models. Consider only the model for wait time. Describe the effect of arrival mode (ambulance, walk-in) on the waiting time. Note: walk-in is the baseline in the model. (A link to the paper can be found in the slides). 
+:::
+
+::: callout-note
+## Part c
+Consider output from both the wait time and treatment time models. Use the results from both models to describe the effect of triage level (red = urgent, green = non-urgent) on the wait and treatment times in the ED. Note: red is the baseline level.
+:::
+
+
+
+# Exercise 3
+
+Ibanez and Roussel (2022) conducted an experiment to understand the impact of watching a nature documentary on pro-environmental behavior. The researchers randomly assigned the 113 participants to watch an video about architecture in NYC (control) or a video about Yellowstone National Park (treatment). As part of the experiment, participants played a game in which they had an opportunity to donate to an environmental organization. The data set is available in nature.csv in the data folder. We will use the following variables:
+
+- donation_binary: 1 - participant donated to environmental organization versus 0 - participant did not donate.
+- Age: age in years
+- Gender: Participant’s reported gender
+- Treatment: Urban (T1)” - the control group versus “Nature (T2)” - the treatment group.
+- NEP_high: 1 - score of 4 or higher on the New Ecological Paradigm (NEP) versus 0 - score of less than 4.
+
+See the Introduction and Methods sections of Ibanez and Roussel (2022) for more details about the variables and see the class slides regarding the url for the paper.
+
+```{r}
+nature <- read_csv("../data/nature.csv", show_col_types = FALSE)
+# https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0275806
+nature = nature %>% select(c("donation_binary", "Age", "Gender", "Treatment", "nep_high", "Donation (level)"))
+# summary(nature)
+```
+
+::: callout-note
+## Part a
+Figure 2 on pg. 9 of the article visualizes the relationship between donation amount and treatment. Recreate this visualization using your own code. Use the visualization to describe the relationship between donating and the treatment.
+:::
+
+
+::: callout-note
+## Part b
+Fit a probit regression model using age, gender, treatment, nep_high and the interaction between nep_high and treatment predict the likelihood of donating. (Note: Your model will be similar (but not exactly the same) as the “Likelihood” model in Table 5 on pg. 11.) Display the model.
+:::
+
+
+
+::: callout-note
+## Part c
+Describe the effect of watching the documentary on the likelihood of donating.
+:::
+
+
+
+::: callout-note
+## Part d
+Based on the model, what is the predicted probability of donating for a 20-year old female in the treatment group with a NEP score of 3?
+:::
+
+
