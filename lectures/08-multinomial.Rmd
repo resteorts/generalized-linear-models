@@ -31,6 +31,17 @@ ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
 colors <- tibble::tibble(green = "#B5BA72")
 ```
 
+## Annoucenments
+
+- Homework 6 has been released (and has a tenative due date). 
+- This week we will be covering the Multinomial distribution and connections to GLM theory.
+- We will then make connections to GLM regression models. 
+
+## Remainder of semester
+
+- Finishing GLM's
+- Intro to Correlated Data
+- Intro to Multi-level Modeling 
 
 ## Learning goals
 
