@@ -1,0 +1,380 @@
+---
+title: "The Multinomial Distribution"
+author: "Rebecca C. Steorts"
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+bibliography: references.bib
+---
+
+## Computing set up
+
+```{r setup, echo = TRUE, message = FALSE, warning= FALSE}
+library(tidyverse)
+library(tidymodels)
+library(knitr)
+library(margins)
+library(ggtern)
+library(viridis) 
+
+knitr::opts_chunk$set(fig.width = 8,
+                      fig.asp = 0.618, 
+                      fig.retina = 3, 
+                      dpt = 300, 
+                      out.width = "70%",
+                      fig.align = "center")
+
+ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
+
+colors <- tibble::tibble(green = "#B5BA72")
+```
+
+
+## Learning goals
+
+-   Introduce multinomial data
+
+-   Introduce the multinomial distribution
+
+-   Visualize the distribution
+
+-   Write the distribution as an exponential family in canonical form.
+
+-   Exercises to continue working with the exponential family. 
+
+
+
+## Multinomial data
+
+Multinomial data arises naturally when we count outcomes across multiple mutually exclusive categories over a fixed number of independent trials. 
+
+## Examples of Multinomial data
+
+1. A researcher surveys 500 students, asking: what is your primary method of transportation to campus? Answers in the survey include the following: walking, biking, car, bus, and other. In this example, we count the modes of transportation for each student. 
+
+2. In an election, 10,000 people vote for one of 3 candidates: A, B, or C. In this example, we count the number of votes for each candidate. 
+
+3. In a study of 1,000 participants, individuals that own cars, rate the importance of air conditioning in four categories: "not important" to "very important."
+
+## Multinomial Simulation
+\footnotesize
+```{r}
+set.seed(42)
+
+n_trials <- 10000
+probs <- c(0.2, 0.5, 0.3)
+categories <- c("A", "B", "C")
+
+
+# each observation is a 0/1 draw for the category
+sim_data <- rmultinom(n = n_trials, size = 1, prob = probs)
+# for each observation, we update if it belongs with category 1,2 or 3
+category_indices <- apply(sim_data, 2, function(x) which(x == 1))
+# we create a label mapping for A, B, and C
+category_labels <- categories[category_indices]
+
+# Create a data frame
+df <- data.frame(Category = factor(category_labels, 
+                                   levels = categories))
+```
+
+## Multinomial Simulation
+
+```{r}
+table(df$Category)
+prop.table(table(df$Category))
+```
+
+## Multinomial Simulation
+
+```{r, echo = FALSE}
+ggplot(df, aes(x = Category, fill = Category)) +
+  geom_bar() +
+  scale_fill_manual(values = c("skyblue", "tomato", "seagreen")) +
+  theme_minimal() +
+  labs(title = "Multinomial Simulation with 3 Categories",
+       x = "Category",
+       y = "Frequency")
+```
+
+<!-- ## Simplex -->
+
+<!-- ```{r, echo = FALSE} -->
+<!-- # Simulate multiple multinomial draws -->
+<!-- n_draws <- 10000 -->
+<!-- draw_size <- 100 -->
+<!-- sim_matrix <- t(rmultinom(n = n_draws, size = draw_size, prob = probs)) -->
+<!-- colnames(sim_matrix) <- categories -->
+
+<!-- # Convert to proportions -->
+<!-- sim_props <- as.data.frame(sim_matrix / draw_size) -->
+
+<!-- # Add dominant category as a factor for coloring -->
+<!-- sim_props$Dominant <- factor(apply(sim_props, 1, function(row) { -->
+<!--   categories[which.max(row)] -->
+<!-- }), levels = categories) -->
+
+<!-- # Ternary plot with color by dominant category -->
+<!-- ggtern(data = sim_props, aes(x = A, y = B, z = C, color = Dominant)) + -->
+<!--   geom_point(size = 2, alpha = 0.7) + -->
+<!--   labs(title = "Simulated Multinomial Proportions", -->
+<!--        color = "Dominant Category") + -->
+<!--   theme_minimal() -->
+<!-- ``` -->
+
+
+
+## Multiomial Distribution
+
+Let \( X = (X_1, X_2, \dots, X_k) \sim \text{Multinomial}(n, \mathbf{p}) \), where:
+
+\begin{itemize}
+    \item \( n \in \mathbb{N} \) is the number of data points,
+    \item \( \mathbf{p} = (p_1, p_2, \dots, p_k) \) with \( \sum_{i=1}^k p_i = 1 \), and \( p_i \geq 0 \),
+    \item \( X_i \) is the number of outcomes in category \( i \), with \( \sum_{i=1}^k X_i = n \).
+\end{itemize}
+
+Then, the probability mass function is given by:
+
+\[
+P(X_1 = x_1, \dots, X_k = x_k) = \frac{n!}{x_1! \, x_2! \cdots x_k!} p_1^{x_1} p_2^{x_2} \cdots p_k^{x_k}
+\]
+
+Or, using product notation:
+
+\[
+P(\mathbf{x}) = \frac{n!}{\prod_{i=1}^k x_i!} \prod_{i=1}^k p_i^{x_i}
+\]
+
+ 
+
+## Background: Exponential Family
+
+A probability distribution belongs to the canonical exponential family if its density or pmf can be written in the form:
+
+\[
+f(x \mid \theta) = h(x) \exp\left( \eta(\theta)^\top T(x) - A(\theta) \right)
+\]
+where:
+\begin{itemize}
+    \item \( T(x) \) is the vector of sufficient statistics,
+    \item \( \eta(\theta) \) is the vector of natural (canonical) parameters,
+    \item \( A(\theta) \) is the log-partition function,
+    \item \( h(x) \) is the base measure.
+\end{itemize}
+
+## Multinomial distribution
+
+Let \( \mathbf{X} = (X_1, \dots, X_k) \sim \text{Multinomial}(n, \mathbf{p}) \), with:
+\begin{itemize}
+    \item \( \sum_{i=1}^k X_i = n \),
+    \item \( \sum_{i=1}^k p_i = 1 \), and \( p_i > 0 \).
+\end{itemize}
+
+The pmf is:
+\[
+P(X_1 = x_1, \dots, X_k = x_k) = \frac{n!}{x_1! \cdots x_k!} \prod_{i=1}^k p_i^{x_i}
+\]
+
+## Multinomial distribution
+
+Since \( \sum x_i = n \) and \( \sum p_i = 1 \), we can express everything in terms of the first \( k-1 \) components:
+
+\begin{align*}
+x_k &= n - \sum_{i=1}^{k-1} x_i, \\
+p_k &= 1 - \sum_{i=1}^{k-1} p_i.
+\end{align*}
+
+Now, we subsitute this into the pmf to find that
+
+\[
+P(\bf{x}) =
+\frac{n!}{x_1! \cdots x_{k-1}! \left(n - \sum_{i=1}^{k-1} x_i \right)!}
+\prod_{i=1}^{k-1} p_i^{x_i}
+\left(1 - \sum_{i=1}^{k-1} p_i \right)^{n - \sum_{i=1}^{k-1} x_i}
+\]
+
+## Exponential Family
+
+We rewrite the product terms as exponentials:
+\[
+\prod_{i=1}^{k-1} p_i^{x_i} =
+\exp\left( \sum_{i=1}^{k-1} x_i \log p_i \right)
+\]
+
+\[
+\left(1 - \sum_{i=1}^{k-1} p_i \right)^{n - \sum x_i} =
+\exp\left( \left(n - \sum x_i \right) \log p_k \right)
+\]
+
+Combining these:
+\[
+\exp\left( \sum_{i=1}^{k-1} x_i \log p_i + \left(n - \sum x_i \right) \log p_k \right)
+\]
+
+\[
+= \exp\left( \sum_{i=1}^{k-1} x_i \log\left( \frac{p_i}{p_k} \right) + n \log p_k \right)
+\]
+
+## Exponential Family
+
+Now write the full expression:
+\[
+P(\bf{x}) =
+\underbrace{\frac{n!}{x_1! \cdots x_{k-1}! (n - \sum x_i)!}}_{h(x)}
+\cdot
+\exp\left( \sum_{i=1}^{k-1} x_i \log\left( \frac{p_i}{p_k} \right) + n \log p_k \right)
+\]
+
+This matches the exponential family form:
+\[
+P(\mathbf{x}) = h(\mathbf{x}) \exp\left( \boldsymbol{\eta}^\top T(\mathbf{x}) - A(\boldsymbol{\eta}) \right),
+\] where the terms are given on the next slide. 
+
+## Exponential Family Form
+
+\textbf{Sufficient statistics:}
+\[
+T(\mathbf{x}) = (x_1, \dots, x_{k-1})
+\]
+
+\textbf{Natural (canonical) parameters:}
+\[
+\eta_i = \log\left( \frac{p_i}{p_k} \right), \quad i = 1, \dots, k-1
+\]
+
+\textbf{Base measure:}
+\[
+h(\mathbf{x}) = \frac{n!}{x_1! \cdots x_{k-1}! (n - \sum x_i)!}
+\]
+
+## Exponential Family Form
+
+\textbf{Log-partition function:}
+
+Using:
+\[
+p_i = \frac{e^{\eta_i}}{1 + \sum_{j=1}^{k-1} e^{\eta_j}}, \quad
+p_k = \frac{1}{1 + \sum_{j=1}^{k-1} e^{\eta_j}}
+\]
+
+Then:
+\[
+\log p_k = -\log\left( 1 + \sum_{j=1}^{k-1} e^{\eta_j} \right)
+\]
+
+So the log-partition function is:
+\[
+A(\boldsymbol{\eta}) = -n \log p_k = n \log\left( 1 + \sum_{j=1}^{k-1} e^{\eta_j} \right)
+\]
+
+## Exponential Family
+
+Thus, the final canonical form of the exponential family is given by
+
+\[
+P(\mathbf{x}) =
+\frac{n!}{x_1! \cdots x_{k-1}! (n - \sum x_i)!}
+\exp\left( \sum_{i=1}^{k-1} x_i \eta_i - n \log\left(1 + \sum_{j=1}^{k-1} e^{\eta_j} \right) \right)
+\]
+
+## Connections to GLMs
+
+There are two main approaches to GLMs for Multinomial data. 
+
+1. Nominal data: This is used when there is no natural ordering to the data among the response categories. 
+
+Specifically, one category is chosen as the baseline (often the first category).
+
+The logits for the remaining categories are defined as follows:
+
+$$\text{logit}(p_j) = \log(\frac{p_j}{p_1}) = x_{j}{^T} \beta_j \quad j = 2, \ldots K$$.
+
+The $(K-1)$ logit equations are used to simultaneousl estimate the $\beta_j$ parameters. 
+
+## Connections to GLMs
+
+2. Ordinal data: This is used when there is an obvious natural ordering among the response categories. 
+
+This is assessed by a crude method that sets cut points $C_1, \ldots, C_{K-1}$ that correspond to the $K$ ordinal categories with associated probabilities $p_1, \ldots, p_k$ (that sum to 1).
+
+
+## Exercise 1
+
+Show the Binomial distribution is a special case of the Multinomial distribution. 
+
+## Exercise 2 
+
+Using the log-partition function, give the mean of the Multinomial distribution. 
+
+<!-- ## Exercise 2 Solution -->
+
+<!-- We compute the partial derivative of \( A(\boldsymbol{\eta}) \) with respect to \( \eta_j \) for \( j = 1, \dots, k-1 \): -->
+
+<!-- \begin{align*} -->
+<!-- \frac{\partial A}{\partial \eta_j} -->
+<!-- &= n \cdot \frac{\partial}{\partial \eta_j} \log\left( 1 + \sum_{i=1}^{k-1} e^{\eta_i} \right) \\ -->
+<!-- &= n \cdot \frac{e^{\eta_j}}{1 + \sum_{i=1}^{k-1} e^{\eta_i}} \\ -->
+<!-- &= n \cdot p_j -->
+<!-- \end{align*} -->
+
+<!-- Thus, -->
+<!-- \[ -->
+<!-- \mathbb{E}[X_j] = n p_j, \quad \text{for } j = 1, \dots, k-1 -->
+<!-- \] -->
+
+<!-- For the final category: -->
+<!-- \[ -->
+<!-- \mathbb{E}[X_k] = n - \sum_{i=1}^{k-1} \mathbb{E}[X_i] = n p_k -->
+<!-- \] -->
+
+## Exercise 3
+
+Using the log-partition function, give the covariance matrix of the Multinomial distribution.
+
+<!-- ## Exercise 3 Solution -->
+
+<!-- For $i = j$ (diagnoal terms) -->
+
+<!-- \[ -->
+<!-- \frac{\partial^2 A}{\partial \eta_i^2} -->
+<!-- = \frac{\partial}{\partial \eta_i} \left( n p_i \right) -->
+<!-- = n \cdot \frac{\partial p_i}{\partial \eta_i} -->
+<!-- = n \cdot p_i (1 - p_i) -->
+<!-- \] -->
+
+<!-- \[ -->
+<!-- \Rightarrow \operatorname{Var}[X_i] = n p_i (1 - p_i) -->
+<!-- \] -->
+
+<!-- For \( i \neq j \) (off-diagnonal terms) -->
+<!-- \[ -->
+<!-- \frac{\partial^2 A}{\partial \eta_i \partial \eta_j} -->
+<!-- = \frac{\partial}{\partial \eta_j} (n p_i) -->
+<!-- = n \cdot \frac{\partial p_i}{\partial \eta_j} -->
+<!-- = - n \cdot p_i p_j -->
+<!-- \] -->
+
+<!-- \[ -->
+<!-- \Rightarrow \operatorname{Cov}[X_i, X_j] = -n p_i p_j -->
+<!-- \] -->
+
+<!-- ## Exercise 3 Solution -->
+
+<!-- The covariance matrix of a multinomial random vector \( \mathbf{X} \sim \text{Multinomial}(n, \mathbf{p}) \) is: -->
+
+<!-- \[ -->
+<!-- \boxed{ -->
+<!-- \operatorname{Cov}[X_i, X_j] = -->
+<!-- \begin{cases} -->
+<!-- n p_i (1 - p_i) & \text{if } i = j \\ -->
+<!-- - n p_i p_j & \text{if } i \neq j -->
+<!-- \end{cases} -->
+<!-- } -->
+<!-- \] -->
+
+<!-- This matrix captures both the variance within each category and the negative correlation between categories due to the constraint \( \sum X_i = n \). -->
+
+

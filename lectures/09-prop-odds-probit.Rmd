@@ -53,7 +53,7 @@ Notes based on Chapters 6 and 7 of @mcnulty2021handbook unless stated otherwise.
 **Data**: Daily records for ED arrivals in August 2018 at a public hospital in Izmir, Turkey.\
 
 ::: aside
-[Click here](https://canvas.duke.edu/courses/25310/files/folder/journal-articles?preview=897957) to access the article on Canvas.
+Article: https://www.sciencedirect.com/science/article/abs/pii/S0735675721001698?via%3Dihub
 :::
 
 ## Predicting ED wait and treatment times {.midi}
@@ -311,10 +311,6 @@ The multinomial logistic model requires more parameters to be estimated than the
 
 - The proportional odds model only estimates one set of coefficients, which is more parsimonious and computationally more efficient.
 
-## start here 
-
-\textcolor{red}{start here and possibly break these up into multiple lectures.}
-
 # Probit regression {.midi}
 
 ## Impact of nature documentary on recycling
@@ -322,7 +318,7 @@ The multinomial logistic model requires more parameters to be estimated than the
 @ibanez2022impact conducted an experiment to understand the impact of watching a nature documentary on pro-environmental behavior. The researchers randomly assigned the 113 participants to watch an video about architecture in NYC (control) or a video about Yellowstone National Park (treatment). As part of the experiment, participants were asked to dispose of their headphone coverings in a recycle bin available at the end of the experiment.
 
 ::: aside
-[Click here](https://canvas.duke.edu/courses/25310/files/folder/journal-articles?preview=897959) to access the article on Canvas.
+Article: https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0275806
 :::
 
 ## Impact of nature documentary on recycling
@@ -430,88 +426,88 @@ Calculate marginal effects using the `margins` function from the **margins** R p
 margins(my_model, variables = "my_variables")
 ```
 
-## Ideology vs. issue statements
+<!-- ## Ideology vs. issue statements -->
 
-Let's look at the model using ideology and party ID to explain the number of issue statements by politicians. 
+<!-- Let's look at the model using ideology and party ID to explain the number of issue statements by politicians.  -->
 
-We will use probit regression for the "hurdle" part of the model - the likelihood a candidate comments on at least one issue (`has_issue_stmt`)
+<!-- We will use probit regression for the "hurdle" part of the model - the likelihood a candidate comments on at least one issue (`has_issue_stmt`) -->
 
-. . .
+<!-- . . . -->
 
-```{r, message=FALSE}
-#| echo: false
-politics <- read_csv("data/ambiguity.csv") |>
-  select(ideology, democrat, totalIssuePages) |>
-  drop_na() |>
-  mutate(has_issue_stmt = factor(if_else(totalIssuePages > 0, 1, 0)), democrat = as_factor(democrat))
-```
+<!-- ```{r, message=FALSE} -->
+<!-- #| echo: false -->
+<!-- politics <- read_csv("data/ambiguity.csv") |> -->
+<!--   select(ideology, democrat, totalIssuePages) |> -->
+<!--   drop_na() |> -->
+<!--   mutate(has_issue_stmt = factor(if_else(totalIssuePages > 0, 1, 0)), democrat = as_factor(democrat)) -->
+<!-- ``` -->
 
-```{r}
-hurdle_probit <- glm(has_issue_stmt ~ 
-                       ideology + democrat, 
-             data = politics, 
-             family = binomial(link = probit))
-```
+<!-- ```{r} -->
+<!-- hurdle_probit <- glm(has_issue_stmt ~  -->
+<!--                        ideology + democrat,  -->
+<!--              data = politics,  -->
+<!--              family = binomial(link = probit)) -->
+<!-- ``` -->
 
-::: aside
-See Section 4.11.2 of @roback2021beyond for more detail about the data.
-:::
+<!-- ::: aside -->
+<!-- See Section 4.11.2 of @roback2021beyond for more detail about the data. -->
+<!-- ::: -->
 
-## Hurdle (using probit regression)
+<!-- ## Hurdle (using probit regression) -->
 
-```{r}
-tidy(hurdle_probit) |>
-  kable(digits = 3)
+<!-- ```{r} -->
+<!-- tidy(hurdle_probit) |> -->
+<!--   kable(digits = 3) -->
 
-margins(hurdle_probit)
-```
+<!-- margins(hurdle_probit) -->
+<!-- ``` -->
 
-::: question
-Interpret the effect of `democrat` on commenting on at least one issue.
-:::
+<!-- ::: question -->
+<!-- Interpret the effect of `democrat` on commenting on at least one issue. -->
+<!-- ::: -->
 
-## Hurdle (using logistic regression)
+<!-- ## Hurdle (using logistic regression) -->
 
-```{r}
-hurdle_logistic <- glm(has_issue_stmt ~ ideology + democrat, 
-             data = politics, 
-             family = binomial)
+<!-- ```{r} -->
+<!-- hurdle_logistic <- glm(has_issue_stmt ~ ideology + democrat,  -->
+<!--              data = politics,  -->
+<!--              family = binomial) -->
 
-tidy(hurdle_logistic) |>
-  kable(digits = 3)
-```
+<!-- tidy(hurdle_logistic) |> -->
+<!--   kable(digits = 3) -->
+<!-- ``` -->
 
-## Probit vs. logistic models
+<!-- ## Probit vs. logistic models -->
 
-::: columns
-::: {.column width="50%"}
-**Probit model**
+<!-- ::: columns -->
+<!-- ::: {.column width="50%"} -->
+<!-- **Probit model** -->
 
-```{r}
-#| echo: false
-tidy(hurdle_probit) |> 
-  select(term, estimate) |>
-  kable(digits  = 3)
-```
-:::
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- tidy(hurdle_probit) |>  -->
+<!--   select(term, estimate) |> -->
+<!--   kable(digits  = 3) -->
+<!-- ``` -->
+<!-- ::: -->
 
-::: {.column width="50%"}
-**Logistic model**
+<!-- ::: {.column width="50%"} -->
+<!-- **Logistic model** -->
 
-```{r}
-#| echo: false
-tidy(hurdle_logistic) |> 
-  select(term, estimate) |>
-  kable(digits  = 3)
-```
-:::
-:::
+<!-- ```{r} -->
+<!-- #| echo: false -->
+<!-- tidy(hurdle_logistic) |>  -->
+<!--   select(term, estimate) |> -->
+<!--   kable(digits  = 3) -->
+<!-- ``` -->
+<!-- ::: -->
+<!-- ::: -->
 
-<br>
+<!-- <br> -->
 
-::: question
-Suppose there is democratic representative with ideology score -2.5. Based on the probit model, what is the probability they will comment on at least one issue? What is the probability based on the logistic model?
-:::
+<!-- ::: question -->
+<!-- Suppose there is democratic representative with ideology score -2.5. Based on the probit model, what is the probability they will comment on at least one issue? What is the probability based on the logistic model? -->
+<!-- ::: -->
 
 # Wrap up GLM for independent observations
 
@@ -525,7 +521,7 @@ Suppose there is democratic representative with ideology score -2.5. Based on th
 
 -   Addressed issues of overdispersion and zero-inflation
 
--   Used the properties of the one-parameter exponential family to identify the best link function for any GLM
+-   Used the properties of the exponential family to identify canonical link function for any GLM and additional properties via the log-partition function. 
 
 . . .
 
