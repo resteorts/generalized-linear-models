@@ -225,17 +225,15 @@ The variable `arrival mode` has two possible values: ambulance and walk-in. Desc
 
 - Arrival mode has two possible values: "ambulance" and "walk-in".
 
-- Baseline category is "walk-in". This means that the model's intercept is associated with "walk-in", and the coefficient for "ambulance" describes how the log-odds change relative to the "walk-in" category.
+- Baseline category (lower category) is "walk-in" versus the higher category ("ambulatory"). 
 
 ## Solution
 
 - The coefficient for "arrival mode" (for ambulance) is -3.398.
 
-- For individuals arriving by ambulance (compared to those who walk in), the log odds of waiting time decrease by 3.398.
+- This means that for each one-unit increase in wait-time, the log-odds of being in a lower arrival category (walk-in) (compared to being in a higher category (ambulance)) decrease by 3.398, holding all other factors constant. 
 
-- A negative coefficient suggests that arriving by ambulance is associated with a lower log-odds of waiting time compared to walking in.
-
-- If the patient arrived via an ambulance, the odds of being at or below a higher wait time category are expected to be $exp(-3.398) = 0.033$ (33 percent) times the odds for walk-in patients, holding the other factors constant.
+- In terms of odds, \( e^{-3.398} \approx 0.033 \), which means that for each additional unit increase in arrival mode, the odds of being in a lower category of arrival mode (walk-in versus ambulance) decrease by a factor of 0.033 (3.3 percent), holding all other factors constant. 
 
 ## Effect of triage level
 
@@ -245,31 +243,28 @@ Consider the full output with the ordinal logistic models for wait and treatment
 
 ::: question
 Triage levels have three possible values: "trauma", "red," and "yellow."
-Use the results from both models to describe the effect of triage level on waiting and treatment times. Note: The baseline category is green.
+Use the results from both models to describe the effect of triage level on waiting and treatment times. 
+Note: The baseline category is green.
 :::
 
 ## Solution 
 
-- Triage Levels: "trauma", "red", and "yellow" (with green as the baseline category).
+<!-- - Triage Levels: "trauma", "red", and "yellow" (with green as the baseline category). -->
+<!-- - The coefficient on wait time is 0.016. -->
 
-- The coefficient on wait time is 0.016. Thus, consider $exp(0.016) = 1.016. (1.6 percent).$ Because the coefficient is positive, it increases the log odds of being in a higher (i.e., longer) wait time category.
+<!-- - This means that for each one-unit increase in wait time, the log-odds of being in a lower triage category (green) (compared to being in a higher category (trauma/red/yellow)) increase by 0.016, holding all other factors constant.  -->
 
-- Patients triaged as green have 1.6% higher odds of experiencing a longer wait time category compared to those in trauma/red/yellow groups, holding the other factors constant. 
+<!-- - In terms of odds, \( e^{0.016} \approx 1.016 \), which means that for each additional unit increase in wait time, the odds of being in a lower category of triage level (green versus trauma/red/yellow) increase by a factor of 1.016 (1.6 percent), holding all other factors constant.  -->
 
 ## Solution
 
-- Triage Levels: "trauma", "red", and "yellow" (with green as the baseline category).
+<!-- - Triage Levels: "trauma", "red", and "yellow" (with green as the baseline category). -->
+<!-- - The coefficient on treatment time is -0.950. -->
 
-- The coefficient on treatment time is -0.950. Thus, consider $exp(-0.950) = 1.016. (38 percent).$ Because the coefficient is negative, it decreases the log odds of being in a higher (i.e., longer) wait time category.
+<!-- - This means that for each one-unit increase in treatment time, the log-odds of being in a lower triage category compared to being in a higher triage category decrease by 0.950, holding all other factors constant.  -->
 
-- Patients triaged as green have 38% lower odds of experiencing a longer treatment time category compared to those in trauma/red/yellow groups, holding the other factors constant. 
+<!-- - In terms of odds, \( e^{-0.950.} \approx 0.386 \), which means that for each additional unit increase in treatment time, the odds of being in a lower category of triage compared to a higher category decrease by a factor of 0.386 (38.6 percent), holding all other factors constant.  -->
 
-
-<!-- - The coefficient for triage level is -0.950 for treatment time.  -->
-
-<!-- - The coefficient of 0.016 implies that patients with higher triage levels (compared to the "green" baseline) have a slightly higher likelihood of experiencing longer waiting time.  -->
-
-<!-- - The coefficient of -0.950 implies that patients with higher triage levels (compared to the "green" baseline) have a lower likelihood of experiencing a longer treatment time.  -->
 
 ## Fitting proportional odds models in R
 
@@ -313,19 +308,19 @@ How is the proportional odds model similar to the multinomial logistic model? Ho
 
 ## Solution
 
-How is the proportional odds model similar to the multinomial logistic model?
+<!-- How is the proportional odds model similar to the multinomial logistic model? -->
 
-1. Both models are used when the dependent variable is categorical with more than two categories.
-2. Both models aim to understand how independent variables (predictors) influence the probability of observing one of the different categories of the dependent variable.
-3. Both models are appropriate for analyzing multicategory responses (e.g., categories like "low", "medium", "high"). 
-4. Both models assume a log-odds framework. The relationship between the independent variables and the dependent variable is expressed in terms of log-odds. In this way, both models allow for non-linear relationships between the predictors and the response variable.
+<!-- 1. The proportional odds and multinomial logistic regression models are for categorical predictors with 3 or more levels. -->
+<!-- 2. If there are $J$ levels for the response, there will be $J − 1$ equations in each model. -->
+<!-- 3. There is a unique intercept estimated for each component of the model for both. -->
 
 ## Solution
 
-How is the proportional odds model different from the multinomial logistic model? 
+<!-- How is the proportional odds model different from the multinomial logistic model?  -->
 
-1. In the proportional odds model, the dependent variable is ordinal, meaning it has categories with a natural order or ranking. 
-2. In the multinomial logistic model, the dependent variable is nominal, which does not assume any ordering of the variables. 
+<!-- 1. The response variable for the proportional odds model is an ordinal variable; no ordering is required for the multinomial logistic model (nominal). -->
+<!-- 2. The response variable for the proportional odds model is the cumulative odds, as opposed to the odds of the $J$th level versus the baseline for multinomial logistic regression. -->
+<!-- 3.  In the proportional odds model, the estimated effects of the predictors are the same for all levels. Unique coeﬀicients are estimated for each component of the multinomial logistic model. -->
 
 ## Solution
 
