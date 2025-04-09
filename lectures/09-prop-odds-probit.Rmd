@@ -304,8 +304,14 @@ $$\begin{aligned}&\log\Big(\frac{P(Y = 2)}{P(Y = 1)}\Big) = \beta_{02} - \beta_{
 
 1. The model estimates the log-odds of each category relative to a baseline category, allowing for the prediction of probabilities for all categories. 
 
+2. The first equation looks to see how a one unit change in each coefficient changes the log-odds of going from Category 2 to Category 1 (baseline). We can look at the interpretation as the log-odds or the odds (just as we did for logistic regression). 
+
+3. Because every coefficient in this model refers back to the baseline category, you need to think carefully through which reference category to choose. You have to think what set of comparison is the most relevant to the application.
+
 2. See https://stats.oarc.ucla.edu/r/dae/multinomial-logistic-regression/
 regarding an example for multinomial regression (and the interpretation of the coefficients). 
+
+3. Another resource is available here: https://bookdown.org/sarahwerth2024/CategoricalBook/probit-regression-r.html
 
 ## Multinomial logistic vs. proportional odds
 
