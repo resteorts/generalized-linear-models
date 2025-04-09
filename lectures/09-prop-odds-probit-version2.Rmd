@@ -148,29 +148,6 @@ $$\begin{aligned}&\log\Big(\frac{P(Y
 What does $\beta_{01}$ mean? What does $\beta_1$ mean?
 :::
 
-<!-- ## Solution: What does $\beta_{01}$ mean? -->
-
-<!-- The term \(\beta_{01}\) is the \textbf{intercept} in the first cumulative log-odds equation: -->
-<!-- \[ -->
-<!-- \log\left(\frac{P(Y \leq 1)}{P(Y > 1)}\right) = \beta_{01} - \beta_1 x_1 - \dots - \beta_p x_p. -->
-<!-- \] -->
-<!-- This represents the \textbf{log-odds} of the outcome \(Y \leq 1\) (i.e., the probability that \(Y\) is either 1 or less) compared to \(Y > 1\) (i.e., the probability that \(Y\) is greater than 1), when all covariates \(x_1, x_2, \dots, x_p\) are equal to zero. -->
-
-<!-- In simpler terms, \(\beta_{01}\) reflects the \textbf{baseline log-odds} of being in the lower category of \(Y\) (i.e., \(Y \leq 1\)) versus being in a higher category, when no explanatory variables (\(x_1, x_2, \dots, x_p\)) are present. It essentially sets the starting point for the relationship between the covariates and the odds of being in a lower ordinal category. -->
-
-<!-- ## Solution: What does $\beta_{1}$ mean? -->
-
-<!-- The term \(\beta_1\) is the coefficient for the first explanatory variable \(x_1\) in all of the log-odds equations: -->
-<!-- \[ -->
-<!-- \log\left(\frac{P(Y \leq j)}{P(Y > j)}\right) = \beta_{0j} - \beta_1 x_1 - \dots - \beta_p x_p \quad \text{for each } j = 1, 2, \dots, J-1. -->
-<!-- \] -->
-<!-- The coefficient \(\beta_1\) represents the \textbf{change in the log-odds} of being in a lower or equal category (i.e., \(Y \leq j\)) versus being in a higher category (i.e., \(Y > j\)) for a \textbf{one-unit increase} in \(x_1\), holding all other covariates constant. -->
-
-<!-- \begin{itemize} -->
-<!--   \item A \textbf{positive \(\beta_1\)} means that as \(x_1\) increases, the odds of being in a lower category (or a category less than or equal to \(j\)) increase, suggesting that higher values of \(x_1\) are associated with being in higher ordinal categories. -->
-<!--   \item A \textbf{negative \(\beta_1\)} means that as \(x_1\) increases, the odds of being in a lower category decrease, suggesting that higher values of \(x_1\) are associated with being in higher ordinal categories. -->
-<!-- \end{itemize} -->
-
 ## Proportional odds model {.midi}
 
 $$
@@ -215,13 +192,14 @@ $$
 Suppose you have an ordinal outcome variable, ``Satisfaction'', with categories: ``Low'', ``Medium'', ``High'', and a predictor ``Income''. Consider
 
 \[
-\log \left( \frac{P(Y \leq \text{Medium})}{P(Y > \text{Medium})} \right) = -0.5 + 0.2\} \times \text{Income}
+\log \left( \frac{P(Y \leq \text{Medium})}{P(Y > \text{Medium})} \right) = -0.5 + 0.2 \times \text{Income}
 \]
 
 \begin{itemize}
     \item The coefficient for \textbf{Income} is \( 0.2 \). This means that for each one-unit increase in Income, the log-odds of being in a higher satisfaction category  increase by 0.2.
     \item In terms of odds, \( e^{0.2} \approx 1.22 \), which means that for each additional unit increase in Income, the odds of being in a higher category of Satisfaction (High versus Low or Medium) increase by a factor of 1.22.
 \end{itemize}
+
 
 ## Emergency Department Study 
 
@@ -237,27 +215,21 @@ Paper: https://www.sciencedirect.com/science/article/pii/S0735675721001698?via=i
 
 
 
-## Solution
+## Question
 
-The variable `arrival mode` has two possible values: ambulance and walk-in. Describe the effect of arrival mode on waiting time. Note: The baseline category is walk-in.
+The variable `arrival mode` has two possible values: ambulance and walk-in. Describe the effect of arrival mode (covariate) on waiting time (three levels). Note: The baseline category is walk-in.
 
 - Arrival mode has two possible values: "ambulance" and "walk-in".
 
-- Baseline category (lower category) is "walk-in" versus the higher category ("ambulatory"). 
+- Baseline category is "walk-in."
 
 ## Solution
 
-- The coefficient for "arrival mode" (for ambulance) is -3.398. In terms of odds, \( e^{-3.398} \approx 0.033 \).
+- The coefficient for \texttt{arrival mode = ambulance} (compared to walk-in) is \( -3.398 \). In terms of odds, \( e^{-3.398} \approx 0.033 \).
 
-If the patient arrived via an ambulance, the odds of being at or below a higher wait time category are expected to be 0.033 times the odds for walk-in patients, holding the other factors constant.
+- If the patient arrived via an ambulance, the odds of being at or below a higher wait time category are expected to be 0.033 times the odds for walk-in patients, holding the other factors constant. 
 
-<!-- If the patient arrived via an ambulance, the odds of being at or below a higher wait time category are expected to be 0.033 times the odds for walk-in patients, holding the other factors constant. -->
-
-<!-- - This means for a one unit increase in arrival mode,  -->
-
-<!-- - This means that for each one-unit increase in wait-time, the log-odds of being in a lower arrival category (walk-in) (compared to being in a higher category (ambulance)) decrease by 3.398, holding all other factors constant.  -->
-
-<!-- - In terms of odds, \( e^{-3.398} \approx 0.033 \), which means that for each additional unit increase in arrival mode, the odds of being in a lower category of arrival mode (walk-in versus ambulance) decrease by a factor of 0.033 (3.3 percent), holding all other factors constant.  -->
+- Thus, arriving by ambulance (as opposed to a walk-in) significantly decreases the likelihood of being classified in the longer waiting time groups. 
 
 ## Effect of triage level
 
@@ -284,7 +256,7 @@ Note: The baseline category is green.
 ## Solution
 
 
-The odds a non-urgent patient is in at or below a higher treatment time category are expected to be 0.387 times the odds of someone in the urgent category, holding all other factors constant.
+<!-- The odds a non-urgent patient is in at or below a higher treatment time category are expected to be 0.387 times the odds of someone in the urgent category, holding all other factors constant. -->
 
 <!-- - Triage Levels: "trauma", "red", and "yellow" (with green as the baseline category). -->
 <!-- - The coefficient on treatment time is -0.950. -->
