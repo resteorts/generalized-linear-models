@@ -300,6 +300,13 @@ $$\begin{aligned}&\log\Big(\frac{P(Y = 2)}{P(Y = 1)}\Big) = \beta_{02} - \beta_{
 & \dots \\
 & \log\Big(\frac{P(Y = K)}{P(Y = 1)}\Big) = \beta_{0{K}} - \beta_{1K}x_1 - \dots - \beta_{pK}x_{p}\end{aligned}$$
 
+## Interpretation and Example 
+
+1. The model estimates the log-odds of each category relative to a baseline category, allowing for the prediction of probabilities for all categories. 
+
+2. See https://stats.oarc.ucla.edu/r/dae/multinomial-logistic-regression/
+regarding an example for multinomial regression (and the interpretation of the coefficients). 
+
 ## Multinomial logistic vs. proportional odds
 
 ::: question
