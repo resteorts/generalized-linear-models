@@ -322,16 +322,6 @@ How is the proportional odds model similar to the multinomial logistic model? Ho
 <!-- 2. The response variable for the proportional odds model is the cumulative odds, as opposed to the odds of the $J$th level versus the baseline for multinomial logistic regression. -->
 <!-- 3.  In the proportional odds model, the estimated effects of the predictors are the same for all levels. Unique coeﬀicients are estimated for each component of the multinomial logistic model. -->
 
-## Solution
-
-What is a disadvantage of multinomial logistic model compared to the proportional odds model?
-
-The multinomial logistic model requires more parameters to be estimated than the proportional odds model, particularly when the dependent variable has more than two categories.
-
-- The multinomial logistic models separate sets of coefficients for each category compared to a baseline category. For an outcome for $K$ categories, the multinomial logistic model estimates $K-1$ coefficients. 
-
-- The proportional odds model only estimates one set of coefficients, which is more parsimonious and computationally more efficient.
-
 # Probit regression {.midi}
 
 ## Impact of nature documentary on recycling
@@ -400,10 +390,9 @@ Interpret the effect of watching the nature documentary `Nature (T2)` on recycli
 Interpret the effect of watching the nature documentary `Nature (T2)` on recycling. Assume NEP is low, `NEP-High` = 0.
 
 
-Participants exposed to the natural setting (Nature (T2), 0.841***) are more likely to recycle than those exposed to the urban setting (T1). 
+- Participants exposed to the natural setting (Nature (T2), 0.841***) are more likely to recycle than those exposed to the urban setting (T1). 
 
-This is reflected in the marginal effects in terms of percentage points:
-the probability of performing a green deed rises under exposure to nature (Nature (T2), 0.279***) compared with the urban exposure treatment. 
+- This is reflected in the marginal effects in terms of percentage points: the probability of recycling rises under exposure to nature (Nature (T2), 0.279***) compared with the urban exposure treatment. 
 
 (See page 13, Ibanez and Roussel (2022).)
 
