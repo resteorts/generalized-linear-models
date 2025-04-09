@@ -171,6 +171,22 @@ What does $\beta_{01}$ mean? What does $\beta_1$ mean?
 <!--   \item A \textbf{negative \(\beta_1\)} means that as \(x_1\) increases, the odds of being in a lower category decrease, suggesting that higher values of \(x_1\) are associated with being in higher ordinal categories. -->
 <!-- \end{itemize} -->
 
+## Proportional odds model {.midi}
+
+$$
+\log\Big(\frac{P(Y\leq k)}{P(Y > k)}\Big) = \beta_{0k} - \beta_1x_1 - \dots -  \beta_px_p
+$$
+
+Suppose $\beta_1 > 0$. 
+
+- Then as $x_1$ increases, the $\log\Big(\frac{P(Y\leq k)}{P(Y > k)}\Big)$ decreases since we are subtracting $\beta_1$.
+
+- This means that the odds of being in a lower category decrease.
+
+- Thus, the odds of being in a higher category increase.
+
+- To summarize, $\beta_1 > 0$ is associated with increased **log-odds** of being in a **higher** category of $Y$
+
 
 ## Proportional odds model {.midi}
 
@@ -189,20 +205,22 @@ $$
 
     -   $e^{\beta_j}$ associated with an increased **odds** of being in a **higher** category of $Y$
 
--   Effect of one unit increase in $x_j$ the same regardless of which category of $Y$
+-   Effect of one unit increase in $x_j$ is the same regardless of which category of $Y$
 :::
+
+
 
 ## Example 
 
-Suppose you have an ordinal outcome variable, ``Satisfaction'', with categories: ``Low'', ``Medium'', ``High'', and a predictor ``Income''. The proportional odds model might give the following coefficient:
+Suppose you have an ordinal outcome variable, ``Satisfaction'', with categories: ``Low'', ``Medium'', ``High'', and a predictor ``Income''. Consider
 
 \[
-\log \left( \frac{P(Y \leq \text{Medium})}{P(Y > \text{Medium})} \right) = -0.5 + 0.2 \times \text{Income}
+\log \left( \frac{P(Y \leq \text{Medium})}{P(Y > \text{Medium})} \right) = -0.5 + 0.2\} \times \text{Income}
 \]
 
 \begin{itemize}
-    \item The coefficient for \textbf{Income} is \( 0.2 \). This means that for each one-unit increase in Income, the log-odds of being in a lower satisfaction category (compared to being in a higher category) increase by 0.2.
-    \item In terms of odds, \( e^{0.2} \approx 1.22 \), which means that for each additional unit increase in Income, the odds of being in a lower category of Satisfaction (Low or Medium versus High) increase by a factor of 1.22.
+    \item The coefficient for \textbf{Income} is \( 0.2 \). This means that for each one-unit increase in Income, the log-odds of being in a higher satisfaction category  increase by 0.2.
+    \item In terms of odds, \( e^{0.2} \approx 1.22 \), which means that for each additional unit increase in Income, the odds of being in a higher category of Satisfaction (High versus Low or Medium) increase by a factor of 1.22.
 \end{itemize}
 
 ## Emergency Department Study 
