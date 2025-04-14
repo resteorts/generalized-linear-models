@@ -29,6 +29,18 @@ ggplot2::theme_set(ggplot2::theme_bw(base_size = 16))
 colors <- tibble::tibble(green = "#B5BA72")
 ```
 
+## Anouncements
+
+1. Last homework due on Wednesday, April 16th at 5 PM. 
+2. Quiz 4 (last quiz) due on LDOC at 5 PM. 
+3. Rest of semester will finish on working on quiz 4.
+
+## Lecture today
+
+1. Quickly go through rest of class material so you can finalize last homework. 
+2. Go over quiz 4. Spend class time Wednesday and Monday working on this. 
+3. Use LDOC to finalize this and polish if needed or ask questions. 
+4. Other things? 
 
 ## Learning goals
 
@@ -267,11 +279,11 @@ Now, consider the effect of `arrival mode` on waiting time and treatment time.
 
 Arriving by ambulance decreases the likelihood of being classified in the longer waiting time groups, but increases the likelihood of being classified in the longer treatment time groups. 
 
-## Effect of triage level
+<!-- ## Effect of triage level -->
 
-Consider the full output with the ordinal logistic models for wait and treatment times.
+<!-- Consider the full output with the ordinal logistic models for wait and treatment times. -->
 
-![Waiting and treatment time model output from @ataman2021predicting.](images/09/ordinal-model-full.png){fig-align="center"}
+<!-- ![Waiting and treatment time model output from @ataman2021predicting.](images/09/ordinal-model-full.png){fig-align="center"} -->
 
 <!-- ## Question  -->
 <!-- ::: question -->
