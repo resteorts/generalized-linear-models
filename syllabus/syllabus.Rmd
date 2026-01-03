@@ -4,43 +4,41 @@ author:
 output: pdf_document
 ---
 
-
 ## Teaching team and office hours
 
-|  Role        | Name       | Office Hours         | Location              |
-|----------|-----------|---------------|-----------------------|
-| Instructor | Professor Rebecca Steorts  | MW 1:00 pm -- 2:00 PM |    Old Chem 216         |
-| Teaching Assistant   |  Suchismita  Roy   |   TuTh   4:00 -- 5:00 PM             |            Zoom        |
-| Teaching Assistant   |  Wenxin Guo        |    MW 4:30 -- 5:30 PM               |           Zoom         |
+| Role               | Name                      | Office Hours          | Location     |
+|----------------|----------------|----------------|-------------------------|
+| Instructor         | Professor Rebecca Steorts | TBD | Old Chem 208 |
+| Teaching Assistant | Devarpita Bag             |  TBD  | TBD         |
 
 ## Course info
 
-|          | Day       | Time          | Location              |
-|----------|-----------|---------------|-----------------------|
-| Lectures | Mon & Wed | 11:45 am - 1:00 pm | Gray 228         |
-| Lab   | Friday    | 11:45 am - 1:00 pm | Social Sciences 105       |
+|          | Day       | Time               | Location            |
+|----------|-----------|--------------------|---------------------|
+| Lectures | Tu & Thurs | 11:45 am - 1:00 pm | Perkins 127            |
+| Lab      | Friday    | 11:45 am - 1:00 pm  | Old Chemistry 001       |
 
 ## Zoom Information
 
-We will utilize the following zoom link for unscheduled office hours, zoom office hours, or other emergent issues as needed regarding any classes. Zoom Meeting ID: 979 2535 4560. The is posted on canvas for security reasons. 
+We will utilize the following zoom link for unscheduled office hours, zoom office hours, or other emergent issues as needed regarding any classes. Zoom Meeting/Lab ID: 965 8009 0278. This is posted on canvas for security reasons.
 
 ## Textbooks
 
 All books are freely available online. Print copies are also available for purchase.
 
 |                                                                                      |                                      |                              |
-|--------------------------------------------------------------------------------------|--------------------------------------|------------------------------|
+|--------------------------------------|-----------------|-----------------|
 | [Beyond Multiple Linear Regression](https://bookdown.org/roback/bookdown-BeyondMLR/) | Roback, Legler                       | CRC Press, 1st edition, 2020 |
 | [R for Data Science](https://r4ds.hadley.nz/)                                        | Wickham, Cetinkaya-Rundel, Grolemund | O'Reilly, 2nd edition, 2023  |
 | [Tidy Modeling with R](https://www.tmwr.org/iterative-search)                        | Kuhn, Silge                          | O'Reilly, 1st edition, 2022  |
 
 ## Course description
 
-STA 310 builds upon the content in STA 210: Regression Analysis. In 310, we will review aspects of prior material that will be utilized in the course relevant to generalized linear models (GLMs), a broad modeling framework that includes linear and logistic models, among others. Such review areas will be on distributions, regression analysis, and likelihoods, which are useful techniques in all areas of statistical analysis. Students will learn the basic theory and applications of GLMs and how they can used to model a variety of response variables with non-normal distributions. Students will also learn an extension of GLMs that can be applied to modeling data with correlated observations. 
+STA 310 builds upon the content in STA 210: Regression Analysis. In 310, we will review aspects of prior material that will be utilized in the course relevant to generalized linear models (GLMs), a broad modeling framework that includes linear and logistic models, among others. Such review areas will be on distributions, regression analysis, and likelihoods, which are useful techniques in all areas of statistical analysis. Students will learn the basic theory and applications of GLMs and how they can used to model a variety of response variables with non-normal distributions. Students will also learn an extension of GLMs that can be applied to modeling data with correlated observations.
 
 ## **Prerequisites**
 
-The prerequisites for the course are STA 210 and one of STA 230/STA 231/STA 240. This course assumes students have some familiarity with linear regression, analyzing data using RStudio, using version control with Git and collaborating using GitHub. The semester will start with a review of topics that will be extremely revelant to the course material, such as distributions, regression analysis, and likelihoods, among a few other topics. 
+The prerequisites for the course are STA 210 and one of STA 230/STA 231/STA 240. This course assumes students have some familiarity with linear regression, analyzing data using RStudio, using version control with Git and collaborating using GitHub. The semester will start with a review of topics that will be extremely revelant to the course material, such as distributions, regression analysis, and likelihoods, among a few other topics.
 
 ## Course learning objectives
 
@@ -51,7 +49,7 @@ By the end of the semester, you will be able to ...
 -   identify the appropriate model given the data and analysis objective.
 -   analyze real-world data by fitting and interpreting GLMs.
 -   use R for analysis for reproducible analysis and synthesize reports on your own.
--   effectively communicate results from statistical analyses to a general audience via writing. 
+-   effectively communicate results from statistical analyses to a general audience via writing.
 
 ## Course community
 
@@ -69,7 +67,7 @@ It is my intent that students from all diverse backgrounds and perspectives be w
 
 Furthermore, I would like to create a learning environment that supports a diversity of thoughts, perspectives and experiences, and honors your identities. To help accomplish this:
 
--   If you have a name that differs from those that appear in your official Duke records, please let me know! 
+-   If you have a name that differs from those that appear in your official Duke records, please let me know!
 -   If you feel like your performance in the class is being impacted by your experiences outside of class, please don't hesitate to come and talk with me. If you prefer to speak with someone outside of the course, your academic dean is an excellent resource.
 -   I (like many people) am still in the process of learning about diverse perspectives and identities. If something was said in class (by anyone) that made you feel uncomfortable, please let me or a member of the teaching team know.
 
@@ -81,9 +79,9 @@ The [Student Disability Access Office (SDAO)](https://access.duke.edu/students) 
 
 ### Communication
 
-All lecture notes, assignment instructions, an up-to-date schedule, and other course materials may be found on the course website, [https://github.com/resteorts/generalized-linear-models](https://github.com/resteorts/generalized-linear-models)
+All lecture notes, assignment instructions, an up-to-date schedule, and other course materials may be found on the course website, <https://github.com/resteorts/generalized-linear-models>
 
-Announcements will be sent through Canvas and email. Please check your email regularly to ensure you have the latest announcements for the course. Most course announcements will be made in class, so please be sure to stay up to date with these if you do miss class as I will not re-post these items. 
+Announcements will be sent through Canvas and email. Please check your email regularly to ensure you have the latest announcements for the course. Most course announcements will be made in class, so please be sure to stay up to date with these if you do miss class as I will not re-post these items.
 
 ### Where to get help
 
@@ -125,7 +123,7 @@ There will be a series of homework assignments during the semester. In these ass
 
 ### Quizzes
 
-There will be 4-6 quizzes during the semester. Quizzes will cover the readings, lecture notes and activities, and any assignments since the previous quiz. 
+There will be 4-6 quizzes during the semester. Quizzes will cover the readings, lecture notes and activities, and any assignments since the previous quiz.
 
 *The lowest quiz grade is dropped.*
 
@@ -135,10 +133,10 @@ The final course grade will be calculated as follows:
 
 <center>
 
-| Category      | Percentage |
-|---------------|------------|
-| Homework      | 40%        |
-| Quizzes       | 60%        |
+| Category | Percentage |
+|----------|------------|
+| Homework | 40%        |
+| Quizzes  | 60%        |
 
 </center>
 
@@ -182,9 +180,8 @@ By participating in this course, you agree to abide by the following when comple
     -   **AI tools for code:** You may make use of the technology for coding examples on assignments; if you do so, you must explicitly cite where you obtained the code. Any recycled code that is discovered and is not explicitly cited will be treated as plagiarism. You may use [these guidelines](https://guides.lib.monash.edu/c.php?g=219786&p=6972087) for citing AI-generated content.
 
     -   **No AI tools for narrative:** Unless instructed otherwise, AI is [**not**]{.underline} permitted for writing narrative on assignments. In general, you may use AI as a resource as you complete assignments but not to answer the exercises for you. You are ultimately responsible for the work you turn in; it should reflect your understanding of the course content.
-    
-    
-    - When utilizing AI tools in homework or a quiz, please cite the tool and the prompt used. 
+
+    -   When utilizing AI tools in homework or a quiz, please cite the tool and the prompt used.
 
 If you are unsure if the use of a particular resource complies with the academic honesty policy, please ask me or a teaching assistant.
 
@@ -194,16 +191,13 @@ Any violations in academic honesty standards as outlined in the [Duke Community 
 
 ### Late work & extensions
 
-Given that things come up periodically, we are dropping your lowest homework and quizzes. Given this, there will be no late extensions on any assignments. Please make sure that you stay up to date on the class and assignments. 
-The due dates for assignments are there to help you keep up with the course material and to ensure the teaching team can provide feedback within a timely manner. 
-
+Given that things come up periodically, we are dropping your lowest homework and quizzes. Given this, there will be no late extensions on any assignments. Please make sure that you stay up to date on the class and assignments. The due dates for assignments are there to help you keep up with the course material and to ensure the teaching team can provide feedback within a timely manner.
 
 If there are circumstances that are having a longer-term impact on your academic performance, please let your academic dean know, as they can be a resource. Please let me know if you need help contacting your academic dean.
 
 ### Regrade requests
 
-Regrade requests must be submitted via Gradescope within one week of the assignment. Regrade requests will 
-only be considered if points were tallied incorrectly or a correct answer was mistakenly marked as incorrect. Requests to dispute the number of points deducted for an incorrect response will not be considered. If a regrade request is submitted, the entire question will be regraded, so your score could increase, decrease, or remain unchanged.
+Regrade requests must be submitted via Gradescope within one week of the assignment. Regrade requests will only be considered if points were tallied incorrectly or a correct answer was mistakenly marked as incorrect. Requests to dispute the number of points deducted for an incorrect response will not be considered. If a regrade request is submitted, the entire question will be regraded, so your score could increase, decrease, or remain unchanged.
 
 ### Attendance
 
@@ -249,7 +243,3 @@ If your mental health concerns and/or stressful events negatively affect your da
 ### Technology Accommodations
 
 Students with demonstrated high financial need who have limited access to computers may request assistance in the form of loaner laptops. For new Spring 2024 technology assistance requests, please go [here](https://dukelife.duke.edu/technology-assistance-program/). Please note that supplies are limited.
-
-
-
-
