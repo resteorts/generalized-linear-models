@@ -119,13 +119,11 @@ Lectures will be interactive with a mix of presenting lecture notes, short in-cl
 
 There will be a series of homework assignments during the semester. In these assignments, you will apply what you've learned as you answer conceptual questions and complete guided and open-ended analyses. You may discuss homework assignments with other students; however, homework should be completed and submitted individually. Homework will be submitted to both Gradescope and Canvas.
 
-*The lowest homework grade is dropped.*
 
 ### Quizzes
 
 There will be 4-6 quizzes during the semester. Quizzes will cover the readings, lecture notes and activities, and any assignments since the previous quiz.
 
-*The lowest quiz grade is dropped.*
 
 ## Grading
 
@@ -135,8 +133,8 @@ The final course grade will be calculated as follows:
 
 | Category | Percentage |
 |----------|------------|
-| Homework | 40%        |
-| Quizzes  | 60%        |
+| Homework | 30%        |
+| Quizzes  | 70%        |
 
 </center>
 
@@ -183,7 +181,7 @@ By participating in this course, you agree to abide by the following when comple
 
     -   When utilizing AI tools in homework or a quiz, please cite the tool and the prompt used.
 
-If you are unsure if the use of a particular resource complies with the academic honesty policy, please ask me or a teaching assistant.
+If you are unsure if the use of a particular resource complies with the academic honesty policy, please ask myself or a teaching assistant.
 
 Regardless of course delivery format, it is the responsibility of all students to understand and follow all Duke policies, including academic integrity (e.g., completing one's own work, following proper citation of sources, adhering to guidance around group work projects,and more). Ignoring these requirements is a violation of the Duke Community Standard. Any questions and/or concerns regarding academic integrity can be directed to the Office of Student Conduct and Community Standards at [conduct\@duke.edu](mailto:conduct@duke.edu).
 
@@ -191,9 +189,9 @@ Any violations in academic honesty standards as outlined in the [Duke Community 
 
 ### Late work & extensions
 
-Given that things come up periodically, we are dropping your lowest homework and quizzes. Given this, there will be no late extensions on any assignments. Please make sure that you stay up to date on the class and assignments. The due dates for assignments are there to help you keep up with the course material and to ensure the teaching team can provide feedback within a timely manner.
+There will be no late extensions on any assignments, unless there are extenuating circumstances. Please make sure that you stay up to date on the class and assignments by attending class or obtaining notes if you miss class. Deadlines for assignments will be posted on Gradescope. It is recommended that you start assignments early and get help if needed. 
 
-If there are circumstances that are having a longer-term impact on your academic performance, please let your academic dean know, as they can be a resource. Please let me know if you need help contacting your academic dean.
+If there are circumstances that are having a longer-term impact on your academic performance, please feel free to contact myself or your academic dean, as we can be a resource. Please let me know if you need help contacting your academic dean.
 
 ### Regrade requests
 
