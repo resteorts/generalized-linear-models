@@ -133,8 +133,8 @@ The final course grade will be calculated as follows:
 
 | Category | Percentage |
 |----------|------------|
-| Homework | 30%        |
-| Quizzes  | 70%        |
+| Homework | 40%        |
+| Quizzes  | 60%        |
 
 </center>
 
