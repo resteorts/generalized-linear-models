@@ -26,24 +26,18 @@ Old Chem 208
 ::: {.column width="50%"}
 **Teaching assistants**
 
-Devarpita (Deva) Bag, 
+Devarpita (Deva) Bag,
 
-PhD Student 
+PhD Student
 
 [devarpita.bag\@duke.edu](mailto:devarpita.bag@duke.edu)
-
-
-
-
-
-
 :::
 :::
 
 ## Announcements
 
-- We will meet on Friday, January 9th for lecture, so please come prepared for lecture and not lab (as the PhD student is traveling and not available for lab). I will be sure to give you this lecture back at the end of the semester.  
-- The course webpage (https://resteorts.github.io/teach/generalized.html) will be updated on roughly a weekly basis, so please check this frequently for any updates. 
+-   We will meet on Friday, January 9th for lecture, so please come prepared for lecture and not lab (as the PhD student is traveling and not available for lab). I will be sure to give you this lecture back at the end of the semester.\
+-   The course webpage (<https://resteorts.github.io/teach/generalized.html>) will be updated on roughly a weekly basis, so please check this frequently for any updates.
 
 ## Course logistics
 
@@ -94,13 +88,7 @@ By the end of the semester, you will be able to ...
 -   Estimation, interpretation, and inference
 -   Mathematical details of GLMs as a unified framework
 
-## GLMs in practice {.small}
 
-![](images/01/rhd-article.png){fig-align="center" width="65%"}
-
-*"...we used **negative binomial regression** to model the association between the number of questions produced, race, and group after adjusting for the additional covariates age and years of education. **Poisson and zero-inflated Poisson regression models** were also considered...the negative binomial model was a good fit for the data given the **overdispersion** in the distribution of number of questions asked."*[^2]
-
-[^2]: *Fannin, D. K., Elleby, J., Tackett, M., & Minga, J. (2023). [Intersectionality of Race and Question-Asking in Women After Right Hemisphere Brain Damage](https://search-ebscohost-com.proxy.lib.duke.edu/login.aspx?direct=true&db=a9h&AN=161407156&site=ehost-live&scope=site). Journal of Speech, Language, and Hearing Research, 66(1), 314-324.*
 
 ## GLMs in practice {.small}
 
@@ -110,14 +98,36 @@ By the end of the semester, you will be able to ...
 
 [^3]: *Anderson, K. J., & Pierce, D. A. (2009). Officiating bias: [The effect of foul differential on foul calls in NCAA basketball](https://search-ebscohost-com.proxy.lib.duke.edu/login.aspx?direct=true&db=s3h&AN=39982562&site=ehost-live&scope=site). Journal of sports sciences, 27(7), 687-694.*
 
+## GLMs in practice {.small}
+
+![](images/01/rhd-article.png){fig-align="center" width="65%"}
+
+*"...we used **negative binomial regression** to model the association between the number of questions produced, race, and group after adjusting for the additional covariates age and years of education. **Poisson and zero-inflated Poisson regression models** were also considered...the negative binomial model was a good fit for the data given the **overdispersion** in the distribution of number of questions asked."*[^2]
+
+[^2]: *Fannin, D. K., Elleby, J., Tackett, M., & Minga, J. (2023). [Intersectionality of Race and Question-Asking in Women After Right Hemisphere Brain Damage](https://search-ebscohost-com.proxy.lib.duke.edu/login.aspx?direct=true&db=a9h&AN=161407156&site=ehost-live&scope=site). Journal of Speech, Language, and Hearing Research, 66(1), 314-324.*
+
+## GLMs in practice (continued)
+
+-   The authors consider data that follows a Poisson distribution.
+-   Recall that the the Poisson distribution has the same mean and variance parameter $(\lambda)$.
+-   Due to this, it is possible for overdispersion to occur meaning that then there is more variation in the response than what's implied by a Poisson model.
+-   This means the standard errors of the model coefficients are artificially small.
+
+This implies the following:
+
+-   The p-values are artificially small
+-   Can lead to models that are more complex than what is needed
+
+As such, we will need to consider a careful treatment of this (and this is what the authors did in the paper above).
+
 ## Meet your classmates!
 
 -   Get in groups of 2 - 3
 
 -   Each person in the group...
 
-    -   Introduce yourself
-    -   Share a boring fact about yourself
+    -   Introduce yourself (name, major, year of study, hometown)
+    -   Share something interesting about yourself 
 
 -   Everyone will introduce one person from your group to the class
 
@@ -146,9 +156,9 @@ STA 210 and STA 230 / STA 240
 **Computing**
 
 -   Using R for data analysis
--   Writing reports using Rmd 
--   Understanding of github 
--   Understanding reproducibility 
+-   Writing reports using Rmd
+-   Understanding of github
+-   Understanding reproducibility
 :::
 :::
 
@@ -161,16 +171,16 @@ STA 210 and STA 230 / STA 240
 **Canvas**
 
 -   Changes to Schedule
--   Ed Discussion 
--   Homework uploads 
+-   Ed Discussion
+-   Homework uploads
 
 **Gradescope** (link on course webpage)
 
--  Homework uploads (make sure to upload to Canvas as well).
+-   Homework uploads (make sure to upload to Canvas as well).
 
 **Ed Discussion** (link on course webpage)
 
--  Course discussion 
+-   Course discussion
 
 ## Class Meetings
 
@@ -184,15 +194,13 @@ STA 210 and STA 230 / STA 240
 :::
 
 ::: {.column width="50%"}
-**Labs (start January 10)**
+**Labs (start January 9)**
 
 -   Work on class assignments with TA support
--   Time for clarifying questions regarding course material 
--   Alternative lecture time when needed
-
+-   Time for clarifying questions regarding course material
+-   **Alternative lecture time** when needed (such as this week)
 :::
 :::
-
 
 **Attendance is strongly expected (if you are healthy!)**
 
@@ -201,7 +209,6 @@ STA 210 and STA 230 / STA 240
 ::: columns
 ::: {.column width="30%"}
 ![](images/01/bmlr.jpeg){fig-alt="Cover of the book Beyond Multiple Linear Regression" fig-align="center"}
-
 :::
 
 ::: {.column width="70%"}
@@ -221,29 +228,27 @@ STA 210 and STA 230 / STA 240
 
 ## R and RStudio
 
-- Install R and RStudio on your laptop
+-   Install R and RStudio on your laptop
 
 -   [Click here](../computing.html) for instructions to install RStudio and configure git
 
-
 **or**
-
 
 Access RStudio through [Docker container](https://cmgr.oit.duke.edu/containers) provided by Duke OIT
 
-- Reserve a generic **RStudio** container (there is no course specific container)
+-   Reserve a generic **RStudio** container (there is no course specific container)
 
 ## Canvas and Gradescope
 
-- All homework assignments will be uploaded to Gradescope and Canvas. 
+-   All homework assignments will be uploaded to Gradescope and Canvas.
 
-- Gradescope allows more fair and balanced grading. 
+-   Gradescope allows more fair and balanced grading.
 
-- Canvas allows us to check the reproducibility of your work. 
+-   Canvas allows us to check the reproducibility of your work.
 
-- Unfortunately, there is no platform that does both (to my knowledge). 
+-   Unfortunately, there is no platform that does both (to my knowledge).
 
-- Feedback will be given in Gradescope and is individual and private. 
+-   Feedback will be given in Gradescope and is individual and private.
 
 ## Ed Discussion
 
@@ -253,7 +258,7 @@ Access RStudio through [Docker container](https://cmgr.oit.duke.edu/containers) 
 
 -   Content organized by channels. Before posting, please browse previous posts to see if your question has already been answered. If not, please post your question in the relevant channel.
 
--   Questions about grades, absences, and other private matters should be emailed to me with "STA 310" in the subject line. 
+-   Questions about grades, absences, and other private matters should be emailed to me with "STA 310" in the subject line.
 
 # Activities & Assessment
 
@@ -261,26 +266,22 @@ Access RStudio through [Docker container](https://cmgr.oit.duke.edu/containers) 
 
 -   Individual assignments
 -   Combination of conceptual questions, guided analyses, and open-ended analyses
--   Lowest homework grade is dropped
 
 ## Quizzes (60%)
 
 -   Individual online quizzes
-
 -   Covers content since the previous quiz, including readings, lecture notes, in-class activities, and homework
-
--   Lowest quiz grade is dropped
 
 ## Grading
 
 Final grades will be calculated as follows
 
-| Category      | Percentage |
-|---------------|------------|
-| Homework      | 40%        |
-| Quizzes       | 60%        |
+| Category | Percentage |
+|----------|------------|
+| Homework | 40%        |
+| Quizzes  | 60%        |
 
-See the course syllabus for letter grade thresholds. 
+See the course syllabus for letter grade thresholds.
 
 # Course community
 
@@ -308,14 +309,13 @@ See the course syllabus for letter grade thresholds.
 
 -   I am committed to making all course activities and materials accessible. If any course component is not accessible to you in any way, please don't hesitate to let me know.
 
-
 ## Support {.midi}
 
 -   **Office hours** to meet with a member of the teaching team.
 
     -   Find the course schedule on the course webpage
     -   Office hours begin January 16
-    -   Please see me after class if you have questions before then. 
+    -   Please see me after class if you have questions before then.
 
 -   **Ed Discussion** for questions about course logistics, content, and assignments
 
@@ -323,20 +323,32 @@ See the course syllabus for letter grade thresholds.
 
     -   Please put **STA 310** in the subject line
 
-See the syllabus regarding additional academic and mental health and wellness resources. 
+See the syllabus regarding additional academic and mental health and wellness resources.
 
 ## Latex Resources
 
-1. https://wch.github.io/latexsheet/latexsheet.pdf
+1.  <https://wch.github.io/latexsheet/latexsheet.pdf>
 
-2. https://www.bu.edu/math/files/2013/08/LongTeX1.pdf
+2.  <https://www.bu.edu/math/files/2013/08/LongTeX1.pdf>
 
-3. https://www.docx2latex.com/tutorials/mathematical-equations-latex/
+3.  <https://www.docx2latex.com/tutorials/mathematical-equations-latex/>
 
+## Course Content
 
+The course will closely follow the course textbook. Everyone is expected to follow the text readings.
 
+1.  Review of Reproducibility (Markdown versus Quarto)
+2.  Review of Multiple Linear Regression
+3.  Commonly Used Distributions (Bernoulli, Poisson, Gamma, Beta, others.)
+4.  Properties of Likelihoods
+5.  Poisson regression
+6.  The theory of exponential families and generalized linear models
+7.  Logistic regression
+8.  Multinomial regression
+9.  Advanced topics (as time permits)
 
+The goal is to provide your with foundational applied and theoretical knowledge on GLMs.
 
-## Questions 
+## Questions
 
-Questions? 
+Questions?
