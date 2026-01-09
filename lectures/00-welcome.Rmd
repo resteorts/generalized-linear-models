@@ -352,3 +352,16 @@ The goal is to provide your with foundational applied and theoretical knowledge 
 ## Questions
 
 Questions?
+
+<!-- ## Supplement -->
+
+<!-- Here are some commonly asked questions about the course.  -->
+
+<!-- ## Are similar are the quizzes to the homework exercises?  -->
+
+<!-- The quizzes are not designed to be direct replicas. While the homework focus on practicing specific techniques/methods/derivations and computations in detail, the quizzes are meant to assess these components in additional to your broader understanding and critical thinking. -->
+
+<!-- If you understand the ideas behind the homework, lecture material, and the reading, you should be well prepared for the quizzes. The goal is to help you build transferable skills so that you can successfully tackle a wide range of questions as we move forward in the course. -->
+
+<!-- The structure of the quizzes may be diverse, so that I can better ascertain how each student and the class adapts to thinking about such problems.  -->
+
