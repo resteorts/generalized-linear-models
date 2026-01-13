@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 ## Announcements
 
 0. Welcome to the second week of class! 
-1. Quiz 1 has been extended for students that had an excused issue. (This had to be done individually so if you did not reach out, you do not have an extension).
+1. Quiz 1 has been extended for students that had an excused issue. Due date: Thurs. Jan 15 5PM. 
 2. Homework 1 will be extended (please check the gradescope and no extensions will be given). 
 3. We will meet for class on Friday (so that we do not get behind on the material), and I will be sure to give you lectures back for time you complete on extra lectures/quizzes. 
 4. I will take questions after lecture today and will be happy to catch any new students up on anything that might have missed. Moving forward, if you miss class, get notes from a classmate/friend. 
