@@ -8,8 +8,8 @@ output: pdf_document
 
 | Role               | Name                      | Office Hours          | Location     |
 |----------------|----------------|----------------|-------------------------|
-| Instructor         | Professor Rebecca Steorts | TBD | Old Chem 208 |
-| Teaching Assistant | Devarpita Bag             |  TBD  | TBD         |
+| Instructor         | Professor Rebecca Steorts | after class | Old Chem 208/zoom |
+| Teaching Assistant | Devarpita Bag             |  Tu/Th 5:00 -- 6:00 PM  | zoom        |
 
 ## Course info
 
