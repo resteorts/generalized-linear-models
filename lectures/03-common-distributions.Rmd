@@ -128,14 +128,14 @@ The solution to the MLE are the possible candidates ($\theta$) that solve
 
 \begin{equation}
 \label{eqn:mle}
-\frac{\partial p(x_{1:n} \mid \theta)}{\partial \theta} = 0.
+\frac{\partial \log p(x_{1:n} \mid \theta)}{\partial \theta} = 0.
 \end{equation}
 
 The solution to equation \ref{eqn:mle} are only **possible candidates** for the MLE since the first derivative being 0 is a **necessary condition** for a maximum but not a sufficient one. 
 
 Our job is to find a global maximum. 
 
-Thus, we need to ensure that we haven't found a local one. 
+Thus, we need to ensure that we haven't found a local one. (Show that the second derivative is $< 0$.)
 
 Exercise
 ===
@@ -144,9 +144,8 @@ Exercise
 X_1, \ldots, X_n &\stackrel{iid}{\sim} \text{Bernoulli}(\theta). 
 \end{align}
 
-Note that $Y = \sum_i X_i \sim Binomial(n, \theta).$
 
-Exercise: The MLE for $\theta$ is $\bar{x} = y/n.$
+Exercise: Derive (step by step) that the MLE for $\theta$ is $\frac{1}{n}\sum_i x_i = \bar{x}.$
 
 
 Approval ratings of Obama
