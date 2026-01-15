@@ -33,7 +33,7 @@ How would you estimate $\theta$?
 
 - Find an unbiased estimator of $\theta$. 
 - Find the maximum likelihood estimate (MLE) of $\theta$ by looking at the likelihood of the data. 
-- In later classes, STA 360, you will consider how to estimate $\theta$ when it's random
+- In later classes, STA 402, you will consider how to estimate $\theta$ when it's random
 
 
 Bernoulli distribution
@@ -69,16 +69,20 @@ $X_1,\ldots,X_n \stackrel{iid}{\sim} \Bernoulli(\theta).$\footnote{This represen
 
 \vspace*{1em}
 
-Suppose $Y = \sum_i X_{i=1}^n.$ Then $Y \sim Binomial(n, \theta)$.\footnote{This represents $n$ Bernoulli trials with success probability $\theta.$}
+Suppose $Y = \sum_{i=1}^n X_i.$ Then $Y \sim Binomial(n, \theta)$.\footnote{This represents $n$ Bernoulli trials with success probability $\theta.$}
 
-\vspace*{1em}
+<!-- \vspace*{1em} -->
 
-Remark: A binomial (or binary) random variable with parameter $n=1$
-is equivalent to a Bernoulli random variable, i.e. there is only one trial.
+<!-- Remark: A binomial random variable with parameter $n=1$ -->
+<!-- is equivalent to a Bernoulli random variable, i.e. there is only one trial. -->
 
 
 Likelihood
 ===
+
+$$X_1,\ldots,X_n \stackrel{iid}{\sim} \Bernoulli(\theta).$$
+
+
 $$
 \begin{aligned}
 p(x_{1:n}|\theta) &= \Pr(X_1 = x_1,\dotsc,X_n = x_n\mid\theta) \notag\\
@@ -161,11 +165,6 @@ Obama Example
 ===
 ```{r}
 n <- 10
-# Fixing values of a,b. Chosen skewed Beta.
-# a = 21/8
-# b = 0.04
-a <- 0.25
-b <- 0.25
 th <- seq(0, 1, length = 500)
 x <- 6
 like <- dbeta(th, x + 1 , n - x + 1)
