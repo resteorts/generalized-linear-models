@@ -147,6 +147,11 @@ X_1, \ldots, X_n &\stackrel{iid}{\sim} \text{Bernoulli}(\theta).
 
 Exercise: Derive (step by step) that the MLE for $\theta$ is $\frac{1}{n}\sum_i x_i = \bar{x}.$
 
+Exercise Solution
+===
+
+Fill this in on your own. 
+
 
 Approval ratings of Obama
 ===
@@ -273,7 +278,7 @@ Examples:
 
 - In manufacturing, the proportion of defective items in a batch is a common quantity that can be modeled using the Beta distribution.
 - In finance, the proportion of a portfolio invested in risky assets (such as stocks) is typically between 0 and 1.
-- The Beta distribution is often used as a prior for the probability of success in Bernoulli or Binomial experiments in Bayesian statistics (STA 360). 
+- The Beta distribution is often used as a prior for the probability of success in Bernoulli or Binomial experiments in Bayesian statistics (STA 402). 
 
 Beta distribution
 ===
