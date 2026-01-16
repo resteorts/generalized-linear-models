@@ -328,7 +328,6 @@ $$
 \hat{p}_H = \frac{46}{90} = 0.511
 $$
 
-. . .
 
 ## Model 2: Conditional model
 
@@ -640,6 +639,20 @@ BIC_1 = -121.32
 BIC_2 = -112.9428
 
 Which model would you choose and why based upon the AIC and BIC values? 
+
+## Summarizing our findings
+
+- Can you summarize our findings from the LRT versus the AIC/BIC?
+
+\vspace*{1em}
+
+<!-- - Note that the sample size is quite low $(n=30)$, and it appears that the LRT has low power, which  -->
+<!-- is likely why it prefer the more simple model -->
+<!-- - In contrast, while BIC’s penalty is fairly mild, a modest likelihood improvement can make BIC pick the larger model even though the LRT doesn’t reject the null. -->
+<!-- - Those are consistent statements because model selection (BIC) and hypothesis testing (LRT) are different decisions.  -->
+<!-- - How to proceed? Typically, keep the more simple model (unless you have strong other evidence to support the more complex model).  -->
+
+
 
 
 ## Looking ahead 
