@@ -612,37 +612,39 @@ We can also consider AIC and BIC. We cannot consider a LRT for a non-nested mode
 AIC = -2(max log-likelihood) + 2p
 
 ```{r}
-(Model1_AIC <- 2 * loglik1(46/90) + 2 * 1)
+(Model1_AIC <- -2 * loglik1(46/90) + 2 * 1)
 ```
 
-AIC_1 = -122.72
+AIC_1 = 126.72
 
 ```{r}
-(Model2_AIC <- 2* loglik2(25/48, 8/20, 13/22) + 2 * 3)
+(Model2_AIC <- -2* loglik2(25/48, 8/20, 13/22) + 2 * 3)
 ```
 
-AIC_2 = -117.1464
+AIC_2 = 129.1464
 
 ## Comparing non-nested models
 
+$$BIC = -2 (max \text{log-likelihood}) + p log(n)$$
+
 ```{r}
-(Model1_BIC <- 2 * loglik1(46/90) + 1 * log(30))
+(Model1_BIC <- -2 * loglik1(46/90) + 1 * log(30))
 ```
 
-BIC_1 = -121.32
+BIC_1 = 128.1232
 
 ```{r}
-(Model2_BIC <-2 * loglik2(25/48, 8/20, 13/22) 
+(Model2_BIC <- -2 * loglik2(25/48, 8/20, 13/22) 
  + 3 * log(30))
 ```
 
-BIC_2 = -112.9428
+BIC_2 = 133.35
 
 Which model would you choose and why based upon the AIC and BIC values? 
 
 ## Summarizing our findings
 
-- Can you summarize our findings from the LRT versus the AIC/BIC?
+- Our findings from the nested and non-nested test support the more simple model. 
 
 \vspace*{1em}
 
