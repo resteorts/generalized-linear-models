@@ -147,10 +147,37 @@ X_1, \ldots, X_n &\stackrel{iid}{\sim} \text{Bernoulli}(\theta).
 
 Exercise: Derive (step by step) that the MLE for $\theta$ is $\frac{1}{n}\sum_i x_i = \bar{x}.$
 
+
 Exercise Solution
 ===
 
-Fill this in on your own. 
+\[
+L(\theta)=\theta^{S}(1-\theta)^{n-S}, \qquad S=\sum_{i=1}^n x_i,\ \theta\in[0,1].
+\]
+
+The log-likelihood is
+\[
+\ell(\theta)= S\log\theta + (n-S)\log(1-\theta).
+\]
+
+For \(\theta\in(0,1)\), differentiate and set to zero:
+\[
+\ell'(\theta)=\frac{S}{\theta}-\frac{n-S}{1-\theta}=0
+\;\Longrightarrow\;
+S(1-\theta)=(n-S)\theta
+\;
+\]
+$$\Longrightarrow\;
+\hat\theta=\frac{S}{n}=\frac{1}{n}\sum_{i=1}^n x_i.
+$$
+
+
+Exercise Solution (Continued)
+===
+
+- The log-likelihood is log-concave, which means the likelihood is concave (both functions are cap-shaped).
+- This ensures that that solution is a global one (and we do not have to take the second derivative). 
+
 
 
 Approval ratings of Obama

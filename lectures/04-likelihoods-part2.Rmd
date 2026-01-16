@@ -20,23 +20,17 @@ knitr::opts_chunk$set(
 )
 ```
 
-## Announcements
 
-1. Office hours (mine) today will be from 3:00 -- 4:00 PM in my office. 
-2. Homework 3 has been posted. 
-3. Any typos from last lecture have been updated, so please check for these. 
-4. Homework 3 has been posted (and the exercise has been clarified that corresponds with this.) Thanks to Zoe regarding catching this! 
-5. Homework 1 has been returned. 
 
-## Comments on Homework 1
+<!-- ## Comments on Homework 1 -->
 
-1. For Exercise 2 part b, some students had a misunderstanding that if a predictor is binary, the linearity assumption is violated.
+<!-- 1. For Exercise 2 part b, some students had a misunderstanding that if a predictor is binary, the linearity assumption is violated. -->
 
-2. For Exercise 3 part a, some students did not fully understand what does "holding a variable constant" or "adjusting for a variable" mean when interpreting results from a multiple linear regression. 
+<!-- 2. For Exercise 3 part a, some students did not fully understand what does "holding a variable constant" or "adjusting for a variable" mean when interpreting results from a multiple linear regression.  -->
 
-3. Question 6: Issue regarding the concept of interpreting the coefficients in the presence of an interaction term was not clear to all students. 
+<!-- 3. Question 6: Issue regarding the concept of interpreting the coefficients in the presence of an interaction term was not clear to all students.  -->
 
-Please attend lab on Friday if you would like to go over some of these concepts. 
+<!-- Please attend lab on Friday if you would like to go over some of these concepts.  -->
 
 
 ## Computing set up
