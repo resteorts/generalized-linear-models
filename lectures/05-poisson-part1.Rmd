@@ -644,7 +644,9 @@ Which of the following are reliable ways to determine if `location` should be ad
 
 - See Section 4.4.7 regarding adding location to the model. (Pages 109 -- 110).
 
-- Solution: Drop-in-deviance, AIC/BIC. 
+<!-- - Book solution: Drop in deviance (nested), AIC/BIC (not-nested).  -->
+<!-- - Additional solution: You can use p-value and the LRT (nested).  -->
+
 
 ## Looking ahead
 
