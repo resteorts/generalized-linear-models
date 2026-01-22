@@ -644,6 +644,57 @@ Which of the following are reliable ways to determine if `location` should be ad
 
 - See Section 4.4.7 regarding adding location to the model. (Pages 109 -- 110).
 
+## Supplementary Material 
+
+Let's consider the connection between the Drop in deviance test and LRT for Poisson regression. 
+
+## Drop in deviance and LRT
+
+In Poisson regression, the deviance is defined as 
+$-2$ times the log-likelihood ratio of a fitted model relative to the saturated model. 
+
+The saturated model is the model that has one free parameter per observation, so it fits the data perfectly.
+
+When comparing two nested models, the saturated model term cancels in the difference of deviances, leaving exactly the likelihood ratio test statistic.
+
+## Proof 
+
+Proof: Let $M_0 \subset M_1$ be two nested Poisson regression models.  
+The deviance of a model $M$ is defined as
+$$
+D(M)
+= 2\left\{\ell\!\left(\hat{\lambda}^{\text{sat}}\right)
+- \ell\!\left(\hat{\lambda}^{(M)}\right)\right\},
+$$
+where the saturated model satisfies $\hat{\lambda}_i^{\text{sat}} = y_i$.
+
+Because both $M_0$ and $M_1$ are compared to the same saturated model,
+$$
+\begin{aligned}
+D(M_0) - D(M_1)
+&= 2\left\{\ell\!\left(\hat{\lambda}^{(1)}\right)
+- \ell\!\left(\hat{\lambda}^{(0)}\right)\right\} \\
+&= -2 \log \frac{L\!\left(\hat{\lambda}^{(0)}\right)}
+{L\!\left(\hat{\lambda}^{(1)}\right)},
+\end{aligned}
+$$
+which is exactly the likelihood ratio test statistic for testing $M_0$
+against $M_1$.
+
+Since $M_0$ is nested in $M_1$, the statistic is asymptotically
+$\chi^2$ with degrees of freedom equal to the number of additional
+parameters in $M_1$.
+
+## Formal treatment 
+
+Is the LRT a special case of the Drop-in-deviance test for GLMs? 
+
+- Yes! Please see http://users.stat.umn.edu/~helwig/notes/generalized-linear-models.html#example-2-poisson-regression
+
+
+
+
+
 <!-- - Book solution: Drop in deviance (nested), AIC/BIC (not-nested).  -->
 <!-- - Additional solution: You can use p-value and the LRT (nested).  -->
 
