@@ -575,7 +575,7 @@ $$p(y) = \int_{\lambda} p(y, \lambda) \; d \lambda = \int_{\lambda} p(y \mid \la
 2. Suppose we wished to find $p(\lambda \mid y).$ How can we derive this? 
 
 \begin{align}
-p(\lambda \mid y) &= \frac{p(\lambda \mid y)}{p(y)} \\
+p(\lambda \mid y) &= \frac{p(\lambda, y)}{p(y)} \\
 &= \frac{p(y \mid \lambda) p(\lambda)}{p(y)} \\
 & \propto p(y \mid \lambda) p(\lambda),
 \end{align}

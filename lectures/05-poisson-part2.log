@@ -1,11 +1,11 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2026.1.7)  22 JAN 2026 10:11
+This is pdfTeX, Version 3.141592653-2.6-1.40.28 (TeX Live 2025) (preloaded format=pdflatex 2026.1.22)  23 JAN 2026 11:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
 **05-poisson-part2.tex
 (./05-poisson-part2.tex
 LaTeX2e <2025-11-01>
-L3 programming layer <2025-12-29>
+L3 programming layer <2026-01-19>
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/beamer/beamer.cls
 Document Class: beamer 2025/08/13 v3.76 A class for typesetting presentations
 (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/beamer/beamerbasemodes.sty (/Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/tex/latex/etoolbox/etoolbox.sty
@@ -1216,19 +1216,19 @@ Package pdftex.def Info: 05-poisson-part2_files/figure-beamer/unnamed-chunk-24-1
 (./05-poisson-part2.aux)
  ***********
 LaTeX2e <2025-11-01>
-L3 programming layer <2025-12-29>
+L3 programming layer <2026-01-19>
  ***********
  ) 
 Here is how much of TeX's memory you used:
- 27204 strings out of 469458
- 522023 string characters out of 5466009
- 927241 words of memory out of 5000000
- 54931 multiletter control sequences out of 15000+600000
+ 27204 strings out of 469453
+ 522023 string characters out of 5465951
+ 927274 words of memory out of 5000000
+ 54936 multiletter control sequences out of 15000+600000
  746559 words of font info for 220 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  101i,13n,107p,1013b,611s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmex10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmmi8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss12.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmss9.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmssbx10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso12.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsso8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmsy8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtk10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt8.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtt9.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmtti10.pfb></Users/rebeccasteorts_1/Library/TinyTeX/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb>
-Output written on 05-poisson-part2.pdf (57 pages, 569810 bytes).
+Output written on 05-poisson-part2.pdf (57 pages, 569825 bytes).
 PDF statistics:
  560 PDF objects out of 1000 (max. 8388607)
  442 compressed objects within 5 object streams
