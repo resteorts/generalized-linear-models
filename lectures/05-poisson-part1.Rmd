@@ -692,6 +692,56 @@ Is the LRT a special case of the Drop-in-deviance test for GLMs?
 - Yes! Please see http://users.stat.umn.edu/~helwig/notes/generalized-linear-models.html#example-2-poisson-regression
 
 
+## Interpretation of GLM regression coefficients 
+
+A generalized linear model (GLM) is defined by
+\[
+g\!\left( \mathbb{E}[Y \mid X] \right) = \eta = X\beta,
+\]
+where \(g(\cdot)\) is the link function and \(\eta\) is the linear predictor.
+
+\emph{GLM coefficients describe how predictors affect the \textbf{mean of the response} through the link function.}
+
+## Coefficient interpretation for GLMs
+
+For a predictor \(X_j\),
+\[
+\beta_j = \frac{\partial}{\partial X_j}
+\Big[ g\!\left( \mathbb{E}[Y \mid X] \right) \Big],
+\]
+that is, \(\beta_j\) is the additive change in the \emph{link-transformed mean (or median)} associated with a one-unit increase in \(X_j\), holding other variables fixed.
+
+To interpret \(\beta_j\) on the response scale, apply the inverse link:
+\[
+\mathbb{E}[Y \mid X] = g^{-1}(X\beta).
+\]
+
+## Linear versus Poisson regression
+
+\begin{itemize}
+  \item \textbf{Identity link (linear regression):}
+  \[
+  \mathbb{E}[Y \mid X] = X\beta,
+  \]
+  so \(\beta_j\) is the additive change in the mean/median of \(Y\).
+
+  \item \textbf{Log link (Poisson):}
+  \[
+  \log \mathbb{E}[Y \mid X] = X\beta,
+  \]
+  so
+  \[
+  \mathbb{E}[Y \mid X] = \exp(X\beta),
+  \qquad
+  e^{\beta_j} = \text{multiplicative change in the mean}.
+  \]
+
+\end{itemize}
+
+
+
+## Poisson regression 
+
 
 
 
