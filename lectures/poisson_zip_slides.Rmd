@@ -1,0 +1,280 @@
+---
+title: "Poisson Regression"
+subtitle: Supplement
+author: "Rebecca C. Steorts (slide adaption from Maria Tacket)\\ and material from Chapter 4 of Roback and Legler text."
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+```
+
+## Learning goals
+
+- Recognize when **Poisson regression** is appropriate for count data  
+- Understand the **mean = variance** property and why it can fail  
+- Explain the motivation for **excess zeros**  
+- Describe the structure of a **Zero-Inflated Poisson (ZIP)** model  
+- Interpret coefficients in the **count** and **zero** components
+
+---
+
+## Count data: when do we use Poisson models?
+
+We model a non-negative integer response:
+
+\[
+Y \in \{0,1,2,\ldots\}
+\]
+
+**Examples**
+
+- ER visits in a year
+- Defects per item
+- Emails per day
+- Crashes at an intersection per month
+
+---
+
+## The Poisson distribution (review)
+
+\[
+P(Y=y) = \frac{e^{-\lambda}\lambda^y}{y!}, \qquad y=0,1,2,\ldots
+\]
+
+Key properties:
+
+\[
+\mathbb{E}(Y)=\lambda, \qquad \mathrm{Var}(Y)=\lambda
+\]
+
+So **mean = variance**.
+
+---
+
+## Poisson regression (GLM)
+
+Model the mean count \(\lambda_i\) as a function of predictors:
+
+\[
+Y_i \sim \text{Poisson}(\lambda_i), \qquad
+\log(\lambda_i) = \mathbf{x}_i^\top \boldsymbol{\beta}
+\]
+
+Why the log link?
+
+- ensures \(\lambda_i>0\)
+- leads to a clean multiplicative interpretation
+
+---
+
+## Interpreting coefficients in Poisson regression
+
+From
+
+\[
+\log(\lambda_i)=\beta_0+\beta_1 x_{i1}+\cdots
+\]
+
+A one-unit increase in \(x_j\) changes the mean by:
+
+\[
+\frac{\lambda_i(x_j+1)}{\lambda_i(x_j)} = e^{\beta_j}
+\]
+
+So \(e^{\beta_j}\) is the **multiplicative factor** on the mean count.
+
+---
+
+## A common issue: too many zeros
+
+In practice, we often see **more zeros** than a Poisson model expects.
+
+**Examples**
+
+- doctor visits (many people never go)
+- insurance claims (many policyholders have none)
+- crashes (many locations have zero)
+
+Consequences:
+
+- poor fit
+- underestimated standard errors
+- apparent overdispersion (\(\mathrm{Var}(Y) > \mathbb{E}(Y)\))
+
+---
+
+## Two kinds of zeros (intuition)
+
+**Sampling zeros:**  
+
+- could have been positive, but happened to be 0 this time  
+- e.g., someone who *might* visit a doctor this year, but didn’t
+
+**Structural zeros:**  
+
+- outcome is essentially impossible / not at risk  
+- e.g., someone without a car → 0 car crashes
+
+ZIP explicitly models this mixture.
+
+---
+
+## Zero-Inflated Poisson (ZIP): the story
+
+For each observation \(i\):
+
+1. With probability \(\pi_i\), we are in a **structural zero** state  
+2. With probability \(1-\pi_i\), we are in the **count** state:
+
+\[
+Y_i \mid \text{count state} \sim \text{Poisson}(\lambda_i)
+\]
+
+---
+
+## ZIP probability model
+
+\[
+P(Y_i=0)=\pi_i + (1-\pi_i)e^{-\lambda_i}
+\]
+
+\[
+P(Y_i=y)= (1-\pi_i)\frac{e^{-\lambda_i}\lambda_i^y}{y!},\quad y\ge 1
+\]
+
+So ZIP adds a **spike at zero** on top of the Poisson distribution.
+
+---
+
+## ZIP has two linked regressions
+
+**Zero (inflation) part**: models probability of structural zero
+
+\[
+\text{logit}(\pi_i)=\mathbf{z}_i^\top \boldsymbol{\gamma}
+\]
+
+**Count part**: models mean count among the “at risk” group
+
+\[
+\log(\lambda_i)=\mathbf{x}_i^\top \boldsymbol{\beta}
+\]
+
+Predictors \(\mathbf{x}_i\) and \(\mathbf{z}_i\) can be the same or different.
+
+---
+
+## Interpreting ZIP coefficients
+
+- **Count coefficients** \(\beta\):  
+  *Among those in the count state*, a one-unit increase in \(x_j\) multiplies the mean by \(e^{\beta_j}\).
+
+- **Zero coefficients** \(\gamma\):  
+  In the logit model, a one-unit increase in \(z_k\) multiplies the **odds** of being a structural zero by \(e^{\gamma_k}\).
+
+---
+
+## Visual intuition: Poisson vs ZIP
+
+\tiny
+```{r, echo = F}
+set.seed(1)
+n <- 4000; lambda <- 1.2; pi0 <- 0.45
+
+# Poisson sample
+y_pois <- rpois(n, lambda)
+
+# ZIP sample: structural zeros with prob pi0, otherwise Poisson(lambda)
+is_struct_zero <- rbinom(n, 1, pi0)
+y_zip <- ifelse(is_struct_zero == 1, 0, rpois(n, lambda))
+
+tab <- rbind(
+  Poisson = table(factor(y_pois, levels = 0:12)),
+  ZIP     = table(factor(y_zip,  levels = 0:12))
+)
+
+barplot(t(tab),
+        beside = TRUE,
+        legend.text = TRUE,
+        xlab = "Count value",
+        ylab = "Frequency",
+        main = "Poisson vs ZIP: extra mass at zero")
+```
+
+---
+
+## What ZIP is *not*
+
+ZIP is not just “overdispersion” in general.
+
+If variance > mean but zeros are not *structural*, consider:
+
+- **Negative Binomial regression** (handles heterogeneity / overdispersion)
+- **Quasi-Poisson** (robust SEs, not a full likelihood model)
+
+ZIP is best when **two mechanisms** generate zeros.
+
+---
+
+## How do we decide between Poisson and ZIP?
+
+Practical checks:
+
+- Compare observed zeros vs expected zeros under Poisson
+- Residual diagnostics / goodness of fit
+- Likelihood-based comparisons (AIC/BIC) for fitted models
+- Subject-matter reasoning: “not-at-risk” group plausible?
+
+---
+
+## Example (conceptual)
+
+Suppose \(Y\) = number of clinic visits in a year.
+
+- Some people are “never-users” (structural zeros)  
+- Others are at risk and have counts driven by health and access
+
+ZIP lets you model:
+
+- who is a never-user (zero model)
+- how often users visit (count model)
+
+---
+
+## Fitting ZIP models in R
+
+The `pscl` package provides `zeroinfl()`.
+
+```{r, eval=FALSE}
+# install.packages("pscl")
+library(pscl)
+
+# Example:
+# y ~ x1 + x2 is the count model
+# | z1 + z2 is the zero-inflation model
+fit_zip <- zeroinfl(y ~ x1 + x2 | z1 + z2, 
+                    dist = "poisson")
+summary(fit_zip)
+```
+
+---
+
+## Key takeaways
+
+- **Poisson regression** models counts with \(\mathbb{E}(Y)=\mathrm{Var}(Y)\)
+- Real data often have **excess zeros**
+- **ZIP** combines:
+  - a logistic model for structural zeros (\(\pi_i\))
+  - a Poisson model for counts among at-risk units (\(\lambda_i\))
+- Interpret coefficients separately in the two parts
+
+
+
+
+
