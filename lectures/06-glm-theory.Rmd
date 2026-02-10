@@ -9,6 +9,13 @@ font-size: 8px
 bibliography: references.bib
 ---
 
+## Agenda
+
+1. Review Poisson GLM (and any questions for upcoming quiz).
+2. Reminder (homework due this week). 
+3. Exercises for exponential families. 
+4. Continue with GLM theory. 
+
 ## Computing set up
 
 ```{r setup, echo = TRUE, message = FALSE, warning= FALSE}
