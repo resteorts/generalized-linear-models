@@ -7,12 +7,12 @@ output: pdf_document
 1. The probability density function (PDF) of the Pareto Type I distribution is given by:
 
 \[
-f(x) = \frac{\alpha x_m^\alpha}{x^{\alpha+1}} \mathbf{1}_{\{x \geq x_m\}}
+f(y) = \frac{\alpha x_m^\alpha}{y^{\alpha+1}} \mathbf{1}_{\{y \geq x_m\}}
 \]
 
 where:
 \begin{itemize}
-    \item \( \mathbf{1}_{\{x \geq x_m\}} \) is the indicator function, which is 1 if \( x \geq x_m \) and 0 otherwise.
+    \item \( \mathbf{1}_{\{y \geq x_m\}} \) is the indicator function, which is 1 if \( y \geq x_m \) and 0 otherwise.
     \item \( \alpha > 0 \) is the shape parameter.
     \item \( x_m > 0 \) is the scale parameter (minimum possible value) of the data.
 \end{itemize}
