@@ -14,7 +14,7 @@ where:
 \begin{itemize}
     \item \( \mathbf{1}_{\{y \geq x_m\}} \) is the indicator function, which is 1 if \( y \geq x_m \) and 0 otherwise.
     \item \( \alpha > 0 \) is the shape parameter.
-    \item \( x_m > 0 \) is the scale parameter (minimum possible value) of the data.
+    \item \( x_m > 0 \) is the scale parameter of the data.
 \end{itemize}
 
 Is this a member of the exponential family (in canonical form), where both parameters are unknown? If so, identify the components in canonical form. If not, explain why not. 
