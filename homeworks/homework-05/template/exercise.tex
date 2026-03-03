@@ -1,0 +1,292 @@
+\documentclass[12pt]{article} 
+\input{../custom}
+\graphicspath{{figures/}}
+\def\showcommentary{1}
+%\usepackage{amsmath, amssymb, amsthm}
+\usepackage{enumitem}
+%\usepackage[margin=1in]{geometry}
+
+
+\title{Template for Homework 5}
+\author{}
+\date{}
+
+
+\begin{document}
+\maketitle
+
+
+
+
+
+
+The Pareto distribution is frequently used in economics, finance, and risk modeling to describe heavy–tailed phenomena such as income, wealth, and insurance losses.
+
+Suppose $Y_1,\dots,Y_n$ are independent observations from a Pareto distribution with density
+
+\[
+f(y \mid \alpha, y_m)
+=
+\frac{\alpha y_m^\alpha}{y^{\alpha+1}},
+\qquad y \ge y_m,
+\]
+
+where $\alpha>0$ is the shape parameter and $y_m>0$ is a known scale parameter.
+
+\begin{enumerate}[label=(\alph*)]
+
+\item Rewrite the Pareto density in exponential form. Show that
+
+\[
+f(y \mid \alpha)
+=
+\exp
+\left\{
+\log \alpha + \alpha \log y_m - (\alpha+1)\log y
+\right\}.
+\]
+
+\item Show that the density can be written in the exponential family form
+
+\[
+f(y \mid \theta)
+=
+h(y)
+\exp
+\left\{
+\theta T(y) - A(\theta)
+\right\}.
+\]
+
+Identify explicitly
+
+\begin{itemize}
+\item the natural parameter $\theta$
+\item the sufficient statistic $T(y)$
+\item the log-partition function $A(\theta)$
+\item the base measure $h(y)$
+\end{itemize}
+
+\item Using your result from part (b), derive the likelihood for $n$ observations and identify the sufficient statistic for $\alpha$.
+
+\item Derive the maximum likelihood estimator (MLE) for $\alpha$.
+
+
+
+\end{enumerate}
+
+\newpage
+
+\section*{Solution}
+
+\subsection*{(a)}
+
+Start with the density
+
+\[
+f(y \mid \alpha,y_m)
+=
+\frac{\alpha y_m^\alpha}{y^{\alpha+1}}.
+\]
+
+Rewrite using logarithms:
+
+\[
+f(y \mid \alpha)
+=
+\alpha y_m^\alpha y^{-(\alpha+1)}.
+\]
+
+Taking logs inside an exponential,
+
+\[
+f(y \mid \alpha)
+=
+\exp
+\left(
+\log \alpha + \alpha \log y_m - (\alpha+1)\log y
+\right).
+\]
+
+\subsection*{(b)}
+
+Rewrite the density as
+
+\[
+f(y \mid \alpha)
+=
+\exp
+\left(
+\log \alpha + \alpha \log y_m - \alpha \log y - \log y
+\right).
+\]
+
+Group terms involving $\alpha$:
+
+\[
+f(y \mid \alpha)
+=
+\exp
+\left(
+\alpha(\log y_m - \log y) + \log \alpha - \log y
+\right).
+\]
+
+Thus we can write
+
+\[
+f(y \mid \theta)
+=
+h(y)\exp\{\theta T(y) - A(\theta)\}
+\]
+
+with
+
+\[
+T(y) = -\log y
+\]
+
+\[
+\theta = \alpha
+\]
+
+\[
+A(\theta) = -\theta \log y_m - \log \theta
+\]
+
+\[
+h(y) = \frac{1}{y}
+\]
+
+for $y \ge y_m$.
+
+\subsection*{(c)}
+
+For independent observations,
+
+\[
+L(\alpha)
+=
+\prod_{i=1}^n
+\frac{\alpha y_m^\alpha}{y_i^{\alpha+1}}.
+\]
+
+Taking logs,
+
+\[
+\ell(\alpha)
+=
+n\log\alpha
++
+n\alpha\log y_m
+-
+(\alpha+1)\sum_{i=1}^n \log y_i.
+\]
+
+Thus the sufficient statistic is
+
+\[
+T = \sum_{i=1}^n \log y_i.
+\]
+
+\subsection*{(d)}
+
+Differentiate the log-likelihood:
+
+\[
+\frac{d\ell}{d\alpha}
+=
+\frac{n}{\alpha}
++
+n\log y_m
+-
+\sum_{i=1}^n \log y_i.
+\]
+
+Set equal to zero:
+
+\[
+\frac{n}{\alpha}
++
+n\log y_m
+-
+\sum \log y_i
+=
+0.
+\]
+
+Solve for $\alpha$:
+
+\[
+\frac{n}{\alpha}
+=
+\sum_{i=1}^n \log y_i - n\log y_m
+\]
+
+\[
+\hat{\alpha}
+=
+\frac{n}{\sum_{i=1}^n \log(y_i/y_m)}.
+\]
+
+\newpage 
+
+\section*{Grading Rubric (20 Points Total)}
+
+Each grading element below is worth \textbf{0.25 points}. Partial credit should be awarded when the relevant step is clearly demonstrated.
+
+\subsection*{(a) (0.75 points) Rewriting the Pareto density in exponential form}
+
+\begin{itemize}
+\item Writes the Pareto density correctly.
+\item Writes the expression inside an exponential.
+\item Final expression matches
+\[
+f(y|\alpha)=\exp\{\log\alpha+\alpha\log y_m-(\alpha+1)\log y\}.
+\]
+\end{itemize}
+
+\subsection*{(b) (1 point) Identifying exponential family components}
+
+\begin{itemize}
+\item Correctly expresses
+\[
+f(y|\theta)=h(y)\exp\{\theta T(y)-A(\theta)\}.
+\], where each term is worth 0.25 points.
+\end{itemize}
+
+\subsection*{(c) (1 point) Likelihood and sufficient statistic}
+
+\begin{itemize}
+\item Writes the likelihood and log-likelihood correctly.
+\item Expands product into sum.
+\item Collects $\alpha$ terms and Identifies $\sum \log y_i$.
+\item Identifies/states the sufficient statistic.
+\end{itemize}
+
+\subsection*{(d) (1 point) Maximum likelihood estimator}
+
+\begin{itemize}
+\item Differentiates the log-likelihood.
+\item Derivative is correct. 
+\item Correct final estimator
+\item Shows it's the MLE. 
+\[
+\hat{\alpha}=\frac{n}{\sum_{i=1}^n \log(y_i/y_m)}.
+\]
+\end{itemize}
+
+
+\subsection*{General grading notes}
+
+\begin{itemize}
+\item Each bullet point = \textbf{0.25 points}.
+\item Minor algebra mistakes but correct reasoning: deduct 0.25 points.
+\item Major conceptual errors: deduct full relevant elements.
+\item Clear notation and justification should receive full credit.
+\item Do not ever doubly deduct points for the same mistake on a problem or connected problem.
+\end{itemize}
+
+\end{document}
+
+
