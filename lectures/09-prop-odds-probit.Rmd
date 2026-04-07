@@ -9,6 +9,13 @@ font-size: 8px
 bibliography: references.bib
 ---
 
+## Announcements
+
+1. Sonya Eason thesis defense Friday, April 10th, 10 AM, Old Chemistry 025. (This will count as an extra class for the semester). 
+2. Michael Jordan will be at UNC next week giving lectures (stay tuned for info regarding this). 
+3. Any questions about prior material while I was in Washington DC.
+4. Any questions about research experiences or life after Duke (had some emails about this). 
+
 ## Computing set up
 
 ```{r setup, echo = TRUE, message = FALSE, warning= FALSE}
